@@ -16,10 +16,18 @@ const Header = () => {
 
             {/* header links */}
             <ul className='flex flex-row items-center'>
-                <li className=' mr-4 hover:underline flex flex-row'> <Link to="/">HOME</Link> <img src={dropdown} alt="dropdown icon" />  </li>
-                <li className='mr-4 hover:underline'><Link to>PRC</Link></li>
-                <li className='mr-4 hover:underline'><Link> WHITE PAPER</Link></li>
-                <li className='mr-4 hover:underline'><Link>CONTACT US</Link></li>
+                <li className=' mr-4 hover:underline flex flex-row'>
+                    <Link to="/">HOME</Link> <img src={dropdown} alt="dropdown icon" />
+                </li>
+                <li className='mr-4 hover:underline'>
+                    <Link to="/">PRC</Link>
+                </li>
+                <li className='mr-4 hover:underline'>
+                    <Link to="/white-paper"> WHITE PAPER</Link>
+                </li>
+                <li className='mr-4 hover:underline'>
+                    <Link to="/">CONTACT US</Link>
+                </li>
             </ul>
             {/* connect button */}
             <button className='rounded text-white bg-primary40 p-2 ml-4'>CONNECT WALLET</button>
