@@ -15,7 +15,7 @@ const LatestNews = () => {
                 <div className="relative block bg-white rounded-lg shadow-lg">
                   <div className="flex">
                     <div
-                        className="relative overflow-hidden bg-no-repeat bg-cover relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4"
+                        className="  relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4"
                         data-mdb-ripple="true"
                         data-mdb-ripple-color="light"
                     >
@@ -61,7 +61,7 @@ const LatestNews = () => {
                 <div className="relative block bg-white rounded-lg shadow-lg">
                   <div className="flex">
                     <div
-                        className="relative overflow-hidden bg-no-repeat bg-cover relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4"
+                        className=" relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4"
                         data-mdb-ripple="true"
                         data-mdb-ripple-color="light"
                     >
@@ -107,7 +107,7 @@ const LatestNews = () => {
                 <div className="relative block bg-white rounded-lg shadow-lg">
                   <div className="flex">
                     <div
-                        className="relative overflow-hidden bg-no-repeat bg-cover relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4"
+                        className=" relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4"
                         data-mdb-ripple="true"
                         data-mdb-ripple-color="light"
                     >

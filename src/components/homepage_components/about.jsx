@@ -28,7 +28,7 @@ const About = () => {
             </p>
             
             {/* learn more button */}
-            <MediumButton text={"Learn more"} linkto={'/aboutus'}/>
+            <MediumButton text={"Learn more"} linkto={'/about-us'}/>
           </div>
           {/* image */}
           <img src={aboutUsImage} alt="reccoin box" className="w-[450px] h-[500px]" />
