@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import settingsWhiteIcon from '../../assets/settingsWhite.svg'
@@ -96,4 +96,4 @@ const UserDashboardRoutes = () => {
     return <Routes>{renderRoutes(routes)}</Routes>;
 };
 
-export { routes, UserDashboardRoutes };
+export { Routes, UserDashboardRoutes };
