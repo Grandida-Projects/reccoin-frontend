@@ -1,39 +1,43 @@
-// import React from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import settingsWhiteIcon from '../../assets/settingsWhite.svg'
 import settingsGreenIcon from '../../assets/settingsGreen.svg'
-import companyIcon from '../../assets/company-ic.svg'
+import dashboardWhiteIcon from '../../assets/dashboardWhite.svg'
+import dashboardGreenIcon from '../../assets/dashboardGreen.svg'
 
-import CompanyDashboard from "../../pages/CompanyDashboard.jsx";
+import CompanyDashboard from "../../pages/company_dashboard/CompanyDashboard.jsx";
 import CompanyDashboardSettings from "../../pages/company_dashboard/DashboardCompanySettings.jsx";
-import notificationIcon from "../../assets/notification-ic.svg";
+import notificationWhiteIcon from "../../assets/notificationWhite.svg";
+import notificationGreenIcon from "../../assets/notificationGreen.svg";
+import Notifications from '../../pages/company_dashboard/Notifications';
 
 const routes = [
     {
-        name: 'Companies',
+        name: 'Dashboard',
         path: '/company-dashboard',
-        white_icon: companyIcon,
-        green_icon: companyIcon,
+        white_icon: dashboardWhiteIcon,
+        green_icon: dashboardGreenIcon,
         id: 'dashboard-companies',
         component: CompanyDashboard
     },
     {
-        name: 'Company Settings',
+        name: "Notifications",
+        path: '/company-dashboard/notifications',
+        component: Notifications,
+        white_icon: notificationWhiteIcon,
+        green_icon: notificationGreenIcon,
+        id: 'dashboard-notifications',
+    },
+    {
+        name: 'Settings',
         path: '/company-dashboard/settings',
         component: CompanyDashboardSettings,
         white_icon: settingsWhiteIcon,
         green_icon: settingsGreenIcon,
         id: "company-settings",
     },
-    {
-        name: "Notifications",
-        path: '',
-        component: '',
-        white_icon: notificationIcon,
-        green_icon: notificationIcon,
-        id: 'dashboard-notifications',
-    },
+    
 ];
 
 const renderRoutes = (routes, basePath = '') => {
@@ -53,4 +57,4 @@ const CompanyDashboardRoutes = () => {
     return <Routes>{renderRoutes(routes)}</Routes>;
 };
 
-export { Routes, CompanyDashboardRoutes };
+export { routes, CompanyDashboardRoutes };

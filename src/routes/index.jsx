@@ -6,11 +6,11 @@ import CompanyRegPage from '../pages/CompanyRegPage';
 import WhitePaper from '../pages/WhitePaper';
 import Contact from '../pages/Contact';
 import AboutUs from '../pages/AboutUs';
-import Privacy from '../components/homepage_components/Privacy';
 import Partners from '../pages/Partners';
 import RecyclingCompanies from '../pages/RecyclingCompanies';
 import Test from '../pages/Test';
 import PlasticDepositScreen from "../pages/plastic_deposit_screen.jsx";
+import PrivacyPolicy from '../pages/Privacy';
 
 const routes = [
     {
@@ -41,7 +41,7 @@ const routes = [
     {
         name: 'Privacy Policy',
         path: '/privacy-policy',
-        component: Privacy
+        component: PrivacyPolicy
     },
     {
         name: 'Partners',
@@ -62,7 +62,7 @@ const routes = [
         name: 'Test',
         path: '/test',
         component: Test
-    }
+    },
 ];
 
 const renderRoutes = (routes, basePath = '') => {
