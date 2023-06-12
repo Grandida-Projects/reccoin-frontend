@@ -22,7 +22,7 @@ export default {
         "primaryLight": "#71B453"
       },
       backgroundImage: {
-        'herobg': "url('/src/assets/ellipse-bg.svg')",
+        'herobg': "url('/src/assets/hero-img-bg.png')",
         'faqbg': "url('/src/assets/faq.svg')",
         'aboutbg': "url('/src/assets/aboutUsBg.png')",
         'subscribeBg': "url('/src/assets/subscribeBg.png')"
