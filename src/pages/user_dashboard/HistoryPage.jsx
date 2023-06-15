@@ -26,36 +26,32 @@ const HistoryPage = () => {
             }}
           >
             <div className="flex flex-row  justify-between items-center">
-              <div>
-                <div>TOTAL VALUE</div>
-                <div>55</div>
+              <div className="flex flex-col items-center px-2">
+                <div className="font-semibold">TOTAL VALUE</div>
+                <div className="text-primary40 font-extrabold">55</div>
               </div>
 
-              <div>
-                <div>TOTAL WEIGHT</div>
-                <div>100 KG</div>
+              <div className="flex flex-col items-center px-2">
+                <div className="font-semibold">TOTAL WEIGHT</div>
+                <div className="text-primary40 font-extrabold">100 KG</div>
               </div>
 
-              <div>
-                <div>TRANSACTION ID</div>
-                <div>XXXX....XXX....XXX...XXX...</div>
+              <div className="flex flex-col items-center px-2">
+                <div className="font-semibold">TRANSACTION ID</div>
+                <div className="text-primary40 font-extrabold">XXXX....XXX....XXX...XXX...</div>
               </div>
 
-              <div>
-                <div>ADDRESS</div>
-                <div>001x33ff...</div>
+              <div className="flex flex-col items-center px-2">
+                <div className="font-semibold">ADDRESS</div>
+                <div className="text-primary40 font-extrabold">001x33ff...</div>
               </div>
 
-              <div>
-                <div>
-                  {" "}
-                  <img src={_stateIconGreen} alt="State Icon Green" />
-                </div>
-                <div>
-                  <p>5TH MAY 2020, 12:23</p>
-                  <p>APPROVED</p>
-                </div>
+              <div className="flex flex-col items-center px-2">
+                  <img className="h-6 w-6" src={_stateIconGreen} alt="State Icon Green" />
+                  <div className="text-l">5TH MAY 2020, 12:23</div>
+                  <div className="text-right justify-end text-primary40 font-extrabold">APPROVED</div>
               </div>
+
             </div>
           </div>
         </div>
