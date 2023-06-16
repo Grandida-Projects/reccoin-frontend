@@ -12,7 +12,7 @@ import Header from "../components/navigation/Header";
 
 const AboutUs = () => {
   return(
-    <>
+    <div className="container mx-auto">
       <Header/>
       <AboutUsHero/>
       {/* <Values/> */}
@@ -22,7 +22,7 @@ const AboutUs = () => {
       <JoinUs/>
       <HomeFooter/>
       <Footer/>
-    </>
+    </div>
   )
    
     

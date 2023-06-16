@@ -5,18 +5,18 @@ import arrowRight from '../../assets/arrowRight.svg'
 
 const faqData = [
     {
-        'title': "What are the rewards for earning Reccoin?"
+        'title': "What are the rewards for earning Recylox?"
     },
     {
-        'title': "Is Reccoin a secure and reliable platform?"
+        'title': "Is Recylox a secure and reliable platform?"
     },
     {
-        'title': "How does Reccoin work?"
+        'title': "How does Recylox work?"
     }
 ]
 
 const Faq = () => {
-  return <div className='bg-[#F2FAF7]'>
+  return <div className='container mx-auto bg-[#F2FAF7]'>
     {/* titles */}
     <h1 className='text-center py-2 font-bold'>FAQ</h1>
     <h3 className='text-center font-bold'>You’ve Got Questions?</h3>

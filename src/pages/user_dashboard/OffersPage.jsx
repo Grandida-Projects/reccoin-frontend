@@ -1,10 +1,11 @@
-import UserDashboardLayout from '../../components/dashboard_components/UserDashboardLayout';
+import UserDashboardLayout from "../../components/dashboard_components/UserDashboardLayout";
+
 
 const OffersPage = () => {
   return (
     <UserDashboardLayout active_link={'Offers'}
       dashboard_content={
-        <div className="w-3/4 bg-white h-full flex border-2 border-blue-200 ml-12">
+        <div className="w-3/4 bg-white h-full flex border-2 border-blue-200">
           <div className=" p-4">
             <h1 className=" text-3xl font-black text-primary40 py-4 ml-4">
               Offers and Contest

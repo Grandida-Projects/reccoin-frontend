@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import emailIcon from '../../assets/email.svg'
 
 const HomeFooter = () => {
-  return <div className="w-full bg-primary40 text-white flex flex-col justify-center items-center px-8 py-16 md:justify-around md:flex-row">
+  return <div className="container mx-auto w-full font-montserrat bg-primary40 text-white flex flex-col justify-center items-center px-8 py-16 md:justify-around md:flex-row">
     {/* footer logo */}
     <div className=" w-32 h-32 items-center">
-        <Logo fill="#fff" w="120" h="120" />
+       <Link to={'/'}><Logo fill="#fff" w="120" h="120" /></Link>
     </div>
 
     <div className="flex flex-row items-center justify-center mt-8 md:mt-0">

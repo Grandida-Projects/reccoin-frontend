@@ -5,7 +5,7 @@ import MediumButton from "../buttons/mediumButton";
 const Hero = () => {
   return (
     <>
-      <section className="h-full border-t-2 mt-20 bg-white font-montserrat">
+      <section className="container mx-auto h-full border-t-2 mt-20 bg-white">
         <div className="mt-10 md:mt-20 pb-20 mx-auto bg-herobg lg:bg-contain bg-no-repeat sm:bg-right">
           <div className=" flex flex-col lg:flex-row w-[90%] max-w-[90%] mx-auto justify-start items-center">
             <div className=" flex flex-col lg:w-[50%] text-center items-center lg:items-start lg:text-left">
@@ -20,12 +20,12 @@ const Hero = () => {
                 Planet
               </p>
               <p className="text-sm md:text-[16px] leading-[25px] mt-5 font-semibold tracking-[-0.5px] lg:w-[420px] xl:w-[566px]">
-                Reccoin is a groundbreaking digital currency specifically
+                Recylox is a groundbreaking digital currency specifically
                 designed to revolutionize the world of recycling. Built on the
                 principles of blockchain technology.
               </p>
               <p className="text-sm md:text-[16px] leading-[25px] mt-5 font-semibold tracking-[-0.5px] lg:w-[420px] xl:w-[566px]">
-                With Reccoin, every time you recycle, you earn tokens that hold
+                With Recylox, every time you recycle, you earn tokens that hold
                 real-world value. These tokens can be redeemed for a variety of
                 rewards, including discounts on eco-friendly products, access to
                 exclusive events, or even exchanged for other cryptocurrencies

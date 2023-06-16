@@ -14,17 +14,17 @@ import AboutUsAndEarnRecoin from '../components/about_us_components/AboutUsAndEa
 
 const Home = () => {
   return (
-    <div>
+    <div className='container mx-auto'>
       <Header />
-        <Hero />
-        <ReccoinAsaService />
-        <AboutUsAndEarnRecoin/>
-        <Recycling />
-        <HowItWorks />
-        <LatestNews />
-        <Subscribe/>
-        <Faq />
-        <HomeFooter />
+      <Hero />
+      <ReccoinAsaService />
+      <AboutUsAndEarnRecoin/>
+      <Recycling />
+      <HowItWorks />
+      <LatestNews />
+      <Subscribe/>
+      <Faq />
+      <HomeFooter />
       <Footer />
     </div>
   );

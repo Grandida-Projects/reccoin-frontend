@@ -108,9 +108,9 @@ const HistoryPage = () => {
       dashboard_content={
         <div className="w-3/4 bg-white h-full ml-12">
           {/* Transactions title */}
-          <div className="font-black text-primary40 p-10">
+          <div className="font-black text-primary40 p-2">
             <h1 className="text-4xl font-bold text-primary40">History</h1>
-            <h3 className="text-2xl font-bold text-primary40 py-4">
+            <h3 className="text-2xl font-bold text-primary40 py-2">
               Transactions
             </h3>
           </div>

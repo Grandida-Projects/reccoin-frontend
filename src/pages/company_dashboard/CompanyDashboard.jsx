@@ -1,6 +1,5 @@
 import CompanyDashboardLayout from "../../components/dashboard_components/CompanyDashboardLayout"
-import Deposit from "../../components/dashboard_components/Deposit"
-import CompanyDashboardComponent from './../../components/dashboard_components/CompanyDashboard';
+import CompanyDashboardComponent from "./CompanyDashboardComponent"
 
 const CompanyDashboard = () => {
   return (
