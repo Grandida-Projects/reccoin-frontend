@@ -21,6 +21,7 @@ import CompanyDashboardSettings from "../../pages/company_dashboard/DashboardCom
 import Notifications from '../../pages/company_dashboard/Notifications';
 import HistoryPage from '../../pages/company_dashboard/HistoryPage';
 import OffersPage from '../../pages/company_dashboard/OffersPage';
+import ChatPage from '../../pages/company_dashboard/ChatPage';
 
 const routes = [
     {
@@ -73,8 +74,8 @@ const routes = [
     },
     {
         name: "Chat",
-        path: '/company-dashboard/offers',
-        component: '',
+        path: '/company-dashboard/chat',
+        component: ChatPage,
         white_icon: chatWhiteIcon,
         green_icon: chatGreenIcon,
         id: 'dashboard-companies',

@@ -21,6 +21,7 @@ import HistoryPage from "../../pages/admin_dashboard/HistoryPage.jsx";
 import OffersPage from "../../pages/admin_dashboard/OffersPage.jsx";
 import Notifications from '../../pages/admin_dashboard/Notifications';
 import Companies from '../../pages/admin_dashboard/Companies';
+import ChatPage from '../../pages/admin_dashboard/ChatPage';
 
 const routes = [
     {
@@ -65,10 +66,10 @@ const routes = [
     },
     {
         name: "Chat",
-        path: '',
+        path: '/admin-dashboard/chat',
         white_icon: chatWhiteIcon,
         green_icon: chatGreenIcon,
-        component: ''
+        component: ChatPage
     }
 ];
 

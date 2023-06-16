@@ -1,10 +1,10 @@
 // import React from 'react'
 
-import UserDashboardLayout from "../../components/dashboard_components/UserDashboardLayout";
+import CompanyDashboardLayout from "../../components/dashboard_components/CompanyDashboardLayout";
 
 const ChatPage = () => {
   return (
-   <UserDashboardLayout active_link={'chat'} dashboard_content={
+   <CompanyDashboardLayout active_link={'chat'} dashboard_content={
     <div className="bg-[#005232] w-[800px] h-[650px] relative">
     <div className="bg-[#ffffff] text-black w-96 h-[106px] rounded-br-[46px] rounded-t-[46px] absolute top-10 left-6">
       <p className="font-montserrat mt-2 ml-8 text-[14px] leading-6">
