@@ -26,7 +26,7 @@ const LatestNews = () => {
     {/* Start Latest News.. */}
     <div className="container my-24 px-6 mx-auto">
       {/* Section: Design Block */}
-      <section className="mb-32 text-gray-800 text-center">
+      <section className="mb-32 text-gray-800">
         <h2 className="text-[#0D4D00] uppercase text-[26px] font-extrabold mb-12 pb-4 text-center">
           Latest News
         </h2>
