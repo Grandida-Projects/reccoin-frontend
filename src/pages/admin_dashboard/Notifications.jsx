@@ -4,7 +4,7 @@ import approved from "../../assets/approved.png";
 import pending from "../../assets/pending.png";
 import search from "../../assets/search.png";
 import filter from "../../assets/filter.png";
-import UserDashboardLayout from "../../components/dashboard_components/UserDashboardLayout";
+import AdminDashboardLayout from "../../components/dashboard_components/AdminDashboardLayout";
 
 const Notifications = () => {
   const [open, setOpen] = useState(false);
@@ -13,7 +13,7 @@ const Notifications = () => {
     setOpen(!open);
   };
   return (
-    <UserDashboardLayout active_link={'Notifications'} dashboard_content={
+    <AdminDashboardLayout active_link={'Notifications'} dashboard_content={
       <div className="w-[28rem] md:w-[36rem] lg:w-[47rem] h-[30rem] border-4 border-[#F8F9FB]-300">
         <div className="flex flex-col items-start justify-start px-3">
           <div className="flex gap-8 items-center mt-2 justify-between w-full">

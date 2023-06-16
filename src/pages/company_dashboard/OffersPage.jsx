@@ -1,9 +1,8 @@
-import UserDashboardLayout from "../../components/dashboard_components/UserDashboardLayout";
-
+import CompanyDashboardLayout from "../../components/dashboard_components/CompanyDashboardLayout";
 
 const OffersPage = () => {
   return (
-    <UserDashboardLayout active_link={'Offers'}
+    <CompanyDashboardLayout active_link={'Offers'}
       dashboard_content={
         <div className="w-3/4 bg-white h-full flex border-2 border-blue-200">
           <div className=" p-4">

@@ -16,25 +16,24 @@ import historyGreenIcon from '../../assets/historyGreen.svg'
 import dashboardWhiteIcon from '../../assets/dashboardWhite.svg'
 import dashboardGreenIcon from '../../assets/dashboardGreen.svg'
 
-import UserDashboard from '../../pages/user_dashboard/UserDashboard';
-import DashboardUserSettings from "../../pages/user_dashboard/Settings.jsx";
-import HistoryPage from "../../pages/user_dashboard/HistoryPage.jsx";
-import OffersPage from "../../pages/user_dashboard/OffersPage.jsx";
-import Notifications from '../../pages/user_dashboard/Notifications';
-import Companies from '../../pages/user_dashboard/Companies';
+import AdminDashboard from '../../pages/admin_dashboard/AdminDashboard';
+import HistoryPage from "../../pages/admin_dashboard/HistoryPage.jsx";
+import OffersPage from "../../pages/admin_dashboard/OffersPage.jsx";
+import Notifications from '../../pages/admin_dashboard/Notifications';
+import Companies from '../../pages/admin_dashboard/Companies';
 
 const routes = [
     {
         name: 'Dashboard',
-        path: '/user-dashboard',
+        path: '/admin-dashboard',
         white_icon: dashboardWhiteIcon,
         green_icon: dashboardGreenIcon,
         id: "dashboard-deposit",
-        component: UserDashboard
+        component: AdminDashboard
     },
     {
         name: "Companies",
-        path: '/user-dashboard/companies',
+        path: '/admin-dashboard/companies',
         white_icon: companyWhiteIcon,
         green_icon: companyGreenIcon,
         id: 'dashboard-companies',
@@ -42,23 +41,15 @@ const routes = [
     },
     {
         name: "Notifications",
-        path: '/user-dashboard/notifications',
+        path: '/admin-dashboard/notifications',
         component: Notifications,
         white_icon: notificationWhiteIcon,
         green_icon: notificationGreenIcon,
         id: 'dashboard-notifications',
     },
     {
-        name: 'Settings',
-        path: '/user-dashboard/settings',
-        component: DashboardUserSettings,
-        white_icon: settingsWhiteIcon,
-        green_icon: settingsGreenIcon,
-        id: "dashboard-settings",
-    },
-    {
         name: 'History',
-        path: '/user-dashboard/history',
+        path: '/admin-dashboard/history',
         component: HistoryPage,
         white_icon: historyWhiteIcon,
         green_icon: historyGreenIcon,
@@ -66,7 +57,7 @@ const routes = [
     },
     {
         name: 'Offers',
-        path: '/user-dashboard/offers',
+        path: '/admin-dashboard/offers',
         component: OffersPage,
         white_icon: offersWhiteIcon,
         green_icon: offersGreenIcon,
@@ -77,7 +68,6 @@ const routes = [
         path: '',
         white_icon: chatWhiteIcon,
         green_icon: chatGreenIcon,
-        id: 'dashboard-companies',
         component: ''
     }
 ];
@@ -97,8 +87,8 @@ const renderRoutes = (routes, basePath = '') => {
     });
 };
 
-const UserDashboardRoutes = () => {
+const AdminDashboardRoutes = () => {
     return <Routes>{renderRoutes(routes)}</Routes>;
 };
 
-export { routes, UserDashboardRoutes };
+export { routes, AdminDashboardRoutes };

@@ -5,14 +5,12 @@ import { Link } from 'react-router-dom';
 import { UserDashboardNavData } from '../../data/DashboardData';
 import { DashboardFooterData } from '../../data/DashboardFooterData';
 import searchIcon from '../../assets/search.svg'
-import Deposit from '../../pages/company_dashboard/Deposit';
-import { routes } from '../../routes/dashboard/user.jsx'
+import { routes } from '../../routes/dashboard/admin.jsx'
 
-const UserDashboardLayout = ({dashboard_content, active_link}) => {
+const AdminDashboardLayout = ({dashboard_content, active_link}) => {
 
   return (
-    <div className='relative h-[1025px] container mx-auto'>
-
+    <div className=' relative h-[1025px] container mx-auto '>
       {/* toggle menu button */}
       <button
         data-drawer-target='default-sidebar'
@@ -57,9 +55,9 @@ const UserDashboardLayout = ({dashboard_content, active_link}) => {
             <img src={menuIcon} alt="menu-icon" className='mr-4 w-[18px] h-[12px]'/>
             <h1 className='font-montserrat font-[700] text-[1.6rem] text-white'>MENU</h1>
           </div>
-         <ul className='text-white font-[700] '>
+         <ul className='text-white font-medium '>
            {
-             routes.map((route, index) =>
+              routes.map((route, index) =>
               <Link to={route.path} key={index} 
                 className={`w-full h-[4rem] flex flex-row px-4 py-2 justify-left items-center bg-${route.name === active_link ? "white" : ""} transition duration-500 transform hover:scale-90 sca`}>
                 <img src={`${route.name === active_link ? route.green_icon : route.white_icon}`} alt={`${route.name} logo`} className="mr-4 w-[0.81rem] h-[0.81rem]" />
@@ -68,7 +66,7 @@ const UserDashboardLayout = ({dashboard_content, active_link}) => {
              )
            }
          </ul>
-   
+       
         </div>
 
       </aside>
@@ -83,7 +81,7 @@ const UserDashboardLayout = ({dashboard_content, active_link}) => {
           </div>
           <div>
             <h1 className='text-[1rem] md:text-[1rem] lg:text-[1.2rem] text-[#0D4D00] font-bold'>
-              USER DASHBOARD
+              ADMIN DASHBOARD
             </h1>
           </div>
           {/* search box */}
@@ -98,39 +96,28 @@ const UserDashboardLayout = ({dashboard_content, active_link}) => {
         </header>
 
           {/* dashboard content */}
-        <div className={`'md:container md:mx-auto ml-0'`}>
+        <div className='md:container md:mx-auto'>
             {dashboard_content}
         </div>
       </main>
-
-         {/* dashboard footer */}
-      <footer className='absolute w-[80%] right-0 bottom-0  px-4 py-2 bg-gray-200 text-black '>
-
-        <div className=' flex flex-row item-center italic '>
-
-          <div className='flex flex-col'>
+       {/* dashboard footer */}
+       <footer className=" absolute w-[80%] right-0 bottom-0 px-4 py-2 bg-gray-200 text-black ">
+        <div className=" flex flex-row item-center italic ">
+          <div className="flex flex-col">
             {/* enter to earn a reccoin */}
-            <p className='text-[0.8rem] md:text-[1rem] lg:text-[1.2rem] mt-1 w-[24rem] text-[#000000] mb-2'>
-              Enter to Earn a Reccoin
-            </p>
-          {/* learn more button*/}
-            <Link className='rounded-[26px] w-40 py-2 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#71B453]'>
-              LEARN MORE
-            </Link>
-
+            <p className="text-[0.8rem] md:text-[1rem] lg:text-[1.2rem] mt-1 w-[24rem] text-[#000000] mb-2">Enter to Earn a Reccoin</p>
+            {/* learn more button*/}
+            <Link className="rounded-[26px] w-40 py-2 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#71B453]">LEARN MORE</Link>
           </div>
 
           {/* other links */}
-          <div className='flex flex-row justify-between items-center'>
-            {
-              DashboardFooterData.map((footeritem, footerindex) =>
-              <Link key={footerindex} className='flex flex-col p-4 mr-4 justify-center items-center'>
-                <img src={footeritem.icon} alt={`${footeritem.title} icon`} className='h-8 w-8' />
-                <h4 className='font-bold text-primary60'>{footeritem.title}</h4>
+          <div className="flex flex-row justify-between items-center">
+            {DashboardFooterData.map((footeritem, footerindex) => (
+              <Link key={footerindex} className="flex flex-col p-4 mr-4 justify-center items-center">
+                <img src={footeritem.icon} alt={`${footeritem.title} icon`} className="h-8 w-8" />
+                <h4 className="font-bold text-primary60">{footeritem.title}</h4>
               </Link>
-              )
-            }
-
+            ))}
           </div>
           {/* <div className='w-[16rem] md:w-[22rem] lg:w-[70rem] h-[4rem] border-black-400 bg-[#0D4D00]'></div> */}
         </div>
@@ -140,4 +127,4 @@ const UserDashboardLayout = ({dashboard_content, active_link}) => {
   );
 };
 
-export default UserDashboardLayout;
+export default AdminDashboardLayout;

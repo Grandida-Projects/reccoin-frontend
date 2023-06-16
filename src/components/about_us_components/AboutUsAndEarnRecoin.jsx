@@ -10,7 +10,7 @@ const AboutUsAndEarnRecoin = () => {
 
     const [componentToDisplay, setComponentToDisplay] = useState(0)
 
-  return  <section className=" bg-aboutbg">
+  return  <section className="container mx-auto bg-aboutbg">
         
         <div className="flex flex-col md:flex-row justify-center">
             <button onClick={() => setComponentToDisplay(0)} className={` font-montserrat font-black text-lg flex flex-row items-center border rounded-sm px-12 py-4  mr-8 ${componentToDisplay == 0 ? 'bg-primary40 text-white' : "bg-white text-black"}` }>

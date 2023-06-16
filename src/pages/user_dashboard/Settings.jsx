@@ -142,7 +142,7 @@ const DashboardUserSettings = () => {
   return (  
     <UserDashboardLayout active_link={'Settings'} dashboard_content={
 
-        <div className='bg-white ml-12 w-full border-2 border-[#ECECEC]'>
+        <div className='bg-white w-full border-2 border-[#ECECEC]'>
       
             {/* settings main content  */}
               <div className='flex flex-row w-full '>

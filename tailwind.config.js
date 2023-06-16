@@ -25,7 +25,8 @@ export default {
         'herobg': "url('/src/assets/ellipse-bg.svg')",
         'faqbg': "url('/src/assets/faq.svg')",
         'aboutbg': "url('/src/assets/aboutUsBg.png')",
-        'subscribeBg': "url('/src/assets/subscribeBg.png')"
+        'subscribeBg': "url('/src/assets/subscribeBg.png')",
+        'recyclingBg': "url('/src/assets/recyclingBg.png')"
       },
       screens: {
       }

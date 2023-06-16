@@ -20,10 +20,10 @@ const Header = () => {
     }
 
   return (
-    <header className=" z-10 fixed bg-white top-0 h-20 w-full font-roboto font-bold text-base text-primary40 flex flex-row items-center shadow-light px-2 justify-between md:justify-around">
+    <header className="container mx-auto z-10 fixed bg-white top-0 h-20 w-full font-roboto font-bold text-base text-primary40 flex flex-row items-center shadow-light px-2 justify-between md:justify-around">
         {/* logo */}
         <div className='w-12 h-12'>
-            <Logo fill="#0D4D00" h="48" w="48" /> 
+           <Link to={'/'}> <Logo fill="#0D4D00" h="48" w="48" /></Link>
         </div>
 
             {/* header links */}

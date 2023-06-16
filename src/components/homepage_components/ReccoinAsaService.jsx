@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ReccoinAsaService = () => {
-  return <div className='p-8 bg-bg-color'>
+  return <div className='container mx-auto p-8 bg-bg-color'>
     <h1 className='text-center text-[1.4rem] text-primary40 font-black font-montserrat'>INTRODUCING RECCOIN AS A SERVICE</h1>
     <div className=' flex flex-col md:flex-row justify-around font-openSans mt-4 mx-8 p-4 text-[1rem] font-semibold'>
       <p className='md:w-[30%] w-full mb-8 md:mb-0'>
