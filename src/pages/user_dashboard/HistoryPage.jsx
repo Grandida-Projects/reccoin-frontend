@@ -5,103 +5,102 @@ import stateGreen from "../../assets/stateGreen.svg";
 import stateRed from "../../assets/stateRed.svg";
 
 const HistoryPage = () => {
-
-    const data = [
-      {
-        value: 55,
-        weight: '100 KG',
-        id: 'XXXX....XXX....XXX...XXX...',
-        address: '001f....',
-        date: '5TH MAY 2020, 12:23',
-        status: 'APPROVED'
-      },
-      {
-        value: 55,
-        weight: '100 KG',
-        id: 'XXXX....XXX....XXX...XXX...',
-        date: '5TH MAY 2020, 12:23',
-        status: 'DECLINED'
-      },
-      {
-        value: 'CREDIT',
-        address: 'ADDRESS',
-        date: '5TH MAY 2020, 12:23'
-      },
-      {
-        value: 'CREDIT',
-        address: 'ADDRESS',
-        date: '5TH MAY 2020, 12:23'
-      },
-      {
-        value: '20 RC',
-        address: '001x33ff...',
-        date: 'CREDIT'
-      },
-      {
-        value: '20 RC',
-        address: '001x33ff...',
-        date: 'CREDIT'
-      },
-      {
-        value: 55,
-        weight: 'TOTAL WEIGHT',
-        id: 55,
-        weight: '100 KG',
-        date: '5TH MAY 2020, 12:23',
-        status: 'DEPOSITED'
-      },
-      {
-        value: 55,
-        weight: 'TOTAL WEIGHT',
-        id: 55,
-        weight: '100 KG',
-        id: 'XXXX....XXX....XXX...XXX...',
-        date: '5TH MAY 2020, 12:23',
-        status: 'DEPOSITED'
-      },
-      {
-        value: 55,
-        weight: 'TOTAL WEIGHT',
-        id: 55,
-        weight: '100 KG',
-        id: 'XXXX....XXX....XXX...XXX...',
-        date: '5TH MAY 2020, 12:23',
-        status: 'APPROVED'
-      },
-      {
-        value: 55,
-        weight: 'TOTAL WEIGHT',
-        id: 55,
-        weight: '100 KG',
-        id: 'XXXX....XXX....XXX...XXX...',
-        date: '5TH MAY 2020, 12:23',
-        status: 'DECLINED'
-      },
-      {
-        value: 55,
-        weight: 'TOTAL WEIGHT',
-        id: 55,
-        weight: '100 KG',
-        date: '5TH MAY 2020, 12:23',
-        status: 'DEPOSITED'
-      },
-      {
-        value: 55,
-        weight: 'TOTAL WEIGHT',
-        id: 55,
-        weight: '100 KG',
-        date: '5TH MAY 2020, 12:23',
-        status: 'DEPOSITED'
-      },
-      {
-        value: 'CREDIT',
-        address: 'ADDRESS',
-        value: '20 RC',
-        address: '0013f...',
-        date: '5TH MAY 2020, 12:23',
-        status: 'CREDIT'
-      }
-    ];
+  const data = [
+    {
+      value: 55,
+      weight: "100 KG",
+      id: "XXXX....XXX....XXX...XXX...",
+      address: "001f....",
+      date: "5TH MAY 2020, 12:23",
+      status: "APPROVED",
+    },
+    {
+      value: 55,
+      weight: "100 KG",
+      id: "XXXX....XXX....XXX...XXX...",
+      date: "5TH MAY 2020, 12:23",
+      status: "DECLINED",
+    },
+    {
+      value: "CREDIT",
+      address: "ADDRESS",
+      date: "5TH MAY 2020, 12:23",
+    },
+    {
+      value: "CREDIT",
+      address: "ADDRESS",
+      date: "5TH MAY 2020, 12:23",
+    },
+    {
+      value: "20 RC",
+      address: "001x33ff...",
+      date: "CREDIT",
+    },
+    {
+      value: "20 RC",
+      address: "001x33ff...",
+      date: "CREDIT",
+    },
+    {
+      value: 55,
+      weight: "TOTAL WEIGHT",
+      id: 55,
+      weight: "100 KG",
+      date: "5TH MAY 2020, 12:23",
+      status: "DEPOSITED",
+    },
+    {
+      value: 55,
+      weight: "TOTAL WEIGHT",
+      id: 55,
+      weight: "100 KG",
+      id: "XXXX....XXX....XXX...XXX...",
+      date: "5TH MAY 2020, 12:23",
+      status: "DEPOSITED",
+    },
+    {
+      value: 55,
+      weight: "TOTAL WEIGHT",
+      id: 55,
+      weight: "100 KG",
+      id: "XXXX....XXX....XXX...XXX...",
+      date: "5TH MAY 2020, 12:23",
+      status: "APPROVED",
+    },
+    {
+      value: 55,
+      weight: "TOTAL WEIGHT",
+      id: 55,
+      weight: "100 KG",
+      id: "XXXX....XXX....XXX...XXX...",
+      date: "5TH MAY 2020, 12:23",
+      status: "DECLINED",
+    },
+    {
+      value: 55,
+      weight: "TOTAL WEIGHT",
+      id: 55,
+      weight: "100 KG",
+      date: "5TH MAY 2020, 12:23",
+      status: "DEPOSITED",
+    },
+    {
+      value: 55,
+      weight: "TOTAL WEIGHT",
+      id: 55,
+      weight: "100 KG",
+      date: "5TH MAY 2020, 12:23",
+      status: "DEPOSITED",
+    },
+    {
+      value: "CREDIT",
+      address: "ADDRESS",
+      value: "20 RC",
+      address: "0013f...",
+      date: "5TH MAY 2020, 12:23",
+      status: "CREDIT",
+    },
+  ];
 
   return (
     <UserDashboardLayout
@@ -121,7 +120,7 @@ const HistoryPage = () => {
             {data.map((transaction, index) => (
               <div
                 key={index}
-                className="mx-4 border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white"
+                className="m-4 md:mx-4  -my-2 border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white"
               >
                 <div className="flex flex-col md:flex-row justify-between items-center">
                   {/* Total Value */}
@@ -157,22 +156,39 @@ const HistoryPage = () => {
                   </div>
 
                   {/* Date and Status */}
-                  <div className="flex flex-col items-end m-2">
+                  <div className={`flex flex-col items-end m-2`}>
                     <img
-                      className="h-7 w-7 bg-red-700 m-2 p-2 hidden md:block"
-                      src={stateRed}
+                      className={`h-7 w-7  m-2 p-2 hidden md:block ${
+                        transaction.status === "DECLINED"
+                          ? "bg-red-700"
+                          : "bg-green-700"
+                      }`}
+                      src={
+                        transaction.status === "DECLINED"
+                          ? stateRed
+                          : stateGreen
+                      }
                       alt="State Icon Green"
                     />
-                    <div className="text-xs font-bold text-gray-500">
-                      {transaction.date}
-                    </div>
-                    <div className="text-right text-primary40 font-extrabold">
-                      {transaction.status}
+                    <div className="flex flex-col">
+                      <div className="text-xs font-bold text-gray-500">
+                        {transaction.date}
+                      </div>
+                      <div
+                        className={`text-right font-extrabold ${
+                          transaction.status === "DECLINED"
+                            ? "text-red-700"
+                            : "text-green-700"
+                        }`}
+                      >
+                        {transaction.status}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
+            <div className="h-2 w-full"></div>
           </div>
         </div>
       }
