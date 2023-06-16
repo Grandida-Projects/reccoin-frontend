@@ -5,7 +5,105 @@ import stateGreen from "../../assets/stateGreen.svg";
 import stateRed from "../../assets/stateRed.svg";
 
 const HistoryPage = () => {
-  const [approve, satApprove] = useState("false");
+
+  // hardcoded static dataset
+  const data = [
+    {
+      value: 55,
+      weight: '100 KG',
+      id: 'XXXX....XXX....XXX...XXX...',
+      address: '001f....',
+      date: '5TH MAY 2020, 12:23',
+      status: 'APPROVED'
+    },
+    {
+      value: 55,
+      weight: '100 KG',
+      id: 'XXXX....XXX....XXX...XXX...',
+      date: '5TH MAY 2020, 12:23',
+      status: 'DECLINED'
+    },
+    {
+      value: 'CREDIT',
+      address: 'ADDRESS',
+      date: '5TH MAY 2020, 12:23'
+    },
+    {
+      value: 'CREDIT',
+      address: 'ADDRESS',
+      date: '5TH MAY 2020, 12:23'
+    },
+    {
+      value: '20 RC',
+      address: '001x33ff...',
+      date: 'CREDIT'
+    },
+    {
+      value: '20 RC',
+      address: '001x33ff...',
+      date: 'CREDIT'
+    },
+    {
+      value: 'TOTAL VALUE',
+      weight: 'TOTAL WEIGHT',
+      id: 55,
+      weight: '100 KG',
+      date: '5TH MAY 2020, 12:23',
+      status: 'DEPOSITED'
+    },
+    {
+      value: 'TOTAL VALUE',
+      weight: 'TOTAL WEIGHT',
+      id: 55,
+      weight: '100 KG',
+      id: 'XXXX....XXX....XXX...XXX...',
+      date: '5TH MAY 2020, 12:23',
+      status: 'DEPOSITED'
+    },
+    {
+      value: 'TOTAL VALUE',
+      weight: 'TOTAL WEIGHT',
+      id: 55,
+      weight: '100 KG',
+      id: 'XXXX....XXX....XXX...XXX...',
+      date: '5TH MAY 2020, 12:23',
+      status: 'APPROVED'
+    },
+    {
+      value: 'TOTAL VALUE',
+      weight: 'TOTAL WEIGHT',
+      id: 55,
+      weight: '100 KG',
+      id: 'XXXX....XXX....XXX...XXX...',
+      date: '5TH MAY 2020, 12:23',
+      status: 'DECLINED'
+    },
+    {
+      value: 'TOTAL VALUE',
+      weight: 'TOTAL WEIGHT',
+      id: 55,
+      weight: '100 KG',
+      date: '5TH MAY 2020, 12:23',
+      status: 'DEPOSITED'
+    },
+    {
+      value: 'TOTAL VALUE',
+      weight: 'TOTAL WEIGHT',
+      id: 55,
+      weight: '100 KG',
+      date: '5TH MAY 2020, 12:23',
+      status: 'DEPOSITED'
+    },
+    {
+      value: 'CREDIT',
+      address: 'ADDRESS',
+      value: '20 RC',
+      address: '0013f...',
+      date: '5TH MAY 2020, 12:23',
+      status: 'CREDIT'
+    }
+  ];
+
   return (
     <UserDashboardLayout
       active_link={"History"}
@@ -18,7 +116,7 @@ const HistoryPage = () => {
               Transactions
             </h3>
           </div>
-          {/* Transactions container */}
+          
           <div className="m-4 border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
             <div className="flex flex-col md:flex-row justify-between items-center">
               
