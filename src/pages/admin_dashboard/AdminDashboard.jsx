@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {DepositTransaction} from "../../data/DepositTransactionData";
 import {Link} from "react-router-dom";
 import tickIcon from '../../assets/tickIcon.svg';
@@ -7,6 +7,7 @@ import eyesIcon from '../../assets/eyesIcon.svg';
 import closeIcon from "../../assets/close.svg";
 import AdminDashboardLayout from '../../components/dashboard_components/AdminDashboardLayout';
 import { AdminDashboardData } from '../../data/AdminDashboardData';
+import { TokenContext } from '../../context/reccoin';
 
 // mint token tab
 const MintTokenTab = ({toggleClose, isMintSuccessful, MintToken}) => {
@@ -73,11 +74,28 @@ const MintTokenTab = ({toggleClose, isMintSuccessful, MintToken}) => {
 }
 
 // transfer token tab
-const TransferTokenTab = ({toggleClose, isTransferSuccessful, TransferToken}) => {
+const TransferTokenTab = ({toggleClose, isTransferSuccessful, transferLoading,  TransferToken}) => {
 
     const [recipientAddress, setRecipientAddress] = useState('');
     const [transferAmount, setTransferAmount] = useState(0);
-    const [isTransferChecked, setisTransferChecked] = useState(false)
+    const [isTransferChecked, setisTransferChecked] = useState(false);
+
+    const transferToken = async () => {
+
+        if (!recipientAddress) {
+            alert("Input recipient address")
+        }
+        else if (!transferAmount) {
+    
+            alert("Input transfer amount")
+        } 
+        else if(!isTransferChecked) {
+            alert("You need to agree that the details proided are true")
+        }
+        else {
+           await TransferToken(recipientAddress, transferAmount)
+        }
+    }
     
     return   <div className="h-full bg-[#005232] mx-auto flex flex-col justify-start text-white p-10">
     {/* header */}
@@ -120,9 +138,9 @@ const TransferTokenTab = ({toggleClose, isTransferSuccessful, TransferToken}) =>
                 {/* submit button */}
                 <button 
                     className="w-[5rem] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6 text-[0.7rem] font-[600]"
-                    onClick={TransferToken}
+                    onClick={transferToken}
                 >
-                    TRANSFER
+                {transferLoading ? "Loading" : "TRANSFER"}
                 </button>
             </div>
         :
@@ -270,6 +288,10 @@ const BurnToken = ({toggleClose, BurnToken, isBurnSuccessfull}) => {
 
 
 const AdminDashboard = () => {
+
+    const {transferTokens, mintTokens, burnTokens, approveTokens, 
+        transferFrom, isMethodCallSuccessful, isMethodCallLoading} = useContext(TokenContext);
+
     // Component to Display for dashboard
     const [componentToDisplay, setComponentToDisplay] = useState(0);
 
@@ -326,8 +348,13 @@ const AdminDashboard = () => {
                 <div className='w-full'>
 
                     {
-                        componentToDisplay === 1 ? <MintTokenTab toggleClose={toggleCLose}/> 
-                        : componentToDisplay === 2 ? <TransferTokenTab toggleClose={toggleCLose}/> 
+                        componentToDisplay === 1 ? <MintTokenTab toggleClose={toggleCLose} /> 
+                        : componentToDisplay === 2 ? <TransferTokenTab 
+                            toggleClose={toggleCLose}
+                            isTransferSuccessful={isMethodCallSuccessful}
+                            TransferToken={transferTokens}
+                            transferLoading={isMethodCallLoading}
+                        /> 
                         : componentToDisplay === 3 ? <DelegateTokenTab toggleClose={toggleCLose}/> 
                         : componentToDisplay === 4 ? <BurnToken toggleClose={toggleCLose}/> 
                         : ""

@@ -5,9 +5,8 @@ import Header from "../components/navigation/Header"
 
 export const WhitePaper = () => {
   return <>
-    <Header/>
     <div className=" container mx-auto font-montserrat">
-
+      <Header/>
       {/* header */}
       <div className=" bg-whitePaperHeroBg h-[26rem] flex flex-col justify-center items-center">
           <h1 class="h-[4rem] text-[2.5rem] font-[800] text-white">Recylox Whitepaper</h1>
@@ -15,7 +14,7 @@ export const WhitePaper = () => {
       </div>
 
       {/* body */}
-      <div className="w-[80%] mx-auto mt-16 leading-[2.8rem]">
+      <div className="w-[90%] mx-auto mt-16 leading-[2.8rem]">
         <h1 className="text-[1rem] font-[800]">Abstract</h1>
         <p className="text-[1rem] font-[400]">
           This whitepaper outlines the vision, architecture, and technical details of RecCylox, a groundbreaking project 

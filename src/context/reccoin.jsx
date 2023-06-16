@@ -18,6 +18,8 @@ export const TokenProvider = ({ children }) => {
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
   const [connectedAccount, setConnectedAccount] = useState('')
+  const [isMethodCallLoading, setIsMethodCallLoading] = useState(false);
+  const [isMethodCallSuccessful, setIsMethodCallSuccessful] = useState(false);
 
 
   // useEffect(() => {
@@ -104,16 +106,26 @@ export const TokenProvider = ({ children }) => {
   };
 
   const transferTokens = async (recipient, amount) => {
+    setIsMethodCallLoading(true)
+    setIsMethodCallSuccessful(false)
     try {
       if (contract) {
         const transaction = await contract.transfer(recipient, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+        setIsMethodCallSuccessful(true)
+        setIsMethodCallLoading(false)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
       console.error('Error transferring tokens:', error);
+      alert('Error transferring tokens:', error.msg)
+      setIsMethodCallSuccessful(false)
+      setIsMethodCallLoading(false)
     }
   };
 
@@ -194,6 +206,8 @@ export const TokenProvider = ({ children }) => {
         burnTokens,
         approveTokens,
         transferFrom,
+        isMethodCallSuccessful,
+        isMethodCallLoading
       }}
     >
       {children}
