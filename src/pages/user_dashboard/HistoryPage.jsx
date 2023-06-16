@@ -1,8 +1,8 @@
 import React from "react";
 import Layout from "../../components/dashboard_components/UserDashboardLayout";
 import UserDashboardLayout from "../../components/dashboard_components/UserDashboardLayout";
-import _stateIconGreen from "../../assets/_stateIconGreen.svg";
-import _stateIconRed from "../../assets/_stateIconRed.svg";
+import stateGreen from "../../assets/stateGreen.svg";
+import stateRed from "../../assets/stateRed.svg";
 
 const HistoryPage = () => {
   return (
@@ -46,9 +46,9 @@ const HistoryPage = () => {
                 <div className="text-primary40 font-extrabold">001x33ff...</div>
               </div>
 
-              <div className="flex flex-col items-center px-2">
-                  <img className="h-6 w-6" src={_stateIconGreen} alt="State Icon Green" />
-                  <div className="text-l">5TH MAY 2020, 12:23</div>
+              <div className="flex flex-col items-end m-2">
+                  <img className="h-7 w-7 bg-red-700 m-2 p-2" src={stateRed} alt="State Icon Green" />
+                  <div className="text-xs">5TH MAY 2020, 12:23</div>
                   <div className="text-right justify-end text-primary40 font-extrabold">APPROVED</div>
               </div>
 
