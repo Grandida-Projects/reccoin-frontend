@@ -83,7 +83,7 @@ const TransferTokenTab = ({toggleClose, isTransferSuccessful, TransferToken}) =>
     {/* header */}
     <div className='relative'>
         {/* title */}
-        <h1 className='font-montserrat text-[1.5rem] font-[700] text-center'>Mint Token</h1>
+        <h1 className='font-montserrat text-[1.5rem] font-[700] text-center'>Transfer Token</h1>
         {/* close button */}
         <button className="absolute -right-4 -top-8" onClick={toggleClose}>
             <img src={closeIcon} alt="close-icon" className=" w-[25px] h-[25px]" />

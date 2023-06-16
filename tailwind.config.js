@@ -26,7 +26,8 @@ export default {
         'faqbg': "url('/src/assets/faq.svg')",
         'aboutbg': "url('/src/assets/aboutUsBg.png')",
         'subscribeBg': "url('/src/assets/subscribeBg.png')",
-        'recyclingBg': "url('/src/assets/recyclingBg.png')"
+        'recyclingBg': "url('/src/assets/recyclingBg.png')",
+        'whitePaperHeroBg': "url('/src/assets/whitePaperHeroBg.png')"
       },
       screens: {
       }

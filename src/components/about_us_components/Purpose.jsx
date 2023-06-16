@@ -5,7 +5,7 @@ const Purpose = () => {
   return (
     <div className="m-[auto] w-[900px] py-16">
       <p className="font-sans w-[1000px]  ">
-        At Reccoin, we are revolutionizing the way we address the global plastic
+        At Recylox, we are revolutionizing the way we address the global plastic
         incentivizes individuals to take action by collecting waste plastics and
         rewards them with tokens. By partnering with leading plastic recycling
         companies, we ensure that these collected plastics are repurposed and
@@ -13,7 +13,7 @@ const Purpose = () => {
         <span className="bg-[#005232] text-white"> Our mission </span> is to
         create a cleaner and greener future by encouraging individuals to
         recycle through our innovative platform and rewarding them with our
-        exclusive cryptocurrency token, Reccoin.
+        exclusive cryptocurrency token, Recylox.
       </p>
       <div className="flex items-center justify-between gap-4">
         <div>

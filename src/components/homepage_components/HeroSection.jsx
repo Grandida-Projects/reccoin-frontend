@@ -20,12 +20,12 @@ const Hero = () => {
                 Planet
               </p>
               <p className="text-sm md:text-[16px] leading-[25px] mt-5 font-semibold tracking-[-0.5px] lg:w-[420px] xl:w-[566px]">
-                Reccoin is a groundbreaking digital currency specifically
+                Recylox is a groundbreaking digital currency specifically
                 designed to revolutionize the world of recycling. Built on the
                 principles of blockchain technology.
               </p>
               <p className="text-sm md:text-[16px] leading-[25px] mt-5 font-semibold tracking-[-0.5px] lg:w-[420px] xl:w-[566px]">
-                With Reccoin, every time you recycle, you earn tokens that hold
+                With Recylox, every time you recycle, you earn tokens that hold
                 real-world value. These tokens can be redeemed for a variety of
                 rewards, including discounts on eco-friendly products, access to
                 exclusive events, or even exchanged for other cryptocurrencies

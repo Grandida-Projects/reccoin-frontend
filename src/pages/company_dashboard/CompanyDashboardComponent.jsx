@@ -32,11 +32,11 @@ function CompanyDashboardComponent() {
         </div>
         <div className="h-[68px] bg-primary40/40 w-full rounded-lg flex items-center gap-[52.38px] px-[12.38px] py-1 mb-[15px] border-[3px] border-[#ECECEC] cursor-pointer" onClick={() => setShowDeposit(prev => true)}>
           <MdMoveToInbox color="#0D4D00" size={28} />
-          <p className="text-primary60 font-semibold font-montserrat text-[23px]">Deposit Reccoin</p>
+          <p className="text-primary60 font-semibold font-montserrat text-[23px]">Deposit Recylox</p>
         </div>
         <div className="h-[68px] w-full rounded-lg flex items-center gap-[52.38px] px-[12.38px] py-1 border-[3px] border-[#ECECEC] cursor-pointer" onClick={() => setShowDeposit(prev => false)}>
           <MdOutlinePayments color="#0D4D00" size={28} />
-          <p className="text-primary60 font-semibold font-montserrat text-[23px]">Buy Reccoin</p>
+          <p className="text-primary60 font-semibold font-montserrat text-[23px]">Buy Recylox</p>
         </div>
       </div>
       <>
@@ -46,9 +46,9 @@ function CompanyDashboardComponent() {
             <RiCloseCircleFill color="#fff" size={25} className="cursor-pointer" />
           </div>
           <div className="w-full max-w-[250px] mx-auto flex flex-col gap-8">
-            <p className="text-white font-bold font-montserrat text-[23px]">Deposit Reccoin</p>
+            <p className="text-white font-bold font-montserrat text-[23px]">Deposit Recylox</p>
             <input type="text" name="companyName" placeholder="Company Nmae" className="bg-transparent w-full outline-none border-b-[3px] border-white pb-5 caret-white placeholder:text-white" />
-            <input type="text" name="Reccoin" placeholder="Reccoin (RC)" className="bg-transparent w-full outline-none border-b-[3px] border-white pb-5 caret-white placeholder:text-white" />
+            <input type="text" name="Reccoin" placeholder="Recylox (RC)" className="bg-transparent w-full outline-none border-b-[3px] border-white pb-5 caret-white placeholder:text-white" />
             <div className="w-full flex flex-row items-center justify-start gap-2">
               <input type="checkbox" name="terms" className="w-7 h-6 accent-[#158B5E] outline-none border-b-[3px]" />
               <p className="text-white font-montserrat text-[15px] leading-4">I am sure the details I provided are correct</p>
@@ -71,9 +71,9 @@ function CompanyDashboardComponent() {
             <RiCloseCircleFill color="#fff" size={25} className="cursor-pointer" />
           </div>
           <div className="w-full max-w-[250px] mx-auto flex flex-col gap-8">
-            <p className="text-white font-bold font-montserrat text-[23px]">Buy Reccoin</p>
+            <p className="text-white font-bold font-montserrat text-[23px]">Buy Recylox</p>
             <input type="text" name="companyName" placeholder="Company Nmae" className="bg-transparent w-full outline-none border-b-[3px] border-white pb-5 caret-white placeholder:text-white" />
-            <input type="text" name="Reccoin" placeholder="Reccoin (RC)" className="bg-transparent w-full outline-none border-b-[3px] border-white pb-5 caret-white placeholder:text-white" />
+            <input type="text" name="Reccoin" placeholder="Recylox (RC)" className="bg-transparent w-full outline-none border-b-[3px] border-white pb-5 caret-white placeholder:text-white" />
             <div className="w-full flex flex-row items-center justify-start gap-2">
               <input type="checkbox" name="terms" className="w-7 h-6 accent-[#158B5E] outline-none border-b-[3px]" />
               <p className="text-white font-montserrat text-[15px] leading-4">I am sure the details I provided are correct</p>

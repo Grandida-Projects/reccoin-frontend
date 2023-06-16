@@ -19,7 +19,7 @@ const PrivacyPolicy = () => {
         <div className="space-y-4">
           <div>
             <p className="font-openSans">
-              At Reccoin, we are committed to protecting the privacy and
+              At Recylox, we are committed to protecting the privacy and
               personal information of our users. This Privacy Policy explains
               how we collect, use, and safeguard your information when you use
               our Web3 platform. By using our platform, you consent to the
@@ -130,7 +130,7 @@ const PrivacyPolicy = () => {
             <p className="font-openSans">
               If you have any questions, concerns, or feedback regarding this
               Privacy Policy or our privacy practices, please contact us at{' '}
-              <span className="font-bold"> admin@reccoin.org.</span> We will
+              <span className="font-bold"> admin@recylox.org.</span> We will
               strive to address your inquiries in a timely manner.
             </p>
             <p className="py-3">
