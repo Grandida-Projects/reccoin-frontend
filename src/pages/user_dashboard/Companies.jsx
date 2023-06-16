@@ -86,7 +86,7 @@ const Companies = () => {
     
   return (
     <UserDashboardLayout active_link={'Companies'} dashboard_content={
-        <div className='bg-white p-8 w-5/6'>
+        <div className='bg-white p-8'>
             {/* header */}
             <div className='flex flex-row justify-between items-center '>
                 <div className='flex flex-row'>
