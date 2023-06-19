@@ -22,8 +22,12 @@ export default {
         "primaryLight": "#71B453"
       },
       backgroundImage: {
-        'herobg': "url('/src/assets/ellipse-bg.svg')",
-        'faqbg': "url('/src/assets/faq.svg')"
+        'herobg': "url('/src/assets/hero-img-bg.png')",
+        'faqbg': "url('/src/assets/faq.svg')",
+        'aboutbg': "url('/src/assets/aboutUsBg.png')",
+        'subscribeBg': "url('/src/assets/subscribeBg.png')",
+        'recyclingBg': "url('/src/assets/recyclingBg.png')",
+        'whitePaperHeroBg': "url('/src/assets/whitePaperHeroBg.png')"
       },
       screens: {
       }

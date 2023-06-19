@@ -3,7 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 
 import settingsWhiteIcon from '../../assets/settingsWhite.svg'
 import settingsGreenIcon from '../../assets/settingsGreen.svg'
-import companyIcon from '../../assets/company-ic.svg'
+import companyWhiteIcon from '../../assets/companyWhite.svg'
+import companyGreenIcon from '../../assets/companyGreen.svg'
 import chatWhiteIcon from '../../assets/chatWhite.svg'
 import chatGreenIcon from '../../assets/chatGreen.svg'
 import offersWhiteIcon from '../../assets/offersWhite.svg'
@@ -16,10 +17,12 @@ import dashboardWhiteIcon from '../../assets/dashboardWhite.svg'
 import dashboardGreenIcon from '../../assets/dashboardGreen.svg'
 
 import UserDashboard from '../../pages/user_dashboard/UserDashboard';
-import DashboardUserSettings from "../../pages/user_dashboard/DashboardUserSettings.jsx";
+import DashboardUserSettings from "../../pages/user_dashboard/Settings.jsx";
 import HistoryPage from "../../pages/user_dashboard/HistoryPage.jsx";
 import OffersPage from "../../pages/user_dashboard/OffersPage.jsx";
 import Notifications from '../../pages/user_dashboard/Notifications';
+import Companies from '../../pages/user_dashboard/Companies';
+import ChatPage from '../../pages/user_dashboard/ChatPage';
 
 const routes = [
     {
@@ -32,11 +35,11 @@ const routes = [
     },
     {
         name: "Companies",
-        path: '',
-        white_icon: companyIcon,
-        green_icon: companyIcon,
+        path: '/user-dashboard/companies',
+        white_icon: companyWhiteIcon,
+        green_icon: companyGreenIcon,
         id: 'dashboard-companies',
-        component: ''
+        component: Companies
     },
     {
         name: "Notifications",
@@ -72,12 +75,12 @@ const routes = [
     },
     {
         name: "Chat",
-        path: '',
+        path: '/user-dashboard/chat',
         white_icon: chatWhiteIcon,
         green_icon: chatGreenIcon,
-        id: 'dashboard-companies',
-        component: ''
-    },
+        id: 'dashboard-chat',
+        component: ChatPage
+    }
 ];
 
 const renderRoutes = (routes, basePath = '') => {

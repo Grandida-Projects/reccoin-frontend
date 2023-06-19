@@ -9,22 +9,22 @@ import ReccoinAsaService from '../components/homepage_components/ReccoinAsaServi
 import HomeFooter from '../components/homepage_components/HomeFooter';
 import Header from '../components/navigation/Header';
 import Footer from '../components/footer';
+import Subscribe from '../components/homepage_components/Subcribe';
+import AboutUsAndEarnRecoin from '../components/about_us_components/AboutUsAndEarnRecoin';
 
 const Home = () => {
   return (
-    <div>
+    <div className='container mx-auto'>
       <Header />
-      <div className="">
-        <Hero />
-        <ReccoinAsaService />
-        <EarnReccoinReward />
-        <About />
-        <Recycling />
-        <HowItWorks />
-        <LatestNews />
-        <Faq />
-        <HomeFooter />
-      </div>
+      <Hero />
+      <ReccoinAsaService />
+      <AboutUsAndEarnRecoin/>
+      <Recycling />
+      <HowItWorks />
+      <LatestNews />
+      <Subscribe/>
+      <Faq />
+      <HomeFooter />
       <Footer />
     </div>
   );

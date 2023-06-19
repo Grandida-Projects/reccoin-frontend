@@ -3,6 +3,8 @@ import {Routes} from "react-router-dom";
 import { MainRoutes } from './routes/index';
 import { UserDashboardRoutes } from './routes/dashboard/user.jsx';
 import { CompanyDashboardRoutes } from './routes/dashboard/company.jsx';
+import { AdminDashboardRoutes } from "./routes/dashboard/admin.jsx";
+
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
         <MainRoutes />
         <UserDashboardRoutes />
         <CompanyDashboardRoutes />
+        <AdminDashboardRoutes />
+        
     </>
   );
 }

@@ -20,48 +20,88 @@ export const TokenProvider = ({ children }) => {
   const [connectedAccount, setConnectedAccount] = useState('')
 
 
-  useEffect(() => {
-    const initializeContract = async () => {
-      try {
-        setLoading(true)
-        if (window.ethereum) {
-          const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-          // save connected wallet address
-          setConnectedAccount(getAccounts[0])
-          const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-          // MetaMask requires requesting permission to connect users accounts
-          setProvider(ethereumProvider);
-          const signer = ethereumProvider.getSigner();
-          const contractAddress = '0x835451710F730f06b4AE5978bfD1727322fCFBA9'; // Replace with the actual contract address
-          const contract = new ethers.Contract(contractAddress, reccoinABI, signer);
-          console.log('contract =>', contract);
-          setContract(contract);
+  // useEffect(() => {
+  //   const initializeContract = async () => {
+  //     try {
+  //       setLoading(true)
+  //       if (window.ethereum) {
+  //         const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  //         // save connected wallet address
+  //         setConnectedAccount(getAccounts[0])
+  //         const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
+  //         // MetaMask requires requesting permission to connect users accounts
+  //         setProvider(ethereumProvider);
+  //         const signer = ethereumProvider.getSigner();
+  //         const contractAddress = '0x835451710F730f06b4AE5978bfD1727322fCFBA9'; // Replace with the actual contract address
+  //         const contract = new ethers.Contract(contractAddress, reccoinABI, signer);
+  //         console.log('contract =>', contract);
+  //         setContract(contract);
 
-          const name = await contract.name();
-          const symbol = await contract.symbol();
-          const decimals = await contract.decimals();
-          const totalSupply = await contract.totalSupply();
-          const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048'; // Replace with your actual Ethereum address
-          const accountBalance = await contract.balanceOf(yourAccountAddress);
+  //         const name = await contract.name();
+  //         const symbol = await contract.symbol();
+  //         const decimals = await contract.decimals();
+  //         const totalSupply = await contract.totalSupply();
+  //         const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048'; // Replace with your actual Ethereum address
+  //         const accountBalance = await contract.balanceOf(yourAccountAddress);
 
-          setName(name);
-          setSymbol(symbol);
-          setDecimals(decimals);
-          setTotalSupply(totalSupply);
-          setAccountBalance(accountBalance);
-          setLoading(false);
-        } else {
-          setLoading(false)
-          throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
-        }
-      } catch (error) {
+  //         setName(name);
+  //         setSymbol(symbol);
+  //         setDecimals(decimals);
+  //         setTotalSupply(totalSupply);
+  //         setAccountBalance(accountBalance);
+  //         setLoading(false);
+  //       } else {
+  //         setLoading(false)
+  //         throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
+  //       }
+  //     } catch (error) {
+  //       setLoading(false)
+  //       console.error('Error initializing contract:', error);
+  //     }
+  //   };
+
+  //   // initializeContract();
+  // }, []);
+
+  const initializeContract = async () => {
+    try {
+      setLoading(true)
+      if (window.ethereum) {
+        const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        // save connected wallet address
+        setConnectedAccount(getAccounts[0])
+        const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
+        // MetaMask requires requesting permission to connect users accounts
+        setProvider(ethereumProvider);
+        const signer = ethereumProvider.getSigner();
+        const contractAddress = '0x835451710F730f06b4AE5978bfD1727322fCFBA9'; // Replace with the actual contract address
+        const contract = new ethers.Contract(contractAddress, reccoinABI, signer);
+        console.log('contract =>', contract);
+        setContract(contract);
+
+        const name = await contract.name();
+        const symbol = await contract.symbol();
+        const decimals = await contract.decimals();
+        const totalSupply = await contract.totalSupply();
+        const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048'; // Replace with your actual Ethereum address
+        const accountBalance = await contract.balanceOf(yourAccountAddress);
+
+        setName(name);
+        setSymbol(symbol);
+        setDecimals(decimals);
+        setTotalSupply(totalSupply);
+        setAccountBalance(accountBalance);
+        setLoading(false);
+      } else {
         setLoading(false)
-        console.error('Error initializing contract:', error);
+        // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
+        alert('Please install MetaMask or any other Ethereum wallet extension.')
       }
-    };
-
-    initializeContract();
-  }, []);
+    } catch (error) {
+      setLoading(false)
+      console.error('Error initializing contract:', error);
+    }
+  };
 
   const transferTokens = async (recipient, amount) => {
     try {
@@ -148,6 +188,7 @@ export const TokenProvider = ({ children }) => {
         accountBalance,
         provider, // Include the provider in the context value
         connectedAccount,
+        initializeContract,
         transferTokens,
         mintTokens,
         burnTokens,

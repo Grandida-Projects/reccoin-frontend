@@ -15,7 +15,6 @@ body {
   padding: 0;
   scrollbar-width: 10px;
   scrollbar-color: gray;
-  background-color: #ddd;
 }
 .bottom-border {
   border-width: 0 0 2px 0;
@@ -34,3 +33,9 @@ body {
   background-color: #a9ce98;
   /* #006D44; */
 }
+@layer utilities {
+  .conic-gradient-background {
+    background: conic-gradient(from 180deg at 50% 50%, rgba(137, 162, 154, 0) -93.68deg, rgba(242, 250, 247, 0.76) 92.47deg, rgba(137, 162, 154, 0) 266.32deg, rgba(242, 250, 247, 0.76) 452.47deg);
+  }
+}
+

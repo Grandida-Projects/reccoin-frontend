@@ -6,7 +6,6 @@ import recycleSVG from "../../assets/recycleSVG.svg";
 import DollarSVG from "../../assets/DollarSVG.svg";
 import HandSVG from "../../assets/HandSVG.svg";
 import Polygon_about from "../../assets/PolygonSVG.svg";
-import Footer from "../homepage_components/HomeFooter";
 
 const Empowering = () => {
   const data = [
@@ -14,13 +13,13 @@ const Empowering = () => {
       vector: settingSVG,
       topic: "Our Expertise",
       content:
-        "With years of experience in the recycling industry, our team at Reccoin possesses a deep understanding of waste management practices, recycling techniques, and market dynamics. We leverage this expertise to develop solutions that streamline recycling processes, improve efficiency, and maximize the impact of recycling efforts.",
+        "With years of experience in the recycling industry, our team at Recylox possesses a deep understanding of waste management practices, recycling techniques, and market dynamics. We leverage this expertise to develop solutions that streamline recycling processes, improve efficiency, and maximize the impact of recycling efforts.",
     },
     {
       vector: lightSVG,
       topic: "I.R.A",
       content:
-        "(Innovative Recycling Approach) We take a fresh approach to recycling by integrating technology and cryptocurrency into the traditional recycling ecosystem. Our platform provides users with a seamless and convenient way to recycle various materials, transforming it into a rewarding experience. Through our user-friendly mobile application, individuals can track their recycling progress, earn RECCOIN tokens, and contribute to a sustainable future.",
+        "(Innovative Recycling Approach) We take a fresh approach to recycling by integrating technology and cryptocurrency into the traditional recycling ecosystem. Our platform provides users with a seamless and convenient way to recycle various materials, transforming it into a rewarding experience. Through our user-friendly mobile application, individuals can track their recycling progress, earn RECYLOX tokens, and contribute to a sustainable future.",
     },
     {
       vector: recycleSVG,
@@ -31,7 +30,7 @@ const Empowering = () => {
         </div>
       ),
       content:
-        "By recycling with RECCOIN, you become an active participant in reducing waste and preserving our environment. Each item you recycle translates into reduced landfill waste, decreased pollution, and conservation of natural resources. Through our advanced waste management techniques and partnerships with recycling facilities, we ensure that your efforts have a significant and measurable impact on our planet.",
+        "By recycling with RECYLOX, you become an active participant in reducing waste and preserving our environment. Each item you recycle translates into reduced landfill waste, decreased pollution, and conservation of natural resources. Through our advanced waste management techniques and partnerships with recycling facilities, we ensure that your efforts have a significant and measurable impact on our planet.",
     },
     {
       vector: DollarSVG,
@@ -42,7 +41,7 @@ const Empowering = () => {
         </div>
       ),
       content:
-        "At RECCOIN, we believe in recognizing and incentivizing individuals for their recycling efforts. Every time you recycle, you earn RECCOIN tokens, our exclusive cryptocurrency. These tokens can be redeemed for various rewards, including discounts at partner stores, exclusive merchandise, and even charitable donations. By aligning economic benefits with environmental action, we motivate individuals to embrace recycling as a rewarding habit.",
+        "At RECYLOX, we believe in recognizing and incentivizing individuals for their recycling efforts. Every time you recycle, you earn RECYLOX tokens, our exclusive cryptocurrency. These tokens can be redeemed for various rewards, including discounts at partner stores, exclusive merchandise, and even charitable donations. By aligning economic benefits with environmental action, we motivate individuals to embrace recycling as a rewarding habit.",
     },
     {
       vector: HandSVG,
@@ -53,7 +52,7 @@ const Empowering = () => {
         </div>
       ),
       content:
-        "At RECCOIN, we prioritize trust and transparency in all our operations. We adhere to strict ethical and environmental standards, ensuring that your recyclables are processed responsibly and efficiently. Our blockchain-based system provides immutable records, guaranteeing the integrity of transactions and reinforcing trust between our users, partners, and our company.",
+        "At RECYLOX, we prioritize trust and transparency in all our operations. We adhere to strict ethical and environmental standards, ensuring that your recyclables are processed responsibly and efficiently. Our blockchain-based system provides immutable records, guaranteeing the integrity of transactions and reinforcing trust between our users, partners, and our company.",
     },
   ];
 
@@ -94,24 +93,6 @@ const Empowering = () => {
             </div>
           </div>
         ))}
-      </div>
-      <div className="mt-8 bg-primary60 flex flex-col items-center justify-center w-full">
-        <div className="p-8 text-white text-center">
-          <h2 className="text-2xl">Join Us in Making a Difference!</h2>
-          <p className="p-3">
-            Together, we can transform the way we think about waste and create a
-            more sustainable future. By participating in our platform, you
-            contribute to the global effort to reduce plastic pollution while
-            also benefiting from the rewards and opportunities offered by
-            blockchain technology.
-          </p>
-          <input
-            className="rounded-lg p-2 m-4"
-            type="text"
-            placeholder="Enter your email"
-          />
-        </div>
-        <Footer />
       </div>
     </div>
   );
