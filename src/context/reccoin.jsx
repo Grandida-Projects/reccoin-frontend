@@ -18,6 +18,8 @@ export const TokenProvider = ({ children }) => {
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
   const [connectedAccount, setConnectedAccount] = useState('')
+  const [isMethodCallLoading, setIsMethodCallLoading] = useState(false);
+  const [isMethodCallSuccessful, setIsMethodCallSuccessful] = useState(false);
 
 
   // useEffect(() => {
@@ -104,15 +106,25 @@ export const TokenProvider = ({ children }) => {
   };
 
   const transferTokens = async (recipient, amount) => {
+    setIsMethodCallLoading(true)
+    setIsMethodCallSuccessful(false)
     try {
       if (contract) {
         const transaction = await contract.transfer(recipient, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+        setIsMethodCallSuccessful(true)
+        setIsMethodCallLoading(false)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
+      setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error.msg)
       console.error('Error transferring tokens:', error);
     }
   };
@@ -120,56 +132,98 @@ export const TokenProvider = ({ children }) => {
     // Add the mintTokens and burnTokens functions
   const mintTokens = async (account, amount) => {
     try {
+      setIsMethodCallLoading(true)
+      setIsMethodCallSuccessful(false)
       if (contract) {
         const transaction = await contract.mint(account, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(true)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
+        
       }
     } catch (error) {
-      console.error('Error minting tokens:', error);
+      setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error)
+      console.error('Error transferring tokens:', error);
     }
   };
 
   const burnTokens = async (amount) => {
+    setIsMethodCallLoading(true)
+    setIsMethodCallSuccessful(false)
     try {
       if (contract) {
         const transaction = await contract.burn(amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+        setIsMethodCallSuccessful(true)
+        setIsMethodCallLoading(false)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
+      setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error)
       console.error('Error burning tokens:', error);
     }
   };
 
   const approveTokens = async (spender, amount) => {
+    setIsMethodCallLoading(true)
+    setIsMethodCallSuccessful(false)
     try {
       if (contract) {
         const transaction = await contract.approve(spender, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+        setIsMethodCallSuccessful(true)
+        setIsMethodCallLoading(false)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
+      setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error)
       console.error('Error approving tokens:', error);
     }
   };
 
   const transferFrom = async (sender, recipient, amount) => {
     try {
+      setIsMethodCallLoading(true)
+      setIsMethodCallSuccessful(false)
       if (contract) {
         const transaction = await contract.transferFrom(sender, recipient, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+         // Perform any additional actions or update state as needed
+         setIsMethodCallSuccessful(true)
+         setIsMethodCallLoading(false)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
+      setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error)
       console.error('Error transferring tokens from:', error);
     }
   };
@@ -194,6 +248,8 @@ export const TokenProvider = ({ children }) => {
         burnTokens,
         approveTokens,
         transferFrom,
+        isMethodCallSuccessful,
+        isMethodCallLoading
       }}
     >
       {children}

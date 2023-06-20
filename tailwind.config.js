@@ -27,7 +27,8 @@ export default {
         'aboutbg': "url('/src/assets/aboutUsBg.png')",
         'subscribeBg': "url('/src/assets/subscribeBg.png')",
         'recyclingBg': "url('/src/assets/recyclingBg.png')",
-        'whitePaperHeroBg': "url('/src/assets/whitePaperHeroBg.png')"
+        'whitePaperHeroBg': "url('/src/assets/whitePaperHeroBg.png')",
+        'privacyPolicyBg': "url('/src/assets/privacyPolicyBg.png')"
       },
       screens: {
       }
