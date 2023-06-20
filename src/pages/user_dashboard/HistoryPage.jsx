@@ -106,7 +106,7 @@ const HistoryPage = () => {
     <UserDashboardLayout
       active_link={"History"}
       dashboard_content={
-        <div className="w-3/4 bg-white h-full ml-12">
+        <div className=" bg-white h-full">
           {/* Transactions title */}
           <div className="font-black text-primary40 p-2">
             <h1 className="text-4xl font-bold text-primary40">History</h1>

@@ -122,66 +122,108 @@ export const TokenProvider = ({ children }) => {
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
-      console.error('Error transferring tokens:', error);
-      alert('Error transferring tokens:', error.msg)
-      setIsMethodCallSuccessful(false)
       setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error.msg)
+      console.error('Error transferring tokens:', error);
     }
   };
 
     // Add the mintTokens and burnTokens functions
   const mintTokens = async (account, amount) => {
     try {
+      setIsMethodCallLoading(true)
+      setIsMethodCallSuccessful(false)
       if (contract) {
         const transaction = await contract.mint(account, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(true)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
+        
       }
     } catch (error) {
-      console.error('Error minting tokens:', error);
+      setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error)
+      console.error('Error transferring tokens:', error);
     }
   };
 
   const burnTokens = async (amount) => {
+    setIsMethodCallLoading(true)
+    setIsMethodCallSuccessful(false)
     try {
       if (contract) {
         const transaction = await contract.burn(amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+        setIsMethodCallSuccessful(true)
+        setIsMethodCallLoading(false)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
+      setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error)
       console.error('Error burning tokens:', error);
     }
   };
 
   const approveTokens = async (spender, amount) => {
+    setIsMethodCallLoading(true)
+    setIsMethodCallSuccessful(false)
     try {
       if (contract) {
         const transaction = await contract.approve(spender, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+        setIsMethodCallSuccessful(true)
+        setIsMethodCallLoading(false)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
+      setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error)
       console.error('Error approving tokens:', error);
     }
   };
 
   const transferFrom = async (sender, recipient, amount) => {
     try {
+      setIsMethodCallLoading(true)
+      setIsMethodCallSuccessful(false)
       if (contract) {
         const transaction = await contract.transferFrom(sender, recipient, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
+         // Perform any additional actions or update state as needed
+         setIsMethodCallSuccessful(true)
+         setIsMethodCallLoading(false)
       } else {
+        setIsMethodCallLoading(false)
+        setIsMethodCallSuccessful(false)
+        alert("Contract is not initialized. Connect wallet to get started")
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
+      setIsMethodCallLoading(false)
+      setIsMethodCallSuccessful(false)
+      alert('Error transferring tokens:', error)
       console.error('Error transferring tokens from:', error);
     }
   };
