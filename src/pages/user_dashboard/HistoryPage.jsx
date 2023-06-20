@@ -60,7 +60,7 @@ const HistoryPage = () => {
     },
     {
       value: 55,
-      weight: "TOTAL WEIGHT",
+      weight: "100 KG",
       id: 55,
       weight: "100 KG",
       id: "XXXX....XXX....XXX...XXX...",
@@ -69,7 +69,7 @@ const HistoryPage = () => {
     },
     {
       value: 55,
-      weight: "TOTAL WEIGHT",
+      weight: "100 KG",
       id: 55,
       weight: "100 KG",
       id: "XXXX....XXX....XXX...XXX...",
@@ -78,7 +78,7 @@ const HistoryPage = () => {
     },
     {
       value: 55,
-      weight: "TOTAL WEIGHT",
+      weight: "100 KG",
       id: 55,
       weight: "100 KG",
       date: "5TH MAY 2020, 12:23",
@@ -86,7 +86,7 @@ const HistoryPage = () => {
     },
     {
       value: 55,
-      weight: "TOTAL WEIGHT",
+      weight: "100 KG",
       id: 55,
       weight: "100 KG",
       date: "5TH MAY 2020, 12:23",
@@ -115,84 +115,49 @@ const HistoryPage = () => {
             </h3>
           </div>
 
-          {/* Transactions container */}
           <div>
             {data.map((transaction, index) => (
               <div
-                key={index}
-                className="m-4 md:mx-4  -my-2 border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white"
-              >
-                <div className="flex flex-col md:flex-row justify-between items-center">
-                  {/* Total Value */}
-                  <div className="flex flex-col items-center px-2 border-b-2 md:border-b-0 border-primary40 w-full">
-                    <div className="font-semibold">TOTAL VALUE</div>
-                    <div className="text-primary40 font-extrabold">
-                      {transaction.value}
-                    </div>
-                  </div>
-
-                  {/* Total Weight */}
-                  <div className="flex flex-col items-center border-b-2 md:border-b-0 border-primary40 w-full">
-                    <div className="font-semibold">TOTAL WEIGHT</div>
-                    <div className="text-primary40 font-extrabold">
-                      {transaction.weight}
-                    </div>
-                  </div>
-
-                  {/* Transaction ID */}
-                  <div className="flex flex-col items-center px-2 border-b-2 md:border-b-0 border-primary40 w-full">
-                    <div className="font-semibold">TRANSACTION ID</div>
-                    <div className="text-primary40 font-extrabold">
-                      {transaction.id}
-                    </div>
-                  </div>
-
-                  {/* Address */}
-                  <div className="flex flex-col items-center border-b-2 md:border-b-0 border-primary40 w-full">
-                    <div className="font-semibold">ADDRESS</div>
-                    <div className="text-primary40 font-extrabold">
-                      {transaction.address}
-                    </div>
-                  </div>
-
-                  {/* Date and Status */}
-                  <div className={`flex flex-col items-end m-2`}>
-                    <img
-                      className={`h-7 w-7  m-2 p-2 hidden md:block ${
-                        transaction.status === "DECLINED"
-                          ? "bg-red-700"
-                          : "bg-green-700"
-                      }`}
-                      src={
-                        transaction.status === "DECLINED"
-                          ? stateRed
-                          : stateGreen
-                      }
-                      alt="State Icon Green"
-                    />
-                    <div className="flex flex-col">
-                      <div className="text-xs font-bold text-gray-500">
-                        {transaction.date}
-                      </div>
-                      <div
-                        className={`text-right font-extrabold ${
-                          transaction.status === "DECLINED"
-                            ? "text-red-700"
-                            : "text-green-700"
-                        }`}
-                      >
-                        {transaction.status}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                key={index}>
+          <table className="m-4 md:mx-4  table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
+            <tr className="">
+              <th className="w-1/5 m-2">TOTAL VALUE</th>
+              <th className="w-1/5 m-2">TOTAL WEIGHT</th>
+              <th className="w-1/5 m-2">TRANSACTION ID</th>
+              <th className="w-1/5 m-2">ADDRESS</th>
+              <th className="w-1/5 m-2"> <img
+                className={`h-7 w-7  m-2 p-2 hidden md:block ${transaction.status === "DECLINED"
+                    ? "bg-red-700"
+                    : "bg-green-700"
+                  }`}
+                src={
+                  transaction.status === "DECLINED"
+                    ? stateRed
+                    : stateGreen
+                }
+                alt="State Icon Green"
+              /></th>
+            </tr>
+            <tr>
+              <td className="text-center text-primary40 font-extrabold">55</td>
+              <td className="text-center text-primary40 font-extrabold">100 KG</td>
+              <td className="text-center text-primary40 font-extrabold">55</td>
+              <td className="text-center text-primary40 font-extrabold">0013f...</td>
+              <td className="items-end text-end">
+                <p className="text-xs font-bold text-gray-500">5TH MAY 2020, 12:23</p>
+                <p className="text-primary40 font-extrabold">CREDIT</p>
+              </td>
+            </tr>
+          </table>
+          </div>
             ))}
             <div className="h-2 w-full"></div>
           </div>
+
         </div>
       }
     />
+    
   );
 };
 
