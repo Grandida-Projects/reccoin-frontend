@@ -14,7 +14,7 @@ import AboutUsAndEarnRecoin from '../components/about_us_components/AboutUsAndEa
 
 const Home = () => {
   return (
-    <div className='container mx-auto'>
+    <div className='mx-auto'>
       <Header />
       <Hero />
       <ReccoinAsaService />

@@ -7,50 +7,56 @@ import WhitePaper from '../pages/WhitePaper';
 import Contact from '../pages/Contact';
 import AboutUs from '../pages/AboutUs';
 import Test from '../pages/Test';
+import Blog from '../pages/Blog';
 import PrivacyPolicy from '../pages/Privacy';
 import UserRegPage from '../pages/registration/UserRegPage';
 
 const routes = [
-    {
-        name: 'Home',
-        path: '/',
-        component: Home
-    },
-    {
-        name: 'Register Company',
-        path: '/register-company',
-        component: CompanyRegPage
-    },
-    {
-        name: 'Register User',
-        path: '/register-user',
-        component: UserRegPage
-    },
-    {
-        name: 'White Paper',
-        path: '/white-paper',
-        component: WhitePaper
-    },
-    {
-        name: 'Contact Us',
-        path: '/contact-us',
-        component: Contact
-    },
-    {
-        name: 'About Us',
-        path: '/about-us',
-        component: AboutUs
-    },
-    {
-        name: 'Privacy Policy',
-        path: '/privacy-policy',
-        component: PrivacyPolicy
-    },
-    {
-        name: 'Test',
-        path: '/test',
-        component: Test
-    },
+  {
+    name: "Home",
+    path: "/",
+    component: Home,
+  },
+  {
+    name: "Register Company",
+    path: "/register-company",
+    component: CompanyRegPage,
+  },
+  {
+    name: "Register User",
+    path: "/register-user",
+    component: UserRegPage,
+  },
+  {
+    name: "White Paper",
+    path: "/white-paper",
+    component: WhitePaper,
+  },
+  {
+    name: "Contact Us",
+    path: "/contact-us",
+    component: Contact,
+  },
+  {
+    name: "About Us",
+    path: "/about-us",
+    component: AboutUs,
+  },
+  {
+    name: "Privacy Policy",
+    path: "/privacy-policy",
+    component: PrivacyPolicy,
+  },
+  {
+    name: "Test",
+    path: "/test",
+    component: Test,
+  },
+  {
+    name: "Blog",
+    path: "/blog",
+    component: Blog,
+  },
 ];
 
 const renderRoutes = (routes, basePath = '') => {
