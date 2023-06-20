@@ -20,6 +20,9 @@ body {
   border-width: 0 0 2px 0;
   border-color: gray;
 }
+.clip {
+  contain: content;
+}
 ::-webkit-scrollbar {
   width: 7px;
 }
@@ -38,4 +41,5 @@ body {
     background: conic-gradient(from 180deg at 50% 50%, rgba(137, 162, 154, 0) -93.68deg, rgba(242, 250, 247, 0.76) 92.47deg, rgba(137, 162, 154, 0) 266.32deg, rgba(242, 250, 247, 0.76) 452.47deg);
   }
 }
+
 
