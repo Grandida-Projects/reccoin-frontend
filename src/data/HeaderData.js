@@ -1,14 +1,14 @@
 export const HeaderData = [
     {
-        title:"WHITE PAPER",
-        link: "/white-paper"
-    },
-    {
-        title:"CONTACT US",
+        title:"Contact Us",
         link: "/contact-us"
     },
     {
-        title:"DASHBOARD",
+        title:"White Paper",
+        link: "/white-paper"
+    },
+    {
+        title:"Dashboard",
         link: "/user-dashboard"
     },
 ]
