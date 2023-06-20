@@ -25,22 +25,15 @@ const HistoryPage = () => {
       value: "CREDIT",
       address: "ADDRESS",
       date: "5TH MAY 2020, 12:23",
+      status: "APPROVED",
     },
     {
       value: "CREDIT",
       address: "ADDRESS",
       date: "5TH MAY 2020, 12:23",
+      status: "APPROVED",
     },
-    {
-      value: "20 RC",
-      address: "001x33ff...",
-      date: "CREDIT",
-    },
-    {
-      value: "20 RC",
-      address: "001x33ff...",
-      date: "CREDIT",
-    },
+
     {
       value: 55,
       weight: "TOTAL WEIGHT",
@@ -119,37 +112,46 @@ const HistoryPage = () => {
             {data.map((transaction, index) => (
               <div
                 key={index}>
-          <table className="m-4 md:mx-4  table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
-            <tr className="">
-              <th className="w-1/5 m-2">TOTAL VALUE</th>
-              <th className="w-1/5 m-2">TOTAL WEIGHT</th>
-              <th className="w-1/5 m-2">TRANSACTION ID</th>
-              <th className="w-1/5 m-2">ADDRESS</th>
-              <th className="w-1/5 m-2"> <img
-                className={`h-7 w-7  m-2 p-2 hidden md:block ${transaction.status === "DECLINED"
-                    ? "bg-red-700"
-                    : "bg-green-700"
-                  }`}
-                src={
-                  transaction.status === "DECLINED"
-                    ? stateRed
-                    : stateGreen
-                }
-                alt="State Icon Green"
-              /></th>
-            </tr>
-            <tr>
-              <td className="text-center text-primary40 font-extrabold">55</td>
-              <td className="text-center text-primary40 font-extrabold">100 KG</td>
-              <td className="text-center text-primary40 font-extrabold">55</td>
-              <td className="text-center text-primary40 font-extrabold">0013f...</td>
-              <td className="items-end text-end">
-                <p className="text-xs font-bold text-gray-500">5TH MAY 2020, 12:23</p>
-                <p className="text-primary40 font-extrabold">CREDIT</p>
-              </td>
-            </tr>
-          </table>
-          </div>
+                <table className="-m-2 md:mx-4  table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
+                  <tr className="">
+                    <th className="w-1/6 m-2">TOTAL VALUE</th>
+                    <th className="w-1/6 m-2">TOTAL WEIGHT</th>
+                    <th className="w-1/6 m-2">TRANSACTION ID</th>
+                    <th className="w-1/6 m-2">ADDRESS</th>
+                    <th className="w-1/6 m-2 justify-end"> <img
+                      className={`h-7 w-7   m-2 p-2 hidden md:block ${transaction.status === "DECLINED"
+                        ? "bg-red-700"
+                        : "bg-green-700"
+                        }`}
+                      src={
+                        transaction.status === "DECLINED"
+                          ? stateRed
+                          : stateGreen
+                      }
+                      alt="State Icon Green"
+                    /></th>
+                  </tr>
+                  <tr>
+                    <td className="text-center text-primary40 font-extrabold">55</td>
+                    <td className="text-center text-primary40 font-extrabold">100 KG</td>
+                    <td className="text-center text-primary40 font-extrabold">55</td>
+                    <td className="text-center text-primary40 font-extrabold">0013f...</td>
+                    <td className="items-end text-end">
+                      <ul>
+
+
+                        <li className="text-xs font-bold text-gray-500">{transaction.date}</li>
+                        <li className={`text-right font-extrabold ${transaction.status === "DECLINED"
+                          ? "text-red-700"
+                          : "text-green-700"
+                          }`}
+                        >
+                          {transaction.status} </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             ))}
             <div className="h-2 w-full"></div>
           </div>
@@ -157,7 +159,7 @@ const HistoryPage = () => {
         </div>
       }
     />
-    
+
   );
 };
 
