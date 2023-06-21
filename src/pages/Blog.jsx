@@ -7,9 +7,9 @@ import Footer from './../components/footer';
 
 const Blog = () => {
   return (
-    <>
+    <div className="bg-bg-color">
       <Header />
-      <div className="w-full h-full mt-40 md:mt-20 bg-bg-color md:py-[129px]">
+      <div className="w-full h-full  bg-bg-color md:py-[129px]">
         <BlogSection1 />
       </div>
       <TitleBar />
@@ -18,7 +18,7 @@ const Blog = () => {
       <Newsletter />
       <HomeFooter />
       <Footer />
-    </>
+    </div>
   );
 }
 
