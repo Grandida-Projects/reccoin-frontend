@@ -46,7 +46,7 @@ const Header = () => {
           <div className="flex flex-row justify-between items-center w-fit">
             {/* header links */}
             <ul
-              className={`w-full absolute items-center md:static flex flex-col md:flex-row gap-7 lg:gap-[66px] px-4
+              className={`w-full absolute items-center md:static flex flex-col md:flex-row gap-2 lg:gap-[66px] px-4
                       ${!toggle_menu ? "-left-full -top-full" : " left-0 top-0 flex-col w-[80%] bg-white p-4 mt-20 rounded-b-md "}
                       transition-all duration-500
                       `}
