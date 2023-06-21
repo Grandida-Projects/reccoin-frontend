@@ -374,7 +374,7 @@ const AdminDashboard = () => {
                         <h2 className='text-primary40  font-black text-[1.6rem] ml-4'>Balance</h2>
                         <img src={toggleBalance ? eyesOpenIcon : eyesIcon} alt="eyes-icon" className='h-4 w-4 ml-20 hover:cursor-pointer' onClick={() => setToggleBalance(!toggleBalance)} />
                     </div>
-                    <h1 className='text-[#0D4D00] text-[1.6rem] font-[700]  my-4'>{toggleBalance ? accountBalance : "XXXXX"}</h1>
+                    <h1 className='text-[#0D4D00] text-[1.6rem] font-[700]  my-4'>{toggleBalance ? ethers.utils.formatEther(accountBalance.toString()) : "XXXXX"}</h1>
                     <div className='w-[22.5rem] text-black text-[1rem] flex flex-row p-2 mt-10 bg-[#d9d9d975]'>
                         <p className=' font-[500]'>Total Number of Register Companies:</p>
                         <p className='font-[700] ml-2'>400</p>

@@ -9,11 +9,12 @@ export const TokenContext = createContext();
 export const useToken = () => useContext(TokenContext);
 
 export const TokenProvider = ({ children }) => {
+
   const [name, setName] = useState('');
   const [symbol, setSymbol] = useState('');
   const [decimals, setDecimals] = useState(0);
   const [totalSupply, setTotalSupply] = useState(0);
-  const [accountBalance, setAccountBalance] = useState(0);
+  const [accountBalance, setAccountBalance] = useState(null);
   const [loading, setLoading] = useState(false);
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
@@ -85,7 +86,7 @@ export const TokenProvider = ({ children }) => {
         const symbol = await contract.symbol();
         const decimals = await contract.decimals();
         const totalSupply = await contract.totalSupply();
-        const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048'; // Replace with your actual Ethereum address
+        const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048';// Replace with your actual Ethereum address
         const accountBalance = await contract.balanceOf(yourAccountAddress);
 
         setName(name);
@@ -94,6 +95,11 @@ export const TokenProvider = ({ children }) => {
         setTotalSupply(totalSupply);
         setAccountBalance(accountBalance);
         setLoading(false);
+
+        console.log(accountBalance);
+        console.log("name", name);
+        console.log("symbol", symbol);
+
       } else {
         setLoading(false)
         // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
@@ -228,7 +234,9 @@ export const TokenProvider = ({ children }) => {
     }
   };
 
-  
+  useEffect(() => {
+    initializeContract();
+  }, [])
 
   return (
     <TokenContext.Provider
