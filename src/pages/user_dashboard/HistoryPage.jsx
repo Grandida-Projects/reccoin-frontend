@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Layout from "../../components/dashboard_components/UserDashboardLayout";
 import UserDashboardLayout from "../../components/dashboard_components/UserDashboardLayout";
@@ -8,88 +9,80 @@ const HistoryPage = () => {
   const data = [
     {
       value: 78,
-      weight: "150 KG",
-      id: "XXXX....XXX....XXX...XXX...",
-      address: "001f....",
+      _weight: "150 KG",
+      id: "XXXX....XXX.....",
+      _address: "001f....",
       date: "5TH MAY 2020, 12:23",
       status: "APPROVED",
     },
     {
       value: 89,
-      weight: "98 KG",
-      id: "XXXX....XXX....XXX...XXX...",
+      _weight: "98 KG",
+      id: "XXXX....XXX.....",
       date: "5TH June 2020, 12:23",
       status: "DECLINED",
     },
     {
-      value: "CREDIT",
-      address: "ADDRESS",
+      value: "45",
+      _weight: "123 KG",
+      _address: "021A....",
       date: "5TH MAY 2020, 12:23",
       status: "APPROVED",
     },
     {
       value: "CREDIT",
-      address: "ADDRESS",
+      _address: "021f....",
       date: "5TH MAY 2020, 12:23",
       status: "APPROVED",
     },
 
     {
       value: 97,
-      weight: "123 KG",
+      _weight: "123 KG",
       id: 45,
-      weight: "100 KG",
       date: "5TH MAY 2020, 12:23",
       status: "DEPOSITED",
     },
     {
       value: 55,
-      weight: "TOTAL WEIGHT",
-      id: 54,
-      weight: "100 KG",
-      id: "XXXX....XXX....XXX...XXX...",
+      _weight: "TOTAL WEIGHT",
+      id: "XXXX....XXX.....",
       date: "5TH MAY 2020, 12:23",
       status: "DEPOSITED",
     },
     {
       value: 82,
-      weight: "650 KG",
-      id: 235,
-      weight: "100 KG",
-      id: "XXXX....XXX....XXX...XXX...",
+      _weight: "650 KG",
+      id: "XXXX....XXX.....",
       date: "5TH MAY 2020, 12:23",
       status: "APPROVED",
     },
     {
       value: 53,
-      weight: "100 KG",
-      id: 85,
-      weight: "100 KG",
-      id: "XXXX....XXX....XXX...XXX...",
+      _weight: "100 KG",
+      id: "XXXX....XXX.....",
       date: "5TH MAY 2020, 12:23",
       status: "DECLINED",
     },
     {
       value: 32,
-      weight: "100 KG",
+      _weight: "100 KG",
       id: 49,
-      weight: "140 KG",
       date: "5TH MAY 2020, 12:23",
       status: "DEPOSITED",
     },
     {
       value: 75,
-      weight: "100 KG",
-      id: 60,
-      weight: "900 KG",
+      _weight: "100 KG",
+      id: 49,
       date: "5TH MAY 2020, 12:23",
       status: "DEPOSITED",
     },
     {
       value: "CREDIT",
-      address: "ADDRESS",
+      _address: "021f....",
       value: "20 RC",
-      address: "0013f...",
+      _address: "0013f...",
       date: "5TH MAY 2020, 12:23",
       status: "CREDIT",
     },
@@ -112,48 +105,62 @@ const HistoryPage = () => {
             {data.map((transaction, index) => (
               <div
                 key={index}>
-                <table className="-m-2 md:mx-4 w-full table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
-                  <tr className="">
-                    <th className="w-1/6 m-2">TOTAL VALUE</th>
-                    <th className="w-2/6 m-2">TOTAL WEIGHT</th>
-                    <th className="w-1/6 m-2">TRANSACTION ID</th>
-                    <th className="w-1/6 m-2">ADDRESS</th>
-                    <th className="w-1/6 m-2">
-                      <div className="flex justify-end">
-                        <img className={`h-7 w-7   m-2 p-2  ${transaction.status === "DECLINED"
-                          ? "bg-red-700"
-                          : "bg-green-700"
-                          }`}
-                          src={
-                            transaction.status === "DECLINED"
-                              ? stateRed
-                              : stateGreen
-                          }
-                          alt="State Icon Green"
-                        />
-                      </div>
-                    </th>
-                  </tr>
-                  <tr>
-                    <td className="text-center text-primary40 font-extrabold"> {transaction.value}</td>
-                    <td className="text-center text-primary40 font-extrabold">{transaction.weight}</td>
-                    <td className="text-center text-primary40 font-extrabold"> {transaction.id}</td>
-                    <td className="text-center text-primary40 font-extrabold"> {transaction.address}</td>
-                    <td className="items-end text-end">
-                      <ul>
+                  <table className= "-m-2 w-full table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
+                    <thead>
+                      <tr>
+                        <th className="w-1/6 px-2 py-1">
+                          <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
+                            <span className="font-semibold">TOTAL VALUE</span>
+                          </div>
+                        </th>
+                        <th className="w-1/6 px-2 py-1">
+                          <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
+                            <span className="font-semibold">TOTAL WEIGHT</span>
+                          </div>
+                        </th>
+                        <th className="w-1/6 px-2 py-1">
+                          <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
+                            <span className="font-semibold">TRANSACTION ID</span>
+                          </div>
+                        </th>
+                        <th className="w-1/6 px-2 py-1">
+                          <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
+                            <span className="font-semibold">ADDRESS</span>
+                          </div>
+                        </th>
+                        <th className="w-1/6 px-2 py-1">
+                          <div className="flex justify-end">
+                            <img
+                              className={`h-7 w-7 p-2 ${transaction.status === "DECLINED" ? "bg-red-700" : "bg-green-700"}`}
+                              src={transaction.status === "DECLINED" ? stateRed : stateGreen}
+                              alt="State Icon Green"
+                            />
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction.value}</td>
+                        <td className="w-2/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction._weight}</td>
+                        <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction.id}</td>
+                        <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction._address}</td>
+                        <td className="w-1/6 px-2 py-1 items-end text-right">
+                          <ul>
+                            <li className="text-xs font-bold text-gray-500">{transaction.date}</li>
+                            <li
+                              className={`font-extrabold ${transaction.status === "DECLINED" ? "text-red-700" : "text-green-700"
+                                }`}
+                            >
+                              {transaction.status}
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
 
 
-                        <li className="text-xs font-bold text-gray-500">{transaction.date}</li>
-                        <li className={`text-right font-extrabold ${transaction.status === "DECLINED"
-                          ? "text-red-700"
-                          : "text-green-700"
-                          }`}
-                        >
-                          {transaction.status} </li>
-                      </ul>
-                    </td>
-                  </tr>
-                </table>
               </div>
             ))}
             <div className="h-2 w-full"></div>
@@ -165,5 +172,4 @@ const HistoryPage = () => {
 
   );
 };
-
 export default HistoryPage;
