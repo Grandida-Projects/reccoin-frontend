@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import { reccoinABI } from './reccoin-abi';
+import { recyloxABI } from './recylox-abi';
 import PropTypes from 'prop-types';
 
 export const TokenContext = createContext();
@@ -35,7 +35,7 @@ export const TokenProvider = ({ children }) => {
   //         setProvider(ethereumProvider);
   //         const signer = ethereumProvider.getSigner();
   //         const contractAddress = '0x835451710F730f06b4AE5978bfD1727322fCFBA9'; // Replace with the actual contract address
-  //         const contract = new ethers.Contract(contractAddress, reccoinABI, signer);
+  //         const contract = new ethers.Contract(contractAddress, recyloxABI, signer);
   //         console.log('contract =>', contract);
   //         setContract(contract);
 
@@ -76,8 +76,8 @@ export const TokenProvider = ({ children }) => {
         // MetaMask requires requesting permission to connect users accounts
         setProvider(ethereumProvider);
         const signer = ethereumProvider.getSigner();
-        const contractAddress = '0x835451710F730f06b4AE5978bfD1727322fCFBA9'; // Replace with the actual contract address
-        const contract = new ethers.Contract(contractAddress, reccoinABI, signer);
+        const contractAddress = '0x0750Da72092d0eD371f9aD7Cabd8EcB23f1cC480'; // Replace with the actual contract address
+        const contract = new ethers.Contract(contractAddress, recyloxABI, signer);
         console.log('contract =>', contract);
         setContract(contract);
 
