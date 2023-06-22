@@ -1,6 +1,5 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
 
+import { Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
 import CompanyRegPage from '../pages/registration/CompanyRegPage';
 import WhitePaper from '../pages/WhitePaper';
@@ -10,6 +9,7 @@ import Test from '../pages/Test';
 import Blog from '../pages/Blog';
 import PrivacyPolicy from '../pages/Privacy';
 import UserRegPage from '../pages/registration/UserRegPage';
+import EmailVerification from '../pages/EmailVerification';
 
 const routes = [
   {
@@ -26,6 +26,11 @@ const routes = [
     name: "Register User",
     path: "/register-user",
     component: UserRegPage,
+  },
+  {
+    name: "Authenticate",
+    path: "/authenticate",
+    component: EmailVerification,
   },
   {
     name: "White Paper",

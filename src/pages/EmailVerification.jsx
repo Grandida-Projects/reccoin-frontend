@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Logo from './../components/logo';
 import companyBg from '../assets/company-bg.svg';
 
@@ -71,7 +71,7 @@ export const EmailVerification = () => {
               </div>
               <p className="items-center text-center my-16">Didn't receive the code? <a href="#">Resend the code in 0:30</a> </p>
               <div className="text-center mb-16">
-                <button className='rounded-full rounded-[5px] bottom-6 left-36 p-2 text-[18px] md:text-[20px] lg:text-[20px] font-medium text-[#fff] bg-[#0D4D00]'
+                <button className='rounded-full  bottom-6 left-36 p-2 text-[18px] md:text-[20px] lg:text-[20px] font-medium text-[#fff] bg-[#0D4D00]'
                 >
                   Verify Email
                 </button>

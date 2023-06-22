@@ -1,7 +1,5 @@
 import Hero from '../components/homepage_components/HeroSection';
-import { EarnReccoinReward } from '../components/homepage_components/earnReccoin';
 import LatestNews from '../components/homepage_components/LatestNews.jsx';
-import About from '../components/homepage_components/about';
 import Faq from '../components/homepage_components/faq';
 import Recycling from '../components/homepage_components/Recycling';
 import HowItWorks from '../components/homepage_components/howItWorks';
@@ -14,7 +12,7 @@ import AboutUsAndEarnRecoin from '../components/about_us_components/AboutUsAndEa
 
 const Home = () => {
   return (
-    <div className='mx-auto'>
+    <div className='container mx-auto'>
       <Header />
       <Hero />
       <ReccoinAsaService />

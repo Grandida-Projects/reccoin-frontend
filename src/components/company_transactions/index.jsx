@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { TbArrowsRightLeft } from "react-icons/tb";
 import { CgSearch } from "react-icons/cg";
 import { TiArrowSortedDown } from "react-icons/ti";

@@ -1,4 +1,5 @@
-import React, {useContext, useState} from 'react'
+/* eslint-disable react/prop-types */
+import {useContext, useState} from 'react'
 import {Link} from "react-router-dom";
 import tickIcon from '../../assets/tickIcon.svg';
 import tickGreenIcon from '../../assets/tickGreenIcon.svg';

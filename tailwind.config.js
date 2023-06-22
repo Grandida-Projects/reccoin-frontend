@@ -28,7 +28,8 @@ export default {
         'subscribeBg': "url('/src/assets/subscribeBg.png')",
         'recyclingBg': "url('/src/assets/recyclingBg.png')",
         'whitePaperHeroBg': "url('/src/assets/whitePaperHeroBg.png')",
-        'privacyPolicyBg': "url('/src/assets/privacyPolicyBg.png')"
+        'privacyPolicyBg': "url('/src/assets/privacyPolicyBg.png')",
+        'earnRecyloxBg': "url('/src/assets/reccoin_reward.png')"
       },
       screens: {
       }

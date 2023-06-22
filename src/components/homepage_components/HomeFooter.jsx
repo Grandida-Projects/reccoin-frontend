@@ -14,13 +14,13 @@ const HomeFooter = () => {
                 {/* footer Links */}
                 <div className="flex flex-col mr-[1.5rem]">
                     <p className="font-2 font-bold mb-4">Links</p>
-                    <Link className="font-2 mb-4 font-extralight">
+                    <Link to={'/'} className="font-2 mb-4 font-extralight">
                     Home
                     </Link>
-                    <Link className="font-2 mb-4 font-extralight">
+                    <Link to={'/about-us'} className="font-2 mb-4 font-extralight">
                     About Us
                     </Link>
-                    <Link className="font-2 mb-4 font-extralight">
+                    <Link to={'/how-it-works'} className="font-2 mb-4 font-extralight">
                     How it works
                     </Link>
                 </div>
@@ -28,10 +28,10 @@ const HomeFooter = () => {
                 {/* resources */}
                 <div className="flex flex-col">
                     <p className="font-2 font-bold mb-4">Resources</p>
-                    <Link className="font-2 mb-4 font-extralight">
+                    <Link to={'/blog'} className="font-2 mb-4 font-extralight">
                     Blog
                     </Link>
-                    <Link className="font-2 mb-4 font-extralight">
+                    <Link to={'/white-paper'} className="font-2 mb-4 font-extralight">
                     White Paper
                     </Link>
                     <Link
