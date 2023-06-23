@@ -23,13 +23,14 @@ export default {
       },
       backgroundImage: {
         'herobg': "url('/src/assets/hero-img-bg.png')",
-        'faqbg': "url('/src/assets/faq.svg')",
+        'faqbg': "url('/src/assets/faq.png')",
         'aboutbg': "url('/src/assets/aboutUsBg.png')",
         'subscribeBg': "url('/src/assets/subscribeBg.png')",
         'recyclingBg': "url('/src/assets/recyclingBg.png')",
         'whitePaperHeroBg': "url('/src/assets/whitePaperHeroBg.png')",
         'privacyPolicyBg': "url('/src/assets/privacyPolicyBg.png')",
-        'earnRecyloxBg': "url('/src/assets/reccoin_reward.png')"
+        'earnRecyloxBg': "url('/src/assets/reccoin_reward.png')",
+        'howItWorksBg': "url('/src/assets/how_it_works_bg.png')"
       },
       screens: {
       }

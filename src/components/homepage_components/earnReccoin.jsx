@@ -12,12 +12,12 @@ export default function EarnReccoin() {
 }
 
 export function EarnReccoinReward() {
-    return <div className=" w-full h-[500px] items-center pl-6 ">
-        
-            <div className="relative mt-16 mb-20 h-[400px] text-[#005232] text-[16px] font-montserrat font-[700] ">
+    return <div className="relative pb-24 pl-0 w-full items-center md:pl-6 md:h-[500px] md:pb-0 ">
+    
             {/* bg-earnRecyloxBg bg-contain bg-no-repeat bg-right-bottom -scale-x-100 */}
                
-               <p className="">
+               <p className="mb-8 mt-16 md:mb-0 md:h-[300px] text-[#005232] text-[16px]
+                    font-montserrat font-[700]">
                 Earn Reccoin tokens for every item you recycle through <br /> 
                 our waste management system. From plastic bottles to <br />
                 paper and rubber, each contribution counts towards <br />
@@ -26,13 +26,13 @@ export function EarnReccoinReward() {
                </p>
 
                 <Link to={'/user-dashboard'} 
-                    className='absolute top-[280px] py-2 px-8 bg-primary40 rounded-sm text-white font-black'> 
+                    className='mb-8 py-2 px-8 bg-primary40 rounded-sm text-white font-black'> 
                     Earn Now!
                 </Link>
-                <img src={reccoin_reward} alt="" className=" w-[400px] h-[600px] absolute -right-8 top-5 object-contain -scale-x-100 " />
+                <img src={reccoin_reward} alt="" className="-bottom-5 absolute object-contain md:-bottom-10 -right-12" />
             </div>
             
           
-    </div>
+    // </div>
 }
 

@@ -7,14 +7,14 @@ import menuIcon from '../../assets/menuGreen.svg'
 import { HeaderData } from '../../data/HeaderData'
 import { MdClose } from "react-icons/md"
 
-const Header = () => {
+const RegistrationHeader = () => {
 
-    const {connectedAccount} = useContext(TokenContext)
+    const {connectedAccount, initializeContract, loading} = useContext(TokenContext)
     const {pathname} = useLocation();
 
     // const [selectedOption, setSelectedOption] = useState('');
     const [toggle_menu, setToggleMenu] = useState(false);
-    const [showRegisterDropdown, setShowRegisterDropdown] = useState(false);
+    // const [showRegisterDropdown, setShowRegisterDropdown] = useState(false);
     const [showHomeDropDown, setShowHomeDropDown] = useState(false);
 
 
@@ -24,9 +24,9 @@ const Header = () => {
     }
 
     // show register drop down when user hover over the "Register" link
-    const registerDropdown = () => {
-      setShowRegisterDropdown(!showRegisterDropdown);
-    }
+    // const registerDropdown = () => {
+    //   setShowRegisterDropdown(!showRegisterDropdown);
+    // }
 
     // show home drop down when user hover over the "Home" link
     const homeDropdown = () => {
@@ -107,44 +107,48 @@ const Header = () => {
                   <Link to={item.link}>{item.title}</Link>
                 </li>
               ))}
-
               {/* register link */}
-              {!connectedAccount ? 
-                <li 
-                  className={`relative w-fit hover:border-b font-normal
-                  hover:cursor-pointer hover:border-primary40 hover:font-bold 
-                  transition-all flex flex-row gap-2 my-4 border-primary40 
-                  md:mr-4`}
-                  onMouseEnter={registerDropdown}
-                  onMouseLeave={registerDropdown}
-                >Register<img src={dropdown} alt="dropdown icon" />
-                {
-                  showRegisterDropdown ?
-                  <div className="inline-block">
-                    <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
-                      <Link 
-                        to={'/register-user'}
-                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-user" ? "border-b font-bold" : "font-normal"}`}
-                      >User
+              {/* <li 
+                className={`relative w-fit hover:border-b font-normal
+                hover:cursor-pointer hover:border-primary40 hover:font-bold 
+                transition-all flex flex-row gap-2 my-4 border-primary40 
+                md:mr-4`}
+                onMouseEnter={registerDropdown}
+                onMouseLeave={registerDropdown}
+              >Register<img src={dropdown} alt="dropdown icon" />
+              {
+                showRegisterDropdown ?
+                <div className="inline-block">
+                  <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
+                    <Link 
+                      to={'/register-user'}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-user" ? "border-b font-bold" : "font-normal"}`}
+                     >User
+                    </Link>
+                    <Link 
+                      to={'/register-company'}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-company" ? "border-b font-bold" : "font-normal"}`}
+                      >Company
                       </Link>
-                      <Link 
-                        to={'/register-company'}
-                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-company" ? "border-b font-bold" : "font-normal"}`}
-                        >Company
-                        </Link>
-                    </div>
                   </div>
-                  : ""
-                }
-                  
-                </li>
-              :
-                <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]">
-                    {connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) }
-                </button>
+                </div>
+                : ""
               }
-
+                
+              </li> */}
             </ul>
+
+            {/* toggle menu and connect button  */}
+            {/* connect button */}
+           
+              
+            <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]" 
+                onClick={() => initializeContract()}>
+                {   loading ? "loading..." : connectedAccount ? 
+                    connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) 
+                    : "Connect Wallet" 
+                }
+             </button>
             
 
             {/* toggle  menu */}
@@ -158,4 +162,4 @@ const Header = () => {
   );
 }
 
-export default Header
+export default RegistrationHeader

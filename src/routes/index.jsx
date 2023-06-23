@@ -9,7 +9,8 @@ import Test from '../pages/Test';
 import Blog from '../pages/Blog';
 import PrivacyPolicy from '../pages/Privacy';
 import UserRegPage from '../pages/registration/UserRegPage';
-import EmailVerification from '../pages/EmailVerification';
+import EmailVerification from '../pages/registration/EmailVerification';
+import HowItWorks from '../pages/HowItWorks';
 
 const routes = [
   {
@@ -61,6 +62,11 @@ const routes = [
     name: "Blog",
     path: "/blog",
     component: Blog,
+  },
+  {
+    name: "How It Works",
+    path: "/how-it-works",
+    component: HowItWorks,
   },
 ];
 

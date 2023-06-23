@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import {useContext, useState} from 'react'
 import UserDashboardLayout from '../../components/dashboard_components/UserDashboardLayout'
 import {DepositTransaction} from "../../data/DepositTransactionData";
 import {Link} from "react-router-dom";
@@ -6,7 +6,7 @@ import tickIcon from '../../assets/tickIcon.svg';
 import eyesIcon from '../../assets/eyesIcon.svg';
 import closeIcon from "../../assets/close.svg";
 import { ethers } from 'ethers';
-import { TokenContext } from '../../context/reccoin';
+import { TokenContext } from '../../context/recylox';
 
 // deposit plastic content
 const DepositPlasticTab = ({ toggleClose }) => {

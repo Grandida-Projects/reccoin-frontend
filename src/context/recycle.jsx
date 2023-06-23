@@ -36,6 +36,9 @@ export const RecycleProvider = ({ children }) => {
 
         // Fetch companies and pickers from the contract
         const companies = await contract.getCompanyAddresses();
+
+        console.log("companies =>", companies);
+
         const pickers = await contract.getPickerAddresses();
         setCompanies(companies);
         setPickers(pickers);

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
-import Logo from './../components/logo';
-import companyBg from '../assets/company-bg.svg';
+import Logo from '../../components/logo';
+import companyBg from '../../assets/company-bg.svg';
 
 export const EmailVerification = () => {
   const [code, setCode] = useState(['', '', '', '', '', '']);

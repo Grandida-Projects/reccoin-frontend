@@ -31,13 +31,13 @@ const About = () => {
     }
   ]
 
-  return  <div className="w-full h-[500px] border-r border-[#97CC8C]">
+  return  <div className="w-full md:h-[500px] md:border-r md:border-[#97CC8C]">
 
       {/* title */}
       {/* <p className='text-center text-[2rem] font-bold text-primary60 font-openSans'>Empowering Change through Recycling:</p> */}
 
       {/* description and image */}
-      <div className='items-center relative h-[400px] mt-16 mb-20 font-montserrat text-[16px] text-[#005232] font-[700] '>
+      <div className='items-center mb-16 mt-16 font-montserrat text-[16px] text-[#005232] font-[700] md:h-[300px] md:mb-0'>
         {/* <div className='max-w-[640px]'> */}
         {/* description */}
           {/* {
@@ -60,12 +60,9 @@ const About = () => {
           local businesses to vouchers for eco-friendly products.
           </p>
           
-          {/* learn more button */}
-          <br />
-          <Link to={'/about-us'} className='absolute top-[280px] py-2 px-8 bg-primary40 rounded-sm text-white font-black'> Learn More</Link>
         </div>
-        {/* image */}
-        {/* <img src={aboutUsImage} alt="reccoin box" className="w-[450px] h-[500px]" /> */}
+        {/* learn more button */}
+        <Link to={'/about-us'} className='mt-8 py-2 px-8 bg-primary40 rounded-sm text-white font-black'> Learn More</Link>
       </div>  
   // </div>
 }

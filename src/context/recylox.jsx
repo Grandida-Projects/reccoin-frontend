@@ -235,7 +235,7 @@ export const TokenProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    initializeContract();
+    // initializeContract();
   }, [])
 
   return (
