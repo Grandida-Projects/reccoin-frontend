@@ -6,7 +6,7 @@ import tickIcon from '../../assets/tickIcon.svg';
 import eyesIcon from '../../assets/eyesIcon.svg';
 import closeIcon from "../../assets/close.svg";
 import { ethers } from 'ethers';
-import { TokenContext } from '../../context/reccoin';
+import { TokenContext } from "../../context/recylox";
 
 // deposit plastic content
 const DepositPlasticTab = ({ toggleClose }) => {

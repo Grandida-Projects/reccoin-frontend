@@ -6,7 +6,7 @@ import { PropTypes } from "prop-types";
 export const BlogSection1 = () => {
   return (
     <div className="w-full px-5 md:px-[64px] flex flex-col items-center max-w-[1371px] mx-auto pt-40 md:pt-20">
-      <p className="text-primary40 text-xl md:text-[40px] font-montserrat font-bold max-w-[1156px] text-center">Re:Cycle: Transforming Waste into a Sustainable Future</p>
+      <p className="text-primary40 text-xl md:text-[40px] font-montserrat font-bold max-w-[1156px] text-center leading-snug">Re:Cycle: Transforming Waste into a Sustainable Future</p>
       <div className="bg-[url('/src/assets/blogImage1.png')] bg-cover bg-center bg-no-repeat h-[381px] md:h-[581px] w-full max-w-[1371px] rounded-lg relative z-0 mt-[37px] mb-[100px] clip">
         <div className="absolute z-[1] bg-black/40 top-0 left-0 right-0 bottom-0"></div>
         <div className="absolute z-[2] flex flex-col gap-12 w-full max-w-4xl items-end px-[27px] bottom-[43px]">
