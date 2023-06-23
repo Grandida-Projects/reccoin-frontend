@@ -2,7 +2,7 @@ import  {MdOutlineEmail} from "react-icons/md"
 
 const Newsletter = () => {
     return (
-      <div className="flex flex-col items-center bg-[#04A667] py-[38px] px-5">
+      <div className="container flex flex-col items-center bg-[#04A667] py-[38px] px-5 mx-auto">
         <p className="font-montserrat md:text-xl text-white font-bold text-center">Join Our Mailing List for Updates and Discounts!</p>
         <div className="w-full flex flex-col md:flex-row items-center gap-[14px] mt-10 max-w-[872px] md:flex-wrap">
           <div className="flex items-center gap-5 bg-white rounded-[10px] px-5 max-w-[656px] w-full">

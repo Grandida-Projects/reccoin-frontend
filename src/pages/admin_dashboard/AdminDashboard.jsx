@@ -8,7 +8,7 @@ import eyesOpenIcon from '../../assets/eyeOpenIcon.svg';
 import closeIcon from "../../assets/close.svg";
 import AdminDashboardLayout from '../../components/dashboard_components/AdminDashboardLayout';
 import { AdminDashboardData } from '../../data/AdminDashboardData';
-import { TokenContext } from '../../context/reccoin';
+import { TokenContext } from "../../context/recylox";
 import { ethers } from 'ethers';
 
 // mint token tab
