@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import dropdown from '../../assets/dropdown.svg'
 import Logo from '../logo'
@@ -12,7 +12,7 @@ const Header = () => {
     const {connectedAccount, initializeContract, loading} = useContext(TokenContext)
     const {pathname} = useLocation();
 
-    const [selectedOption, setSelectedOption] = useState('');
+    // const [selectedOption, setSelectedOption] = useState('');
     const [toggle_menu, setToggleMenu] = useState(false);
 
 
@@ -32,7 +32,7 @@ const Header = () => {
     }, [])
 
   return (
-    <header className="mx-auto z-10 fixed bg-white top-0  w-full font-montserrat font-bold text-base text-primary40 drop-shadow-md">
+    <header className="container mx-auto z-10 fixed bg-white top-0  w-full font-montserrat font-bold text-base text-primary40 drop-shadow-md">
       <div className="w-[90%] mx-auto flex flex-row items-center h-20 justify-between md:justify-between">
         {/* logo */}
         <div className="w-12 h-12">

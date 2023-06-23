@@ -3,7 +3,7 @@ import reccoinBox from "../../assets/reccoin.png";
 import reccoin_reward from "../../assets/reccoin_reward.png";
 
 export default function EarnReccoin() {
-    return <div className="bg-white w-full flex justify-center items-center flex-col md:flex-row gap-7 pt-[95px] pb-[110px] px-4">
+    return <div className="bg-white w-full items-center pt-[95px] pb-[110px] px-4">
         <p className="text-primary60 text-[4.3125rem] font-semibold">
             Earn <br />Reccoin
         </p>
@@ -12,21 +12,27 @@ export default function EarnReccoin() {
 }
 
 export function EarnReccoinReward() {
-    return <div className=" w-full flex justify-center items-center flex-col md:flex-row gap-7 py-4 px-6">
-        <img src={reccoin_reward} alt="reccoin box" className="w-[450px] h-full" />
-        <div>
-            <p className="text-primary60 text-[74px] font-bold leading-[70px]">
-                <span className="text-black font-semibold">Earn</span> <br />Reccoin
-            </p>
-            <p className="mt-10 text-[#005232] text-[1.2rem] font-montserrat font-semibold max-w-[640px]">
-                Earn Reccoin tokens for every item you recycle through our waste management system. From plastic bottles to paper and rubber, each
-                contribution counts towards building a more
-                sustainable future. The more you recycle, the
-                more Reccoin you earn!
-            </p>
-            <br />
-          <Link to={'/user-dashboard'} className='py-2 px-14 bg-primary40 rounded-sm text-white my-16 font-openSans font-black'> Earn Now!</Link>
-        </div>
+    return <div className=" w-full h-[500px] items-center pl-6 ">
+        
+            <div className="relative mt-16 mb-20 h-[400px] text-[#005232] text-[16px] font-montserrat font-[700] ">
+            {/* bg-earnRecyloxBg bg-contain bg-no-repeat bg-right-bottom -scale-x-100 */}
+               
+               <p className="">
+                Earn Reccoin tokens for every item you recycle through <br /> 
+                our waste management system. From plastic bottles to <br />
+                paper and rubber, each contribution counts towards <br />
+                building a more sustainable future. <br /> 
+                The more you recycle, the more Reccoin you earn!
+               </p>
+
+                <Link to={'/user-dashboard'} 
+                    className='absolute top-[280px] py-2 px-8 bg-primary40 rounded-sm text-white font-black'> 
+                    Earn Now!
+                </Link>
+                <img src={reccoin_reward} alt="" className=" w-[400px] h-[600px] absolute -right-8 top-5 object-contain -scale-x-100 " />
+            </div>
+            
+          
     </div>
 }
 

@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import UserDashboardLayout from '../../components/dashboard_components/UserDashboardLayout'
 import {DepositTransaction} from "../../data/DepositTransactionData";
 import {Link} from "react-router-dom";
 import tickIcon from '../../assets/tickIcon.svg';
 import eyesIcon from '../../assets/eyesIcon.svg';
-
 import closeIcon from "../../assets/close.svg";
+import { ethers } from 'ethers';
+import { TokenContext } from '../../context/reccoin';
 
 // deposit plastic content
 const DepositPlasticTab = ({ toggleClose }) => {
@@ -152,11 +153,29 @@ const TransactionTab = ({ toggleClose }) => {
 }
 
 // transfer reccoin tab
-const TransferRecyloxTab = ({toggleClose}) => {
+const TransferRecyloxTab = ({toggleClose, isTransferSuccessful, transferLoading,  TransferToken}) => {
 
-    const [recipentAddress, setRecipientAddress] = useState('');
+    const [recipientAddress, setRecipientAddress] = useState('');
     const [transferAmount, setTransferAmount] = useState(0);
-    const [isTransferChecked, setIsTransferChecked] = useState(false)
+    const [isTransferChecked, setIsTransferChecked] = useState(false);
+
+    const transferToken = async () => {
+
+        if (!recipientAddress) {
+            alert("Input recipient address")
+        }
+        else if (!transferAmount) {
+    
+            alert("Input transfer amount")
+        } 
+        else if(!isTransferChecked) {
+            alert("You need to agree that the details provided are correct")
+        }
+        else {
+            const transfer_amt = ethers.utils.parseEther(transferAmount)
+           await TransferToken(recipientAddress, transfer_amt)
+        }
+    }
     
   return   <div className="bg-[#005232] w-full mx-auto flex flex-col justify-start text-white p-10">
     {/* header */}
@@ -193,13 +212,15 @@ const TransferRecyloxTab = ({toggleClose}) => {
     </div>
     {/* submit button */}
     <button className="w-[60%] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6">
-        SUBMIT
+    {transferLoading ? "Loading..." : "TRANSFER"}
     </button>
     </div>
 
 }
 
 const UserDashboard = () => {
+
+    const {transferTokens, accountBalance, isMethodCallSuccessful, isMethodCallLoading} = useContext(TokenContext);
     // Component to Display for dashboard
     const [componentToDisplay, setComponentToDisplay] = useState(1);
 
@@ -253,7 +274,12 @@ const UserDashboard = () => {
                             {
                                 componentToDisplay === 1 ? <DepositPlasticTab toggleClose={toggleCLose}/> 
                                 : componentToDisplay === 2 ? <TransactionTab toggleClose={toggleCLose}/> 
-                                : componentToDisplay === 3 ? <TransferRecyloxTab toggleClose={toggleCLose}/> 
+                                : componentToDisplay === 3 ? <TransferRecyloxTab 
+                                    toggleClose={toggleCLose}
+                                    TransferToken={transferTokens}
+                                    transferLoading={isMethodCallLoading}
+                                    isTransferSuccessful={isMethodCallSuccessful}
+                                /> 
                                 : ""
                             }
 
