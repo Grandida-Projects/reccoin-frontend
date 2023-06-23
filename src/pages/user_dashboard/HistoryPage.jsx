@@ -80,8 +80,6 @@ const HistoryPage = () => {
     },
     {
       value: "CREDIT",
-      _address: "021f....",
-      value: "20 RC",
       _address: "0013f...",
       date: "5TH MAY 2020, 12:23",
       status: "CREDIT",
@@ -105,7 +103,7 @@ const HistoryPage = () => {
             {data.map((transaction, index) => (
               <div
                 key={index}>
-                  <table className= "-m-2 w-full table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
+                  <table className= "-m-2 min-w-full table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
                     <thead>
                       <tr>
                         <th className="w-1/6 px-2 py-1">
@@ -142,14 +140,14 @@ const HistoryPage = () => {
                     <tbody>
                       <tr>
                         <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction.value}</td>
-                        <td className="w-2/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction._weight}</td>
+                        <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction._weight}</td>
                         <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction.id}</td>
                         <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction._address}</td>
                         <td className="w-1/6 px-2 py-1 items-end text-right">
                           <ul>
                             <li className="text-xs font-bold text-gray-500">{transaction.date}</li>
                             <li
-                              className={`font-extrabold ${transaction.status === "DECLINED" ? "text-red-700" : "text-green-700"
+                              className={`font-extrabold whitespace-nowrap overflow-hidden ${transaction.status === "DECLINED" ? "text-red-700" : "text-green-700"
                                 }`}
                             >
                               {transaction.status}
@@ -159,7 +157,6 @@ const HistoryPage = () => {
                       </tr>
                     </tbody>
                   </table>
-
 
               </div>
             ))}
