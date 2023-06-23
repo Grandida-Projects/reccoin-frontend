@@ -19,18 +19,21 @@ const HistoryPage = () => {
       value: 89,
       _weight: "98 KG",
       id: "XXXX....XXX.....",
+      _address: "001f....",
       date: "5TH June 2020, 12:23",
       status: "DECLINED",
     },
     {
       value: "45",
       _weight: "123 KG",
+      id: "XXXX....XXX.....",
       _address: "021A....",
       date: "5TH MAY 2020, 12:23",
       status: "APPROVED",
     },
     {
       value: "CREDIT",
+      id: "XXXX....XXX.....",
       _address: "021f....",
       date: "5TH MAY 2020, 12:23",
       status: "APPROVED",
@@ -39,7 +42,8 @@ const HistoryPage = () => {
     {
       value: 97,
       _weight: "123 KG",
-      id: 45,
+      id: "XXXX....XXX.....",
+      _address: "001f....",
       date: "5TH MAY 2020, 12:23",
       status: "DEPOSITED",
     },
@@ -47,6 +51,7 @@ const HistoryPage = () => {
       value: 55,
       _weight: "TOTAL WEIGHT",
       id: "XXXX....XXX.....",
+      _address: "0047....",
       date: "5TH MAY 2020, 12:23",
       status: "DEPOSITED",
     },
@@ -54,6 +59,7 @@ const HistoryPage = () => {
       value: 82,
       _weight: "650 KG",
       id: "XXXX....XXX.....",
+      _address: "09B6....",
       date: "5TH MAY 2020, 12:23",
       status: "APPROVED",
     },
@@ -61,28 +67,40 @@ const HistoryPage = () => {
       value: 53,
       _weight: "100 KG",
       id: "XXXX....XXX.....",
+      _address: "046f....",
       date: "5TH MAY 2020, 12:23",
       status: "DECLINED",
     },
     {
       value: 32,
       _weight: "100 KG",
-      id: 49,
+      id: "XXXX....XXX.....",
+      _address: "031f....",
       date: "5TH MAY 2020, 12:23",
       status: "DEPOSITED",
     },
     {
       value: 75,
       _weight: "100 KG",
-      id: 49,
+      id: "XXXX....XXX.....",
+      _address: "001h....",
       date: "5TH MAY 2020, 12:23",
       status: "DEPOSITED",
     },
     {
       value: "CREDIT",
+      id: "XXXX....XXX.....",
       _address: "0013f...",
       date: "5TH MAY 2020, 12:23",
       status: "CREDIT",
+    },
+    {
+      value: 75,
+      _weight: "100 KG",
+      id: "XXXX....XXX.....",
+      _address: "001h....",
+      date: "5TH MAY 2020, 12:23",
+      status: "DEPOSITED",
     },
   ];
 
@@ -103,60 +121,52 @@ const HistoryPage = () => {
             {data.map((transaction, index) => (
               <div
                 key={index}>
-                  <table className= "-m-2 min-w-full table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
-                    <thead>
-                      <tr>
-                        <th className="w-1/6 px-2 py-1">
-                          <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
-                            <span className="font-semibold">TOTAL VALUE</span>
-                          </div>
-                        </th>
-                        <th className="w-1/6 px-2 py-1">
-                          <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
-                            <span className="font-semibold">TOTAL WEIGHT</span>
-                          </div>
-                        </th>
-                        <th className="w-1/6 px-2 py-1">
-                          <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
-                            <span className="font-semibold">TRANSACTION ID</span>
-                          </div>
-                        </th>
-                        <th className="w-1/6 px-2 py-1">
-                          <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
-                            <span className="font-semibold">ADDRESS</span>
-                          </div>
-                        </th>
-                        <th className="w-1/6 px-2 py-1">
-                          <div className="flex justify-end">
-                            <img
-                              className={`h-7 w-7 p-2 ${transaction.status === "DECLINED" ? "bg-red-700" : "bg-green-700"}`}
-                              src={transaction.status === "DECLINED" ? stateRed : stateGreen}
-                              alt="State Icon Green"
-                            />
-                          </div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction.value}</td>
-                        <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction._weight}</td>
-                        <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction.id}</td>
-                        <td className="w-1/6 px-2 py-1 text-center text-primary40 font-extrabold">{transaction._address}</td>
-                        <td className="w-1/6 px-2 py-1 items-end text-right">
-                          <ul>
-                            <li className="text-xs font-bold text-gray-500">{transaction.date}</li>
-                            <li
-                              className={`font-extrabold whitespace-nowrap overflow-hidden ${transaction.status === "DECLINED" ? "text-red-700" : "text-green-700"
-                                }`}
-                            >
-                              {transaction.status}
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <table className="-m-2 min-w-full table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
+                  <thead>
+                    <tr className=" ">
+                      <th className="px-2 py-1">
+                        <span className="font-semibold">TOTAL VALUE</span>
+                      </th>
+                      <th className="px-2 py-1">
+                        <span className="font-semibold">TOTAL WEIGHT</span>
+                      </th>
+                      <th className="px-2 py-1">
+                        <span className="font-semibold">TRANSACTION ID</span>
+                      </th>
+                      <th className="px-2 py-1">
+                        <span className="font-semibold">ADDRESS</span>
+                      </th>
+                      <th className="px-2 py-1">
+                        <div className="flex justify-end">
+                          <img
+                            className={`h-7 w-7 p-2 ${transaction.status === "DECLINED" ? "bg-red-700" : "bg-green-700"}`}
+                            src={transaction.status === "DECLINED" ? stateRed : stateGreen}
+                            alt="State Icon Green"
+                          />
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="text-primary40 text-xs md:text-lg font-extrabold">
+                      <td className="px-2 py-1 text-center ">{transaction.value}</td>
+                      <td className="px-2 py-1 text-center ">{transaction._weight}</td>
+                      <td className="px-2 py-1 text-center ">{transaction.id}</td>
+                      <td className="px-2 py-1 text-center ">{transaction._address}</td>
+                      <td className="px-2 py-1 items-end text-right">
+                        <ul>
+                          <li className="text-xs font-bold text-gray-500">{transaction.date}</li>
+                          <li
+                            className={`font-extrabold ${transaction.status === "DECLINED" ? "text-red-700" : "text-green-700"
+                              }`}
+                          >
+                            {transaction.status}
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
 
               </div>
             ))}
