@@ -6,11 +6,15 @@ import { TokenContext } from '../../context/recylox'
 import menuIcon from '../../assets/menuGreen.svg'
 import { HeaderData } from '../../data/HeaderData'
 import { MdClose } from "react-icons/md"
+import { useRecycle } from "../../context/recycle";
+
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const RegistrationHeader = () => {
 
     const {connectedAccount, initializeContract, loading} = useContext(TokenContext)
     const {pathname} = useLocation();
+    const {initializeRecycleContract} = useRecycle()
 
     // const [selectedOption, setSelectedOption] = useState('');
     const [toggle_menu, setToggleMenu] = useState(false);
@@ -31,6 +35,11 @@ const RegistrationHeader = () => {
     // show home drop down when user hover over the "Home" link
     const homeDropdown = () => {
       setShowHomeDropDown(!showHomeDropDown);
+    }
+
+    const connectCOntracts = () =>{
+      initializeContract();
+      initializeRecycleContract()
     }
 
     useEffect(() => {
@@ -142,13 +151,14 @@ const RegistrationHeader = () => {
             {/* connect button */}
            
               
-            <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]" 
-                onClick={() => initializeContract()}>
+            {/* <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]" 
+                onClick={() => connectCOntracts()}>
                 {   loading ? "loading..." : connectedAccount ? 
                     connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) 
                     : "Connect Wallet" 
                 }
-             </button>
+             </button> */}
+             <ConnectButton/>
             
 
             {/* toggle  menu */}

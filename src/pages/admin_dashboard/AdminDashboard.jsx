@@ -10,9 +10,12 @@ import AdminDashboardLayout from '../../components/dashboard_components/AdminDas
 import { AdminDashboardData } from '../../data/AdminDashboardData';
 import { TokenContext } from '../../context/recylox';
 import { ethers } from 'ethers';
+import { RecycleContext } from '../../context/recycle';
 
 // mint token tab
 const MintTokenTab = ({toggleClose, isMintSuccessful, MintLoading, MintToken}) => {
+
+ 
 
     const [recipientAddress, setRecipientAddress] = useState('');
     const [mintAmount, setmintAmount] = useState(0);
@@ -343,17 +346,31 @@ const BurnToken = ({toggleClose, BurnToken, burnLoading, isBurnSuccessfull}) => 
 
 const AdminDashboard = () => {
 
-    const {transferTokens, mintTokens, burnTokens, approveTokens, accountBalance,
+    const {transferTokens, mintTokens, burnTokens, accountBalance, contract,
         transferFrom, isMethodCallSuccessful, isMethodCallLoading} = useContext(TokenContext);
+
+    const {picker_count,} = useContext(RecycleContext)
 
     // Component to Display for dashboard
     const [componentToDisplay, setComponentToDisplay] = useState(0);
-    const [toggleBalance, setToggleBalance] = useState(false)
+    const [toggleBalance, setToggleBalance] = useState(false);
+    const [balance, setBalance] = useState(0)
 
     // function to close nav content
     const toggleCLose = () => {
         setComponentToDisplay(0);
     };
+
+    const ToggleBalance = () => {
+        if (!contract) {
+            alert("contract not initialized")
+        } else  {
+            setToggleBalance(!toggleBalance)
+            const account_balance = ethers.utils.formatEther(accountBalance.toString());
+            setBalance(account_balance);
+
+        }
+    }
 
     return (
         <AdminDashboardLayout active_link={'Dashboard'} dashboard_content={
@@ -373,16 +390,16 @@ const AdminDashboard = () => {
                             <path d="M10 0.5L0 5.5V7.5H20V5.5L10 0.5Z" fill="green"/>
                         </svg>
                         <h2 className='text-primary40  font-black text-[1.6rem] ml-4'>Balance</h2>
-                        <img src={toggleBalance ? eyesOpenIcon : eyesIcon} alt="eyes-icon" className='h-4 w-4 ml-20 hover:cursor-pointer' onClick={() => setToggleBalance(!toggleBalance)} />
+                        <img src={toggleBalance ? eyesOpenIcon : eyesIcon} alt="eyes-icon" className='h-4 w-4 ml-20 hover:cursor-pointer' onClick={ToggleBalance} />
                     </div>
-                    <h1 className='text-[#0D4D00] text-[1.6rem] font-[700]  my-4'>{toggleBalance ? ethers.utils.formatEther(accountBalance.toString()) : "XXXXX"}</h1>
+                    <h1 className='text-[#0D4D00] text-[1.6rem] font-[700]  my-4'>{toggleBalance ? balance : "XXXXX"}</h1>
                     <div className='w-[22.5rem] text-black text-[1rem] flex flex-row p-2 mt-10 bg-[#d9d9d975]'>
-                        <p className=' font-[500]'>Total Number of Register Companies:</p>
+                        <p className=' font-[500]'>Total Number of Registered Companies:</p>
                         <p className='font-[700] ml-2'>400</p>
                     </div>
                     <div className='w-[22.5rem] text-black text-[1rem]  flex flex-row p-2 mt-4 mb-8 bg-[#d9d9d975]'>
-                        <p className='font-[500]'>Total Number of Register Pickers:</p>
-                        <p className='font-[700] ml-2'>10,000</p>
+                        <p className='font-[500]'>Total Number of Registered Pickers:</p>
+                        <p className='font-[700] ml-2'></p>
                     </div>
                     {/* settings nav items */}
                     <ul className='w-full h-full'>

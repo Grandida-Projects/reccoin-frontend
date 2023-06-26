@@ -5,32 +5,42 @@ import { RecycleContext } from "../../context/recycle";
 
 const UserRegPage = () => {
 
-  const {createPicker, connectedAccount, pickers, companies} = useContext(RecycleContext);
+  const {
+    registerPicker, connectedAccount, pickers, companies, 
+    isMethodCallLoading, isMethodCallSuccessful
+  }  = useContext(RecycleContext);
 
   const [userName, setUserName] = useState('');
-  // const [userEmail, setUserEmail] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [isTermsChecked, setIsTermsChecked] = useState(false)
 
 
-  const CreatePicker = () => {
+  // const RegisterPicker = () => {
 
-    console.log("companies =>", companies);
-    if(!connectedAccount) {
-      alert("Connect wallet to continue")
-    }
-    else if (userName.length < 0) {
-      alert("Input user name")
-    } else {
-      for (let i=0; i<=pickers.length; i++) {
-        if  (i === connectedAccount) {
-          alert("User already registered, kindly connect with a different address")
-        } else {
-          createPicker(userName)
-        }
-      }
-    }
+  //   console.log("companies =>", companies);
+  //   if(!connectedAccount) {
+  //     alert("Connect wallet to continue")
+  //   }
+  //   else if (!userName) {
+  //     alert("Input user name")
+  //   } else if(!userEmail) {
+  //     alert("input user email")
+  //   }
+  //   else if (!isTermsChecked) {
+  //     alert("Agree to Recylox Terms")
+  //   }
+  //    else {
+  //     for (let i=0; i<=pickers.length; i++) {
+  //       if  (i === connectedAccount) {
+  //         alert("User already registered, kindly login or connect with a different address");
+  //       } else {
+  //         registerPicker(userName, userEmail)
+  //       }
+  //     }
+  //   }
     
 
-  }
+  // }
   return (
     <div className='container mx-auto'>
       <RegistrationHeader/>
@@ -47,7 +57,7 @@ const UserRegPage = () => {
                   <Logo fill='#0D4D00' w='46' h='46' />
                 </div>
                 <p className='text-[1rem] md:text-[1rem] lg:text-[1.2rem] mt-2 ml-3 text-[#0D4D00]  text-center'>
-                  Reccoin
+                  Recylox
                 </p>
               </div>
               <div className='ml-8'>
@@ -66,6 +76,7 @@ const UserRegPage = () => {
                   <input
                     type='text'
                     className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent'
+                    onChange={(nme) => setUserName(nme.target.value.trim())}
                   />
                 </div>
                 <div className='mb-6'>
@@ -77,7 +88,8 @@ const UserRegPage = () => {
                   </label>
                   <input
                     type='text'
-                    className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent '
+                    className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent'
+                    onChange={(eml) => setUserEmail(eml.target.value.trim())}
                   />
                 </div>
               
@@ -86,18 +98,19 @@ const UserRegPage = () => {
                 <input
                   className='h-[1.4rem] w-[4rem] border-solid border-[#0D4D00]'
                   type='checkbox'
-                  value=''
+                  onChange={() => setIsTermsChecked(!isTermsChecked)}
+                  value={isTermsChecked}
                   aria-label='Checkbox for following text input'
                 />
                 <p className='text-[0.5rem] md:text-[0.7rem] lg:text-[0.7rem] mt-2 w-[14rem]  text-[#0D4D00]'>
-                  I agree to the terms of the Reccoin Subscriber Agreement and
+                  I agree to the terms of the Recylox Subscriber Agreement and
                   the Privacy Policy
                 </p>
               </div>
               <button className='rounded-[6px] absolute bottom-20 left-16 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'
-                onClick={CreatePicker}
+                onClick={RegisterPicker}
               >
-                Register
+                {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Picker created" : "Register"}
               </button>
             </div>
           </div>
