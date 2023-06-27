@@ -108,7 +108,7 @@ const UserRegPage = () => {
                 </p>
               </div>
               <button className='rounded-[6px] absolute bottom-20 left-16 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'
-                onClick={RegisterPicker}
+                // onClick={RegisterPicker}
               >
                 {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Picker created" : "Register"}
               </button>
