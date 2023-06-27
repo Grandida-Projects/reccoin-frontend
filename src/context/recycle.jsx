@@ -22,102 +22,62 @@ export const RecycleProvider = ({ children }) => {
   const [picker_count, setPicker_Count] = useState(0);
   const [isWalletConnected, setIsWalletconnected] = useState(false);
 
-  // const initializeContract = async () => {
-  //   try {
-  //     setLoading(true);
-  //     if (window.ethereum) {
-       
-  //       const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-  //       // save connected wallet address
-  //       setConnectedAccount(getAccounts[0]);
-  //       setIsWalletconnected(true);
-       
-  //       const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-  //       // MetaMask requires requesting permission to connect users accounts
-  //       setProvider(ethereumProvider);
-  //       const signer = ethereumProvider.getSigner();
-  //       const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; 
-  //       // Replace with the actual contract address
-  //       const contract = new ethers.Contract(contractAddress, recycleABI, signer);
-  //       console.log('contract =>', contract);
-  //       setContract(contract);
 
-  //       // Fetch companies and pickers from the contract
-  //       // const companies = await contract.getCompanyAddresses();
+// const initializeRecycleContract = async () => {
+//   try {
+//     setLoading(true);
+//     if (window.ethereum) {
+//       const storedAccount = localStorage.getItem('connectedAccount');
+//       const storedWalletConnected = localStorage.getItem('isWalletConnected');
 
-  //       // console.log("companies =>", companies);
+//       console.log(storedAccount, storedWalletConnected);
 
-  //       // const pickers = await contract.getPickerAddresses();
-  //       // setCompanies(companies);
-  //       // setPickers(pickers);
-  //       // console.log(pickers);
-  //       setLoading(false);
-  //     } else {
-  //       setLoading(false);
-  //       // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
-  //       alert('Please install MetaMask or any other Ethereum wallet extension.');
-  //     }
-  //   } catch (error) {
-  //     setLoading(false);
-  //     console.error('Error initializing contract:', error);
-  //   }
-  // };
+//       if (storedAccount && storedWalletConnected) {
+//         // Use the stored account and wallet connection status
+//         setConnectedAccount(storedAccount);
+//         const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
+//         setProvider(ethereumProvider); 
+//         const signer = ethereumProvider.getSigner();
+//         const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
+//         const contract = new ethers.Contract(contractAddress, recycleABI, signer);
+//         console.log('contract =>', contract);
+//         setContract(contract);
+//       } else {
+//         const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+//         const account = getAccounts[0];
+//         setConnectedAccount(account);
+//         localStorage.setItem('connectedAccount', account);
+//         const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
+//         setProvider(ethereumProvider);
+//         const signer = ethereumProvider.getSigner();
+//         const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
+//         const contract = new ethers.Contract(contractAddress, recycleABI, signer);
+//         console.log('contract =>', contract);
+//         setContract(contract);
+//         localStorage.setItem('isWalletConnected', true);
+//       }
 
-const initializeRecycleContract = async () => {
-  try {
-    setLoading(true);
-    if (window.ethereum) {
-      const storedAccount = localStorage.getItem('connectedAccount');
-      const storedWalletConnected = localStorage.getItem('isWalletConnected');
+//       // Fetch companies and pickers from the contract
+//       // const companies = await contract.getCompanyAddresses();
 
-      console.log(storedAccount, storedWalletConnected);
+//       // console.log("companies =>", companies);
 
-      if (storedAccount && storedWalletConnected) {
-        // Use the stored account and wallet connection status
-        setConnectedAccount(storedAccount);
-        const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-        setProvider(ethereumProvider); 
-        const signer = ethereumProvider.getSigner();
-        const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
-        const contract = new ethers.Contract(contractAddress, recycleABI, signer);
-        console.log('contract =>', contract);
-        setContract(contract);
-      } else {
-        const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const account = getAccounts[0];
-        setConnectedAccount(account);
-        localStorage.setItem('connectedAccount', account);
-        const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-        setProvider(ethereumProvider);
-        const signer = ethereumProvider.getSigner();
-        const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
-        const contract = new ethers.Contract(contractAddress, recycleABI, signer);
-        console.log('contract =>', contract);
-        setContract(contract);
-        localStorage.setItem('isWalletConnected', true);
-      }
+//       // const pickers = await contract.getPickerAddresses();
+//       // setCompanies(companies);
+//       // setPickers(pickers);
+//       // console.log(pickers);
 
-      // Fetch companies and pickers from the contract
-      // const companies = await contract.getCompanyAddresses();
-
-      // console.log("companies =>", companies);
-
-      // const pickers = await contract.getPickerAddresses();
-      // setCompanies(companies);
-      // setPickers(pickers);
-      // console.log(pickers);
-
-      setLoading(false);
-    } else {
-      setLoading(false);
-      // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
-      alert('Please install MetaMask or any other Ethereum wallet extension.');
-    }
-  } catch (error) {
-    setLoading(false);
-    console.error('Error initializing contract:', error);
-  }
-};
+//       setLoading(false);
+//     } else {
+//       setLoading(false);
+//       // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
+//       alert('Please install MetaMask or any other Ethereum wallet extension.');
+//     }
+//   } catch (error) {
+//     setLoading(false);
+//     console.error('Error initializing contract:', error);
+//   }
+// };
 
   const registerPicker = async (name, email) => {
     try {
