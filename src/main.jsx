@@ -8,14 +8,6 @@ import { RecycleProvider } from './context/recycle.jsx';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-
-//   <React.StrictMode>
-//     <BrowserRouter>
-//         <App />
-//     </BrowserRouter>
-//   </React.StrictMode>
-
-// )
   
   <TokenProvider>
     <RecycleProvider>

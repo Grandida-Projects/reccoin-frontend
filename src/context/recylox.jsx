@@ -115,90 +115,90 @@ export const TokenProvider = ({ children }) => {
     }
   };
 
-/*
-  const initializeContract = async () => {
-  try {
-    setLoading(true);
-    if (window.ethereum) {
-      const storedAccount = localStorage.getItem('recyloxConnectedAccount');
-      const storedWalletConnected = localStorage.getItem('recyloxWalletConnected');
 
-      if (!storedAccount && storedWalletConnected) {
-        // Use the stored account and wallet connection status
-        setConnectedAccount(storedAccount);
-        setIsWalletConnected(true);
-        // const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-        // setProvider(ethereumProvider);
-        const signer = provider.getSigner();
-        const contractAddress = '0x0750Da72092d0eD371f9aD7Cabd8EcB23f1cC480'; // Replace with the actual contract address
-        const contract = new ethers.Contract(contractAddress, recyloxABI, signer);
-        console.log('contract =>', contract);
-        setContract(contract);
+//   const initializeContract = async () => {
+//   try {
+//     setLoading(true);
+//     if (window.ethereum) {
+//       const storedAccount = localStorage.getItem('recyloxConnectedAccount');
+//       const storedWalletConnected = localStorage.getItem('recyloxWalletConnected');
 
-        const name = await contract.name();
-        const symbol = await contract.symbol();
-        const decimals = await contract.decimals();
-        const totalSupply = await contract.totalSupply();
-        const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048'; // Replace with your actual Ethereum address
-        const accountBalance = await contract.balanceOf(yourAccountAddress);
+//       if (!storedAccount && storedWalletConnected) {
+//         // Use the stored account and wallet connection status
+//         setConnectedAccount(storedAccount);
+//         setIsWalletConnected(true);
+//         // const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
+//         // setProvider(ethereumProvider);
+//         const signer = provider.getSigner();
+//         const contractAddress = '0x0750Da72092d0eD371f9aD7Cabd8EcB23f1cC480'; // Replace with the actual contract address
+//         const contract = new ethers.Contract(contractAddress, recyloxABI, signer);
+//         console.log('contract =>', contract);
+//         setContract(contract);
 
-        setName(name);
-        setSymbol(symbol);
-        setDecimals(decimals);
-        setTotalSupply(totalSupply);
-        setAccountBalance(accountBalance);
-        setLoading(false);
+//         const name = await contract.name();
+//         const symbol = await contract.symbol();
+//         const decimals = await contract.decimals();
+//         const totalSupply = await contract.totalSupply();
+//         const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048'; // Replace with your actual Ethereum address
+//         const accountBalance = await contract.balanceOf(yourAccountAddress);
 
-        console.log(accountBalance);
-        console.log('name', name);
-        console.log('symbol', symbol);
-      } else {
-        const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const account = getAccounts[0];
-        setConnectedAccount(account);
-        localStorage.setItem('recyloxConnectedAccount', account);
-        setIsWalletConnected(true);
-        const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-        setProvider(ethereumProvider);
-        const signer = ethereumProvider.getSigner();
-        const contractAddress = '0x0750Da72092d0eD371f9aD7Cabd8EcB23f1cC480'; // Replace with the actual contract address
-        const contract = new ethers.Contract(contractAddress, recyloxABI, signer);
-        console.log('contract =>', contract);
-        setContract(contract);
-        console.log("privider =>", ethereumProvider);
+//         setName(name);
+//         setSymbol(symbol);
+//         setDecimals(decimals);
+//         setTotalSupply(totalSupply);
+//         setAccountBalance(accountBalance);
+//         setLoading(false);
 
-        localStorage.setItem('recyloxWalletConnected', true);
+//         console.log(accountBalance);
+//         console.log('name', name);
+//         console.log('symbol', symbol);
+//       } else {
+//         const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+//         const account = getAccounts[0];
+//         setConnectedAccount(account);
+//         localStorage.setItem('recyloxConnectedAccount', account);
+//         setIsWalletConnected(true);
+//         const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
+//         setProvider(ethereumProvider);
+//         const signer = ethereumProvider.getSigner();
+//         const contractAddress = '0x0750Da72092d0eD371f9aD7Cabd8EcB23f1cC480'; // Replace with the actual contract address
+//         const contract = new ethers.Contract(contractAddress, recyloxABI, signer);
+//         console.log('contract =>', contract);
+//         setContract(contract);
+//         console.log("privider =>", ethereumProvider);
 
-        const name = await contract.name();
-        const symbol = await contract.symbol();
-        const decimals = await contract.decimals();
-        const totalSupply = await contract.totalSupply();
-        const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048'; // Replace with your actual Ethereum address
-        const accountBalance = await contract.balanceOf(yourAccountAddress);
+//         localStorage.setItem('recyloxWalletConnected', true);
 
-        setName(name);
-        setSymbol(symbol);
-        setDecimals(decimals);
-        setTotalSupply(totalSupply);
-        setAccountBalance(accountBalance);
-        setLoading(false);
+//         const name = await contract.name();
+//         const symbol = await contract.symbol();
+//         const decimals = await contract.decimals();
+//         const totalSupply = await contract.totalSupply();
+//         const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048'; // Replace with your actual Ethereum address
+//         const accountBalance = await contract.balanceOf(yourAccountAddress);
 
-        console.log(accountBalance);
-        console.log('name', name);
-        console.log('symbol', symbol);
+//         setName(name);
+//         setSymbol(symbol);
+//         setDecimals(decimals);
+//         setTotalSupply(totalSupply);
+//         setAccountBalance(accountBalance);
+//         setLoading(false);
+
+//         console.log(accountBalance);
+//         console.log('name', name);
+//         console.log('symbol', symbol);
        
-      }
-    } else {
-      setLoading(false);
-      // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
-      alert('Please install MetaMask or any other Ethereum wallet extension.');
-    }
-  } catch (error) {
-    setLoading(false);
-    console.error('Error initializing contract:', error);
-  }
-}
-*/
+//       }
+//     } else {
+//       setLoading(false);
+//       // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
+//       alert('Please install MetaMask or any other Ethereum wallet extension.');
+//     }
+//   } catch (error) {
+//     setLoading(false);
+//     console.error('Error initializing contract:', error);
+//   }
+// }
+
 
   const transferTokens = async (recipient, amount) => {
     setIsMethodCallLoading(true)

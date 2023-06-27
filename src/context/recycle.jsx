@@ -441,7 +441,7 @@ const initializeRecycleContract = async () => {
   
 
   useEffect(() => {
-    // initializeRecycleContract()
+    initializeRecycleContract()
   }, []);
 
   return (

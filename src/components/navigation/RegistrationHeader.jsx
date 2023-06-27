@@ -151,14 +151,14 @@ const RegistrationHeader = () => {
             {/* connect button */}
            
               
-            {/* <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]" 
+            <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]" 
                 onClick={() => connectCOntracts()}>
                 {   loading ? "loading..." : connectedAccount ? 
                     connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) 
                     : "Connect Wallet" 
                 }
-             </button> */}
-             <ConnectButton/>
+             </button>
+             
             
 
             {/* toggle  menu */}
