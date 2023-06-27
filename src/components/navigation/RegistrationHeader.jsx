@@ -147,7 +147,7 @@ const RegistrationHeader = () => {
               </li> */}
 
                {/* connect button for small screen */}
-            <button className="hidden md: rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]" 
+            <button className="md:hidden rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]" 
                 onClick={() => connectCOntracts()}>
                 {   loading ? "loading..." : connectedAccount ? 
                     connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) 
