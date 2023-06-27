@@ -1,7 +1,11 @@
 import Logo from "../../components/logo"
+import RegistrationHeader from "../../components/navigation/RegistrationHeader"
 
 const UserRegPage = () => {
   return (
+    <>
+      <RegistrationHeader/>
+  
     <div className='w-[34rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'>
     <div>
       <p className='text-[1rem] md:text-[2rem] lg:text-[3.7rem] font-bold text-center'>
@@ -71,6 +75,7 @@ const UserRegPage = () => {
       </div>
     </div>
   </div>
+  </>
   )
 }
 
