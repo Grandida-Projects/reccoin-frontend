@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import Logo from "../../components/logo"
 import RegistrationHeader from "../../components/navigation/RegistrationHeader"
 import { RecycleContext } from "../../context/recycle";
+import { useToken } from "../../context/recylox";
 
 const UserRegPage = () => {
 

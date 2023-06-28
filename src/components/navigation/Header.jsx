@@ -58,10 +58,10 @@ const Header = () => {
           <div className="flex flex-row justify-between items-center w-fit">
             {/* header links */}
             <ul
-              className={`w-full absolute items-center md:static flex flex-col md:flex-row gap-2 lg:gap-[66px] px-4
-                      ${!toggle_menu ? "-left-full -top-full" : " left-0 top-0 flex-col w-[80%] bg-white p-4 mt-20 rounded-b-md "}
-                      transition-all duration-500
-                      `}
+               className={`w-full absolute items-center md:static flex flex-col md:flex-row gap-2 lg:gap-[66px] px-4
+               ${!toggle_menu ? "-left-full -top-full" : " left-0 top-0 flex-col w-[80%] bg-white p-4 mt-20 rounded-b-md "}
+               transition-all duration-500
+               `}
             >
               <li 
                 className={`w-fit hover:border-b hover:border-primary40 
@@ -77,22 +77,22 @@ const Header = () => {
                   <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
                     <Link 
                       to={'/about-us'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-user" ? "border-b font-bold" : "font-normal"}`}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/about-us" ? "border-b font-bold" : "font-normal"}`}
                      >About Us
                     </Link>
                     <Link 
                       to={'/blog'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-company" ? "border-b font-bold" : "font-normal"}`}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/blog" ? "border-b font-bold" : "font-normal"}`}
                       >Blog
                       </Link>
                       <Link 
                       to={'/how-it-works'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-user" ? "border-b font-bold" : "font-normal"}`}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/how-it-works" ? "border-b font-bold" : "font-normal"}`}
                      >How It Works
                     </Link>
                     <Link 
                       to={'/privacy-policy'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-company" ? "border-b font-bold" : "font-normal"}`}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/privacy-policy" ? "border-b font-bold" : "font-normal"}`}
                       >Privacy Policy
                       </Link>
                   </div>

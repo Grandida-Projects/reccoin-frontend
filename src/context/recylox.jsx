@@ -23,7 +23,7 @@ export const TokenProvider = ({ children }) => {
   const [isMethodCallSuccessful, setIsMethodCallSuccessful] = useState(false);
 
   // added variable
-  const [isWalletConnected, setIsWalletConnected] = useState(false)
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
 
   useEffect (() => {
     const recylox_status = localStorage.getItem("connectRecylox")

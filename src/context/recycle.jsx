@@ -24,14 +24,16 @@ export const RecycleProvider = ({ children }) => {
   const [account_category, set_account_category] = useState('');
   const [companyAddresses, setCompanyAddresses] = useState([]);
   const [pickerStruct, setPickerStruct] = useState({});
+  const [companyStruct, setCompanyStruct] = useState({});
 
   useEffect(() => {
     const recycle_status = localStorage.getItem("connectRecycle");
     console.log(recycle_status);
 
-    if (recycle_status == true) {
+    if (recycle_status == 'true') {
       initializeRecycleContract()
     }
+   
   },[])
 
 const initializeRecycleContract = async () => {
@@ -226,6 +228,7 @@ const initializeRecycleContract = async () => {
   const registerCompany = async (name, minWeightRequirement, maxPricePerKg, active) => {
     try {
       setIsMethodCallLoading(true);
+      console.log("contract => ", contract);
       const tx = await contract.registerCompany(name, minWeightRequirement, maxPricePerKg, active);
       await tx.wait();
       const newCompany = await contract.getCompany(connectedAccount);
@@ -420,6 +423,17 @@ const initializeRecycleContract = async () => {
     }
   };
 
+  const GetCompany = async() => {
+    const company = await contract.getCompany(connectedAccount);
+    if (company.name) {
+      setCompanyStruct({
+        name: company.name,
+        minWeightRequirement: company.minWeightRequirement,
+        maxPricePerKg: company.maxPricePerKg
+      })
+    }
+  }
+
   return (
     <RecycleContext.Provider
       value={{
@@ -455,7 +469,9 @@ const initializeRecycleContract = async () => {
         createRequest,
         approveRequest,
         rejectRequest,
-        initializeRecycleContract
+        initializeRecycleContract,
+        GetCompany,
+        companyStruct
       }}
     >
       {children}

@@ -1,18 +1,65 @@
 import { useContext, useState } from 'react';
 import Logo from '../../components/logo';
-import { RecycleContext } from '../../context/recycle';
+import { RecycleContext, useRecycle } from '../../context/recycle';
 import RegistrationHeader from '../../components/navigation/RegistrationHeader';
+import { useToken } from '../../context/recylox';
 
 const CompanyRegPage = () => {
 
- const { addCompany }  = useContext(RecycleContext);
+  const {contract, registerCompany, GetCompany, companyStruct,
+  isMethodCallLoading, isMethodCallSuccessful }  =  useRecycle();
+  const { connectedAccount } = useToken();
+
 
 const [companyName, setCompanyName] = useState('')
 const [minimumWeightRequirement, setMinimumWeightRequirement] = useState('');
 const [maximumWeightPerKg, setMaximumWeightPerKg] = useState('');
+const [isTermsChecked, setIsTermsChecked] = useState(false)
 
 const RegisterCompany = () => {
 
+  console.log("contract reg page => ", contract);
+
+  if(!connectedAccount) {
+    alert("Connect wallet to continue")
+  }
+  else if(!companyName) {
+    alert("Input company name");
+  } 
+  else if (!minimumWeightRequirement) {
+    alert("Input minimum weight requirement")
+  }
+  else if (!maximumWeightPerKg) {
+    alert("Input maximum wight per kg")
+  }
+  // else if (!isActive) {
+  //   alert("Agree to Recylox Terms")
+  // }
+  else if (!isTermsChecked) {
+    alert("Agree to Recylox Terms")
+  }
+  else {
+    registerCompany(companyName, minimumWeightRequirement, maximumWeightPerKg, true)
+    
+    /* this is really important
+      GetCompany();
+      console.log(companyStruct);
+
+      if(companyStruct) {
+        alert("User already registered, kindly login or connect with a different address");
+      }else {
+        registerCompany(companyName, minimumWeightRequirement, maximumWeightPerKg, isAcitve)
+      }
+    */
+
+    // for (let i=0; i<=companies.length; i++) {
+    //   if  (i === connectedAccount) {
+    //     alert("User already registered, kindly login or connect with a different address");
+    //   } else {
+    //     registerCompany(companyName, minimumWeightRequirement, maximumWeightPerKg, isAcitve)
+    //   }
+    // }
+  }
 }
 
 
@@ -51,6 +98,7 @@ const RegisterCompany = () => {
                     <input
                       type='text'
                       className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent'
+                      onChange={(nme)=> setCompanyName(nme.target.value)}
                     />
                   </div>
                   <div className='mb-6'>
@@ -63,6 +111,7 @@ const RegisterCompany = () => {
                     <input
                       type='text'
                       className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent ml-6'
+                      onChange={(wht)=> setMinimumWeightRequirement(wht.target.value)}
                     />
                   </div>
                   <div className='mb-6'>
@@ -74,6 +123,7 @@ const RegisterCompany = () => {
                     </label>
                     <input
                       type='text'
+                      onChange={(pkg)=> setMaximumWeightPerKg(pkg.target.value)}
                       className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent ml-5'
                     />
                   </div>
@@ -82,7 +132,8 @@ const RegisterCompany = () => {
                   <input
                     className='h-[1.4rem] w-[4rem] border-solid border-[#0D4D00]'
                     type='checkbox'
-                    value=''
+                    value={isTermsChecked}
+                    onChange={() => setIsTermsChecked(!isTermsChecked)}
                     aria-label='Checkbox for following text input'
                   />
                   <p className='text-[0.5rem] md:text-[0.7rem] lg:text-[0.7rem] mt-2 w-[14rem]  text-[#0D4D00]'>
@@ -90,8 +141,10 @@ const RegisterCompany = () => {
                     the Privacy Policy
                   </p>
                 </div>
-                <button className='rounded-[6px] absolute bottom-6 left-36 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'>
-                  Register
+                <button 
+                  className='rounded-[6px] absolute bottom-6 left-36 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'
+                  onClick={RegisterCompany}>
+                    {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Company created" : "Register"}
                 </button>
               </div>
             </div>
