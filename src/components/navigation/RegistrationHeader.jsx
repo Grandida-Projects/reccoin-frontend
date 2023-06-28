@@ -196,6 +196,11 @@ const Header = () => {
                     className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}
                     >Company
                     </Link>
+                    <Link 
+                        to={'/admin-dashboard'}
+                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/admin-dashboard" ? "border-b font-bold" : "font-normal"}`}
+                        >Admin
+                    </Link>
                 </div>
               </div>
               : ""
