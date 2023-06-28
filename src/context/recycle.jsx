@@ -19,8 +19,8 @@ export const RecycleProvider = ({ children }) => {
   const [isMethodCallSuccessful, setIsMethodCallSuccessful] = useState(false);
   
   // added variables
-  const [picker_count, setPicker_Count] = useState(0);
-  const [isWalletConnected, setIsWalletconnected] = useState(false);
+  const [picker_count, set_Picker_Count] = useState(0);
+  const [company_count, set_Company_Count] = useState(0);
 
 
 // const initializeRecycleContract = async () => {
@@ -78,6 +78,55 @@ export const RecycleProvider = ({ children }) => {
 //     console.error('Error initializing contract:', error);
 //   }
 // };
+
+const initializeContract = async () => {
+  try {
+    setLoading(true);
+    if (window.ethereum) {
+      const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      // save connected wallet address
+      setConnectedAccount(getAccounts[0]);
+      const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
+      // MetaMask requires requesting permission to connect users accounts
+      setProvider(ethereumProvider);
+      const signer = ethereumProvider.getSigner();
+      const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
+      const contract = new ethers.Contract(contractAddress, recycleABI, signer);
+      console.log('contract =>', contract);
+      setContract(contract);
+      console.log("recycle contract =>", contract);
+
+      // Fetch companies and pickers from the contract
+      // const companies = await contract.getCompanyAddresses();
+      // const pickers = await contract.getPickerAddresses();
+      // setCompanies(companies);
+      // setPickers(pickers);
+
+      // get no of pickers
+      const no_of_registered_pickers = await contract.getRegisteredPickerCount();
+      console.log('Registered picker count:', no_of_registered_pickers);
+      set_Picker_Count(no_of_registered_pickers);
+      console.log("no_of_registered_pickers =>", no_of_registered_pickers);
+
+      // get no of companies
+      const no_of_registered_companies = await contract.getRegisteredCompanyCount();
+      console.log('Registered picker count:', no_of_registered_companies);
+      set_Company_Count(no_of_registered_companies);
+      console.log("no_of_registered_companies =>", no_of_registered_companies);
+
+
+      setLoading(false);
+    } else {
+      setLoading(false);
+      // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
+      alert('Please install MetaMask or any other Ethereum wallet extension.');
+    }
+  } catch (error) {
+    setLoading(false);
+    console.error('Error initializing contract:', error);
+  }
+};
+
 
   const registerPicker = async (name, email) => {
     try {
@@ -161,7 +210,8 @@ export const RecycleProvider = ({ children }) => {
     try {
       const count = await contract.getRegisteredPickerCount();
       console.log('Registered picker count:', count);
-      setPicker_Count(count);
+      set_Picker_Count(count);
+      console.log("picker count =>", count);
       // Additional logic or UI updates with the count data
     } catch (error) {
       console.error('Failed to fetch registered picker count:', error);
@@ -398,10 +448,8 @@ export const RecycleProvider = ({ children }) => {
     }
   };
 
-  
-
   useEffect(() => {
-    initializeRecycleContract()
+    initializeContract()
   }, []);
 
   return (
@@ -416,6 +464,7 @@ export const RecycleProvider = ({ children }) => {
         isMethodCallLoading,
         isMethodCallSuccessful,
         picker_count,
+        company_count,
         registerPicker,
         editPicker,
         getPicker,
@@ -436,7 +485,7 @@ export const RecycleProvider = ({ children }) => {
         createRequest,
         approveRequest,
         rejectRequest,
-        initializeRecycleContract
+        initializeContract
       }}
     >
       {children}
