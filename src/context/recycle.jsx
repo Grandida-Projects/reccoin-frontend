@@ -21,71 +21,28 @@ export const RecycleProvider = ({ children }) => {
   // added variables
   const [picker_count, set_Picker_Count] = useState(0);
   const [company_count, set_Company_Count] = useState(0);
+  const [account_category, set_account_category] = useState('');
+  const [companyAddresses, setCompanyAddresses] = useState([]);
+  const [pickerStruct, setPickerStruct] = useState({});
 
+  useEffect(() => {
+    const recycle_status = localStorage.getItem("connectRecycle");
+    console.log(recycle_status);
 
-// const initializeRecycleContract = async () => {
-//   try {
-//     setLoading(true);
-//     if (window.ethereum) {
-//       const storedAccount = localStorage.getItem('connectedAccount');
-//       const storedWalletConnected = localStorage.getItem('isWalletConnected');
+    if (recycle_status == true) {
+      initializeRecycleContract()
+    }
+  },[])
 
-//       console.log(storedAccount, storedWalletConnected);
-
-//       if (storedAccount && storedWalletConnected) {
-//         // Use the stored account and wallet connection status
-//         setConnectedAccount(storedAccount);
-//         const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-//         setProvider(ethereumProvider); 
-//         const signer = ethereumProvider.getSigner();
-//         const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
-//         const contract = new ethers.Contract(contractAddress, recycleABI, signer);
-//         console.log('contract =>', contract);
-//         setContract(contract);
-//       } else {
-//         const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-//         const account = getAccounts[0];
-//         setConnectedAccount(account);
-//         localStorage.setItem('connectedAccount', account);
-//         const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-//         setProvider(ethereumProvider);
-//         const signer = ethereumProvider.getSigner();
-//         const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
-//         const contract = new ethers.Contract(contractAddress, recycleABI, signer);
-//         console.log('contract =>', contract);
-//         setContract(contract);
-//         localStorage.setItem('isWalletConnected', true);
-//       }
-
-//       // Fetch companies and pickers from the contract
-//       // const companies = await contract.getCompanyAddresses();
-
-//       // console.log("companies =>", companies);
-
-//       // const pickers = await contract.getPickerAddresses();
-//       // setCompanies(companies);
-//       // setPickers(pickers);
-//       // console.log(pickers);
-
-//       setLoading(false);
-//     } else {
-//       setLoading(false);
-//       // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
-//       alert('Please install MetaMask or any other Ethereum wallet extension.');
-//     }
-//   } catch (error) {
-//     setLoading(false);
-//     console.error('Error initializing contract:', error);
-//   }
-// };
-
-const initializeContract = async () => {
+const initializeRecycleContract = async () => {
   try {
     setLoading(true);
     if (window.ethereum) {
       const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       // save connected wallet address
+      const connectedAccount = getAccounts[0]
       setConnectedAccount(getAccounts[0]);
+      
       const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
       // MetaMask requires requesting permission to connect users accounts
       setProvider(ethereumProvider);
@@ -96,11 +53,7 @@ const initializeContract = async () => {
       setContract(contract);
       console.log("recycle contract =>", contract);
 
-      // Fetch companies and pickers from the contract
-      // const companies = await contract.getCompanyAddresses();
-      // const pickers = await contract.getPickerAddresses();
-      // setCompanies(companies);
-      // setPickers(pickers);
+      localStorage.setItem("connectRecycle", true);
 
       // get no of pickers
       const no_of_registered_pickers = await contract.getRegisteredPickerCount();
@@ -110,10 +63,28 @@ const initializeContract = async () => {
 
       // get no of companies
       const no_of_registered_companies = await contract.getRegisteredCompanyCount();
-      console.log('Registered picker count:', no_of_registered_companies);
+      console.log('Registered company count:', no_of_registered_companies);
       set_Company_Count(no_of_registered_companies);
-      console.log("no_of_registered_companies =>", no_of_registered_companies);
+      console.log("no_of_registered_companies =>", no_of_registered_companies); 
+      
 
+      /*
+      get picker struct. Also use this to cartegorize address.
+      direct users to their respective dashboard based on this
+      */
+      const picker = await contract.getPicker(connectedAccount);
+      console.log("picker array", picker);
+      if (picker.name !== '' && picker.email !== '') {
+        set_account_category("picker");
+        setPickerStruct({
+          name: picker.name,
+          email: picker.email,
+          weightDeposited: picker.weightDeposited,
+          transactions: picker.transactions
+        });
+      } else {
+        set_account_category("");
+      }
 
       setLoading(false);
     } else {
@@ -125,7 +96,7 @@ const initializeContract = async () => {
     setLoading(false);
     console.error('Error initializing contract:', error);
   }
-};
+}; //ends initializeRecycleContract()
 
 
   const registerPicker = async (name, email) => {
@@ -198,6 +169,7 @@ const initializeContract = async () => {
   const getPicker = async (address) => {
     try {
       const picker = await contract.getPicker(address);
+     
       console.log('Picker details:', picker);
       // Additional logic or UI updates with the picker data
     } catch (error) {
@@ -448,10 +420,6 @@ const initializeContract = async () => {
     }
   };
 
-  useEffect(() => {
-    initializeContract()
-  }, []);
-
   return (
     <RecycleContext.Provider
       value={{
@@ -465,6 +433,8 @@ const initializeContract = async () => {
         isMethodCallSuccessful,
         picker_count,
         company_count,
+        account_category,
+        pickerStruct,
         registerPicker,
         editPicker,
         getPicker,
@@ -485,7 +455,7 @@ const initializeContract = async () => {
         createRequest,
         approveRequest,
         rejectRequest,
-        initializeContract
+        initializeRecycleContract
       }}
     >
       {children}

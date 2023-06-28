@@ -8,6 +8,7 @@ import searchIcon from '../../assets/search.svg'
 import { routes } from '../../routes/dashboard/admin.jsx'
 
 const AdminDashboardLayout = ({dashboard_content, active_link}) => {
+  
 
   return (
     <div className=' relative h-[1025px] container mx-auto '>

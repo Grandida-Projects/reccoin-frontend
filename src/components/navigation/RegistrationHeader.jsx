@@ -8,17 +8,20 @@ import { HeaderData } from '../../data/HeaderData'
 import { MdClose } from "react-icons/md"
 import { useRecycle } from "../../context/recycle";
 
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+const Header = () => {
 
-const RegistrationHeader = () => {
+    // recylox context
+    const {connectedAccount, initializeContract} = useContext(TokenContext)
+    // recycle context
+    const {account_category, initializeRecycleContract, pickerStruct } = useRecycle()
 
-    const {connectedAccount, initializeContract, loading} = useContext(TokenContext)
     const {pathname} = useLocation();
-    const {initializeRecycleContract} = useRecycle()
+
+    console.log('pickerStruct => ', pickerStruct);
 
     // const [selectedOption, setSelectedOption] = useState('');
     const [toggle_menu, setToggleMenu] = useState(false);
-    // const [showRegisterDropdown, setShowRegisterDropdown] = useState(false);
+    const [showRegisterDropdown, setShowRegisterDropdown] = useState(false);
     const [showHomeDropDown, setShowHomeDropDown] = useState(false);
 
 
@@ -28,20 +31,20 @@ const RegistrationHeader = () => {
     }
 
     // show register drop down when user hover over the "Register" link
-    // const registerDropdown = () => {
-    //   setShowRegisterDropdown(!showRegisterDropdown);
-    // }
+    const registerDropdown = () => {
+      setShowRegisterDropdown(!showRegisterDropdown);
+    }
 
     // show home drop down when user hover over the "Home" link
     const homeDropdown = () => {
       setShowHomeDropDown(!showHomeDropDown);
     }
 
-    const connectCOntracts = () =>{
-      initializeContract();
-      initializeRecycleContract()
-    }
-
+    // connect wallet
+    const ConnectWallet = () => {
+        initializeContract();
+        initializeRecycleContract();
+    }    
     useEffect(() => {
 
       window.onresize = () => {
@@ -50,6 +53,7 @@ const RegistrationHeader = () => {
         }
       }
       return () => {};
+
     }, [])
 
   return (
@@ -111,60 +115,79 @@ const RegistrationHeader = () => {
               
               </li>
 
-              {HeaderData.map((item, index) => (
+              { HeaderData.map((item, index) => (
                 <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == item.link ? "border-b font-bold" : "font-normal"}`} key={index}>
                   <Link to={item.link}>{item.title}</Link>
                 </li>
               ))}
-              {/* register link */}
-              {/* <li 
-                className={`relative w-fit hover:border-b font-normal
-                hover:cursor-pointer hover:border-primary40 hover:font-bold 
-                transition-all flex flex-row gap-2 my-4 border-primary40 
-                md:mr-4`}
-                onMouseEnter={registerDropdown}
-                onMouseLeave={registerDropdown}
-              >Register<img src={dropdown} alt="dropdown icon" />
+
               {
-                showRegisterDropdown ?
-                <div className="inline-block">
-                  <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
-                    <Link 
-                      to={'/register-user'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-user" ? "border-b font-bold" : "font-normal"}`}
-                     >User
-                    </Link>
-                    <Link 
-                      to={'/register-company'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-company" ? "border-b font-bold" : "font-normal"}`}
-                      >Company
-                      </Link>
-                  </div>
-                </div>
+                account_category === "picker" ? 
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == '/user-dashboard' ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={`/user-dashboard`}>Dashboard</Link>
+                    </li>
+                : account_category === "company" ?
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == '/company-dashboard' ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={'/company-dashboard'}>Dashboard</Link>
+                    </li>
+                :  account_category === "admin" ?
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == '/admin-dashboard' ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={'/admin-dashboard'}>Dashboard</Link>
+                    </li>
                 : ""
+
               }
-                
-              </li> */}
 
-               {/* connect button for small screen */}
-            <button className="md:hidden rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]" 
-                onClick={() => connectCOntracts()}>
-                {   loading ? "loading..." : connectedAccount ? 
-                    connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) 
-                    : "Connect Wallet" 
+              {/* register link */}
+              {!connectedAccount ? 
+                <li 
+                  className={`relative w-fit hover:border-b font-normal
+                  hover:cursor-pointer hover:border-primary40 hover:font-bold 
+                  transition-all flex flex-row gap-2 my-4 border-primary40 
+                  md:mr-4`}
+                  onMouseEnter={registerDropdown}
+                  onMouseLeave={registerDropdown}
+                >Register<img src={dropdown} alt="dropdown icon" />
+                {
+                  showRegisterDropdown ?
+                  <div className="inline-block">
+                    <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
+                      <Link 
+                        to={'/register-user'}
+                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-user" ? "border-b font-bold" : "font-normal"}`}
+                      >User
+                      </Link>
+                      <Link 
+                        to={'/register-company'}
+                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-company" ? "border-b font-bold" : "font-normal"}`}
+                        >Company
+                        </Link>
+                    </div>
+                  </div>
+                  : ""
                 }
-             </button>
+                  
+                </li>
+              : 
+              ""
+            }
+          
+            <button 
+                className=" md:hidden rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]"
+                onClick={() => ConnectWallet()}>
+                {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)} `: "Connec Wallet"}
+            </button>
+              
+
             </ul>
-
-            {/* toggle menu and connect button  */}
-            {/* connect button for large screen */}
-            <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]" 
-                onClick={() => connectCOntracts()}>
-                {   loading ? "loading..." : connectedAccount ? 
-                    connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) 
-                    : "Connect Wallet" 
-                }
-             </button>
+            
+            <button 
+                className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]"
+                onClick={ConnectWallet}>
+                {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)}` : "Connec Wallet" }
+            </button>
+               
+    
             
 
             {/* toggle  menu */}
@@ -178,4 +201,4 @@ const RegistrationHeader = () => {
   );
 }
 
-export default RegistrationHeader
+export default Header

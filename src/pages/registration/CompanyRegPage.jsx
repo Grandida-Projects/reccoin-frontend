@@ -5,7 +5,7 @@ import RegistrationHeader from '../../components/navigation/RegistrationHeader';
 
 const CompanyRegPage = () => {
 
-//  const { addCompany }  = useContext(RecycleContext);
+ const { addCompany }  = useContext(RecycleContext);
 
 const [companyName, setCompanyName] = useState('')
 const [minimumWeightRequirement, setMinimumWeightRequirement] = useState('');

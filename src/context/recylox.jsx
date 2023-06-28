@@ -25,6 +25,14 @@ export const TokenProvider = ({ children }) => {
   // added variable
   const [isWalletConnected, setIsWalletConnected] = useState(false)
 
+  useEffect (() => {
+    const recylox_status = localStorage.getItem("connectRecylox")
+    console.log("recylox status => ", recylox_status);
+    if (recylox_status == 'true') {
+      initializeContract()
+    }
+  // initializeContract()
+  }, [])
 
   const initializeContract = async () => {
     try {
@@ -41,6 +49,8 @@ export const TokenProvider = ({ children }) => {
         const contract = new ethers.Contract(contractAddress, recyloxABI, signer);
         console.log('contract =>', contract);
         setContract(contract);
+
+        localStorage.setItem("connectRecylox", true);
 
         const name = await contract.name();
         const symbol = await contract.symbol();
@@ -194,9 +204,6 @@ export const TokenProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    initializeContract(); 
-  },[])
 
   return (
     <TokenContext.Provider

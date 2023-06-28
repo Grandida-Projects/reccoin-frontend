@@ -7,8 +7,11 @@ import { DashboardFooterData } from '../../data/DashboardFooterData';
 import searchIcon from '../../assets/search.svg'
 import Deposit from '../../pages/company_dashboard/Deposit';
 import { routes } from '../../routes/dashboard/user.jsx'
+import { useRecycle } from '../../context/recycle';
 
 const UserDashboardLayout = ({dashboard_content, active_link}) => {
+
+  const {connectedAccount} = useRecycle();
 
   return (
     <div className='relative h-[1025px] container mx-auto'>
@@ -47,7 +50,9 @@ const UserDashboardLayout = ({dashboard_content, active_link}) => {
             />
           </svg>
 
-          <figcaption className='mt-1 text-white'>Welcome User</figcaption>
+          <figcaption className='mt-1 text-white'>
+            Welcome {connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) }
+          </figcaption>
         </div>
 
         {/*  menu items*/}

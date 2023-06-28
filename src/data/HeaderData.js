@@ -7,8 +7,8 @@ export const HeaderData = [
         title:"White Paper",
         link: "/white-paper"
     },
-    {
-        title:"Dashboard",
-        link: "/user-dashboard"
-    },
+    // {
+    //     title:"Dashboard",
+    //     link: "/user-dashboard"
+    // },
 ]
