@@ -1,12 +1,12 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Logo from '../../components/logo';
-import { RecycleContext, useRecycle } from '../../context/recycle';
+import { useRecycle } from '../../context/recycle';
 import RegistrationHeader from '../../components/navigation/RegistrationHeader';
 import { useToken } from '../../context/recylox';
 
 const CompanyRegPage = () => {
 
-  const {contract, registerCompany, GetCompany, companyStruct,
+  const {contract, registerCompany,
   isMethodCallLoading, isMethodCallSuccessful }  =  useRecycle();
   const { connectedAccount } = useToken();
 
@@ -39,8 +39,8 @@ const RegisterCompany = () => {
     alert("Agree to Recylox Terms")
   }
   else {
-    registerCompany(companyName, minimumWeightRequirement, maximumWeightPerKg, true)
-    
+    registerCompany(companyName, minimumWeightRequirement, maximumWeightPerKg, true);
+
     /* this is really important
       GetCompany();
       console.log(companyStruct);

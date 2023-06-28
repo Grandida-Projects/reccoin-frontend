@@ -23,7 +23,7 @@ const Header = () => {
     const [toggle_menu, setToggleMenu] = useState(false);
     const [showRegisterDropdown, setShowRegisterDropdown] = useState(false);
     const [showHomeDropDown, setShowHomeDropDown] = useState(false);
-
+    const [showDashboardDropDown, setDashboardDropDown] = useState(false);
 
     // toggle menu
     const toggleMenu =() => {
@@ -39,6 +39,11 @@ const Header = () => {
     const homeDropdown = () => {
       setShowHomeDropDown(!showHomeDropDown);
     }
+
+    // show home drop down when user hover over the "Home" link
+    const dashboardDropdown = () => {
+        setDashboardDropDown(!showDashboardDropDown);
+      }
 
     // connect wallet
     const ConnectWallet = () => {
@@ -169,7 +174,34 @@ const Header = () => {
                   
                 </li>
               : 
-              ""
+              <li 
+                className={`relative w-fit hover:border-b font-normal
+                hover:cursor-pointer hover:border-primary40 hover:font-bold 
+                transition-all flex flex-row gap-2 my-4 border-primary40 
+                md:mr-4`}
+                onMouseEnter={dashboardDropdown}
+                onMouseLeave={dashboardDropdown}
+                >Dashboard<img src={dropdown} alt="dropdown icon" />
+            {
+              showDashboardDropDown ?
+              <div className="inline-block">
+                <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
+                  <Link 
+                    to={'/user-dashboard'}
+                    className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/user-dashboard" ? "border-b font-bold" : "font-normal"}`}
+                  >User
+                  </Link>
+                  <Link 
+                    to={'/company-dashboard'}
+                    className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}
+                    >Company
+                    </Link>
+                </div>
+              </div>
+              : ""
+            }
+              
+            </li>
             }
           
             <button 
