@@ -14,7 +14,7 @@ const UserDashboardLayout = ({dashboard_content, active_link}) => {
   const {connectedAccount} = useRecycle();
 
   return (
-    <div className='relative h-[1025px] container mx-auto'>
+    <div className='relative h-[1025px] min-w-[968px] container mx-auto'>
 
       {/* toggle menu button */}
       <button

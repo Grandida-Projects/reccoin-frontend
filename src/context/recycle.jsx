@@ -25,6 +25,7 @@ export const RecycleProvider = ({ children }) => {
   const [companyAddresses, setCompanyAddresses] = useState([]);
   const [pickerStruct, setPickerStruct] = useState({});
   const [companyStruct, setCompanyStruct] = useState({});
+  const [tokenHolderBalance, setTokenHolderBalance] = useState(0);
 
   useEffect(() => {
     const recycle_status = localStorage.getItem("connectRecycle");
@@ -68,8 +69,12 @@ const initializeRecycleContract = async () => {
       console.log('Registered company count:', no_of_registered_companies);
       set_Company_Count(no_of_registered_companies);
       console.log("no_of_registered_companies =>", no_of_registered_companies); 
-      
 
+      // get tokenholder balance
+      const balance = await contract.balanceOf();
+      console.log("token balance", balance);
+      setTokenHolderBalance(balance);
+    
       /*
       get picker struct. Also use this to cartegorize address.
       direct users to their respective dashboard based on this
@@ -350,7 +355,8 @@ const initializeRecycleContract = async () => {
   const depositPlastic = async (companyAddress, weight) => {
     try {
       setIsMethodCallLoading(true);
-      const transaction = await contract.connect(signer).depositPlastic(companyAddress, weight);
+      // const transaction = await contract.connect(signer).depositPlastic(companyAddress, weight);
+      const transaction = await contract.depositPlastic(companyAddress, weight);
       await transaction.wait();
       console.log('Plastic deposited successfully!');
       // Additional logic or UI updates after successful deposit
@@ -449,6 +455,8 @@ const initializeRecycleContract = async () => {
         company_count,
         account_category,
         pickerStruct,
+        companyStruct,
+        tokenHolderBalance,
         registerPicker,
         editPicker,
         getPicker,
@@ -470,8 +478,7 @@ const initializeRecycleContract = async () => {
         approveRequest,
         rejectRequest,
         initializeRecycleContract,
-        GetCompany,
-        companyStruct
+        GetCompany
       }}
     >
       {children}

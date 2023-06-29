@@ -66,7 +66,7 @@ const RegisterCompany = () => {
   return (
     <div className='container mx-auto'>
       <RegistrationHeader/>
-      <div className='my-20 w-[34rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'>
+      <div className='my-20 min-w-[40rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'>
         <div>
           <p className='text-[1rem] md:text-[2rem] lg:text-[3.7rem] font-bold text-center'>
             Company Registration Page

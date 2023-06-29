@@ -17,7 +17,7 @@ const Header = () => {
 
     const {pathname} = useLocation();
 
-    console.log('pickerStruct => ', pickerStruct);
+    // console.log('pickerStruct => ', pickerStruct);
 
     // const [selectedOption, setSelectedOption] = useState('');
     const [toggle_menu, setToggleMenu] = useState(false);

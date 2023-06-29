@@ -1,15 +1,14 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import Logo from "../../components/logo"
 import RegistrationHeader from "../../components/navigation/RegistrationHeader"
-import { RecycleContext } from "../../context/recycle";
-import { useToken } from "../../context/recylox";
+import { useRecycle } from "../../context/recycle";
 
 const UserRegPage = () => {
 
   const {
     registerPicker, connectedAccount, pickers, companies, 
     isMethodCallLoading, isMethodCallSuccessful
-  }  = useContext(RecycleContext);
+  }  = useRecycle();
 
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -46,14 +45,16 @@ const UserRegPage = () => {
   return (
     <div className='container mx-auto'>
       <RegistrationHeader/>
-      <div className='my-20 w-[34rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'>
+      {/* <div className='my-20 w-[34rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'> */}
+      <div className='my-20  flex flex-row justify-center'>
       <div>
         <p className='text-[1rem] md:text-[2rem] lg:text-[3.7rem] font-bold text-center'>
           User Registration Page
         </p>
         <div className='flex flex-row justify-center mt-4 '>
           <div className='relative'>
-            <div className='w-[10rem] md:w-[22rem] lg:w-[29rem] min-h-[34rem] bg-[#F8F9FB] border border-primary40-700'>
+            {/* <div className='w-[10rem] md:w-[22rem] lg:w-[29rem] min-h-[34rem] bg-[#F8F9FB] border border-primary40-700'> */}
+            <div className='w-[10rem] md:w-[22rem] lg:min-w-[29rem] min-h-[34rem] bg-[#F8F9FB] border border-primary40-700'>
               <div className='flex flex-row mt-10 ml-10'>
                 <div className='w-46 h-46 items-center '>
                   <Logo fill='#0D4D00' w='46' h='46' />

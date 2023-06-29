@@ -349,7 +349,7 @@ const AdminDashboard = () => {
     const {transferTokens, mintTokens, burnTokens, accountBalance, contract,
         transferFrom, isMethodCallSuccessful, isMethodCallLoading} = useContext(TokenContext);
 
-    const {picker_count,} = useContext(RecycleContext)
+    const {picker_count,company_count} = useContext(RecycleContext)
 
     // Component to Display for dashboard
     const [componentToDisplay, setComponentToDisplay] = useState(0);
@@ -395,11 +395,11 @@ const AdminDashboard = () => {
                     <h1 className='text-[#0D4D00] text-[1.6rem] font-[700]  my-4'>{toggleBalance ? balance : "XXXXX"}</h1>
                     <div className='w-[22.5rem] text-black text-[1rem] flex flex-row p-2 mt-10 bg-[#d9d9d975]'>
                         <p className=' font-[500]'>Total Number of Registered Companies:</p>
-                        <p className='font-[700] ml-2'>400</p>
+                        <p className='font-[700] ml-2'>{ company_count.toString()}</p>
                     </div>
                     <div className='w-[22.5rem] text-black text-[1rem]  flex flex-row p-2 mt-4 mb-8 bg-[#d9d9d975]'>
                         <p className='font-[500]'>Total Number of Registered Pickers:</p>
-                        <p className='font-[700] ml-2'></p>
+                        <p className='font-[700] ml-2'>{picker_count.toString()}</p>
                     </div>
                     {/* settings nav items */}
                     <ul className='w-full h-full'>

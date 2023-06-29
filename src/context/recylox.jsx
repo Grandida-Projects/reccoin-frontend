@@ -22,9 +22,6 @@ export const TokenProvider = ({ children }) => {
   const [isMethodCallLoading, setIsMethodCallLoading] = useState(false);
   const [isMethodCallSuccessful, setIsMethodCallSuccessful] = useState(false);
 
-  // added variable
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
-
   useEffect (() => {
     const recylox_status = localStorage.getItem("connectRecylox")
     console.log("recylox status => ", recylox_status);
@@ -59,6 +56,7 @@ export const TokenProvider = ({ children }) => {
         const yourAccountAddress = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048';// Replace with your actual Ethereum address
         const accountBalance = await contract.balanceOf(yourAccountAddress);
 
+        console.log("account balance", accountBalance);
         setName(name);
         setSymbol(symbol);
         setDecimals(decimals);

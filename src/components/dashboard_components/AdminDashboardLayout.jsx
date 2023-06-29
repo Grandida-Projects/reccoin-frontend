@@ -6,12 +6,13 @@ import { UserDashboardNavData } from '../../data/DashboardData';
 import { DashboardFooterData } from '../../data/DashboardFooterData';
 import searchIcon from '../../assets/search.svg'
 import { routes } from '../../routes/dashboard/admin.jsx'
+import { useRecycle } from '../../context/recycle';
 
 const AdminDashboardLayout = ({dashboard_content, active_link}) => {
-  
+  const {connectedAccount} = useRecycle();
 
   return (
-    <div className=' relative h-[1025px] container mx-auto '>
+    <div className=' relative h-[1025px] min-w-[968px] container mx-auto '>
       {/* toggle menu button */}
       <button
         data-drawer-target='default-sidebar'
@@ -46,7 +47,9 @@ const AdminDashboardLayout = ({dashboard_content, active_link}) => {
             />
           </svg>
 
-          <figcaption className='mt-1 text-white'>Welcome User</figcaption>
+          <figcaption className='mt-1 text-white'>
+            Welcome {connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) }
+            </figcaption>
         </div>
 
         {/*  menu items*/}
