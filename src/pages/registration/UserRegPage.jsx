@@ -38,8 +38,6 @@ const UserRegPage = () => {
         }
       }
     }
-    
-
   }
 
   return (
@@ -51,7 +49,7 @@ const UserRegPage = () => {
         <p className='text-[1rem] md:text-[2rem] lg:text-[3.7rem] font-bold text-center'>
           User Registration Page
         </p>
-        <div className='flex flex-row justify-center mt-4 '>
+        <div className='flex flex-row justify-center mt-4'>
           <div className='relative'>
             {/* <div className='w-[10rem] md:w-[22rem] lg:w-[29rem] min-h-[34rem] bg-[#F8F9FB] border border-primary40-700'> */}
             <div className='w-[10rem] md:w-[22rem] lg:min-w-[29rem] min-h-[34rem] bg-[#F8F9FB] border border-primary40-700'>

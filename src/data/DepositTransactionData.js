@@ -1,6 +1,7 @@
-import profileIcon from '../assets/profile.svg'
-import notificationIcon from '../assets/notification.svg'
-import sendIcon from '../assets/sendIcon.svg'
+import profileIcon from '../assets/profile.svg';
+import notificationIcon from '../assets/notification.svg';
+import sendIcon from '../assets/sendIcon.svg';
+import depositIcon from '../assets/depositGreenIcon.svg';
 // import newsIcon from '../assets/news.svg'
 
 export const DepositTransaction =  [
@@ -14,6 +15,17 @@ export const DepositTransaction =  [
     },
     {
         "title": "Transfer Recylox",
+        "icon": sendIcon
+    }
+]
+
+export const CompanyDashboardData = [
+    {
+        "title":"Deposit Reccoin",
+        "icon": depositIcon
+    },
+    {
+        "title": "Transfer Reccoin",
         "icon": sendIcon
     }
 ]

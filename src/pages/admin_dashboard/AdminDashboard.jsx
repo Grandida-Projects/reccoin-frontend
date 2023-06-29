@@ -15,8 +15,6 @@ import { RecycleContext } from '../../context/recycle';
 // mint token tab
 const MintTokenTab = ({toggleClose, isMintSuccessful, MintLoading, MintToken}) => {
 
- 
-
     const [recipientAddress, setRecipientAddress] = useState('');
     const [mintAmount, setmintAmount] = useState(0);
     const [isMintChecked, setisMintChecked] = useState(false)
@@ -342,7 +340,6 @@ const BurnToken = ({toggleClose, BurnToken, burnLoading, isBurnSuccessfull}) => 
     }
     </div>
 }
-
 
 const AdminDashboard = () => {
 

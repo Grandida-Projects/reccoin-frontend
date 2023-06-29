@@ -22,6 +22,7 @@ import Notifications from '../../pages/company_dashboard/Notifications';
 import HistoryPage from '../../pages/company_dashboard/HistoryPage';
 import OffersPage from '../../pages/company_dashboard/OffersPage';
 import ChatPage from '../../pages/company_dashboard/ChatPage';
+import CompanyTransactions from '../../pages/company_dashboard/CompanyTransactions';
 
 const routes = [
     {
@@ -38,7 +39,7 @@ const routes = [
         white_icon: companyWhiteIcon,
         green_icon: companyGreenIcon,
         id: 'dashboard-companies',
-        component: CompanyDashboard
+        component: CompanyTransactions
     },
     {
         name: "Notifications",
