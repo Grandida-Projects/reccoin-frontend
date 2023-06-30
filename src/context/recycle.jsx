@@ -29,7 +29,7 @@ export const RecycleProvider = ({ children }) => {
         // MetaMask requires requesting permission to connect users accounts
         setProvider(ethereumProvider);
         const signer = ethereumProvider.getSigner();
-        const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
+        const contractAddress = '0x96843178AEf01A428798177F45E809Dc6F7b76f2'; // Replace with the actual contract address
         const contract = new ethers.Contract(contractAddress, recycleABI, signer);
         console.log('contract =>', contract);
         setContract(contract);

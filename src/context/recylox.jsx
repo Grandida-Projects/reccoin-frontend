@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { ethers } from 'ethers';
 import { recyloxABI } from './recylox-abi';
 import PropTypes from 'prop-types';
@@ -76,7 +76,7 @@ export const TokenProvider = ({ children }) => {
         // MetaMask requires requesting permission to connect users accounts
         setProvider(ethereumProvider);
         const signer = ethereumProvider.getSigner();
-        const contractAddress = '0x0750Da72092d0eD371f9aD7Cabd8EcB23f1cC480'; // Replace with the actual contract address
+        const contractAddress = '0x509D44Bf4E1E5E696eA288eC4fF1114f79a09AC9'; // Replace with the actual contract address
         const contract = new ethers.Contract(contractAddress, recyloxABI, signer);
         console.log('contract =>', contract);
         setContract(contract);
