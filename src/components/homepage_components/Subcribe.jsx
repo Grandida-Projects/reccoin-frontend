@@ -2,7 +2,7 @@ import emailBlackIcon from '../../assets/emailBlackIcon.svg'
 
 const Subscribe = () => {
     return ( 
-        <section className='container mx-auto font-openSans py-10 bg-subscribeBg'>
+        <section className='container mx-auto py-10 bg-subscribeBg font-montserrat'>
             <h1 className='text-[#000000] text-[1.4rem] font-openSans text-center'>Join Our Mailing List for Updates and Discounts!</h1>
             <div className="flex flex-col mx-auto justify-center items-center my-12 md:flex-row">
                 <label htmlFor="subscribe" className='rounded-md bg-white p-4  flex flex-row justify-center mr-8'>

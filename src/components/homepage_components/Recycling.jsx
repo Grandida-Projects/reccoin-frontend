@@ -3,7 +3,7 @@ import { RecyclingData } from "../../data/RecyclingData"
 const Recycling = () => {
 
  
-  return <section className="container mx-auto bg-recyclingBg">
+  return <section className="container mx-auto bg-recyclingBg font-montserrat">
     {/* title of section */}
     <h2 className="w-full mb-12 p-4 bg-primary40 text-white text-center font-bold">Recycling (Almost All Kinds of) Scrap</h2>
 

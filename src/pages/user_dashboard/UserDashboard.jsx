@@ -62,6 +62,8 @@ const DepositPlasticTab = ({ toggleClose, depositPlastic,  isMethodCallLoading, 
                 className="w-[60%] border-2 border-white rounded-lg p-2 bg-[#006D44] my-6"
                 onClick={DepositPlastic}
             >
+                 {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Company created successfully" 
+                : !isMethodCallSuccessful ? "Error Creating Company" : "Register"}
             {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Picker created" : "Register"}
             </button>
         </div>
