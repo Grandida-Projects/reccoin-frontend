@@ -11,7 +11,9 @@ import { TokenContext } from '../../context/recylox';
 import { useRecycle } from '../../context/recycle';
 
 // deposit plastic content
-const DepositPlasticTab = ({ toggleClose, depositPlastic,  isMethodCallLoading, isMethodCallSuccessful }) => {
+const DepositPlasticTab = ({ toggleClose }) => {
+
+    const {depositPlastic,  isMethodCallLoading, isMethodCallSuccessful} = useRecycle();
 
     const [companyName, setCompanyName] = useState('');
     const [plasticWeight, setPlasticWeight] = useState(0);
@@ -63,8 +65,7 @@ const DepositPlasticTab = ({ toggleClose, depositPlastic,  isMethodCallLoading, 
                 onClick={DepositPlastic}
             >
                  {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Company created successfully" 
-                : !isMethodCallSuccessful ? "Error Creating Company" : "Register"}
-            {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Picker created" : "Register"}
+                 : "Register"}
             </button>
         </div>
     );
@@ -246,11 +247,11 @@ const TransferRecyloxTab = ({toggleClose, isTransferSuccessful, transferLoading,
 const UserDashboard = () => {
 
     const {contract, transferTokens} = useContext(TokenContext);
-    const {tokenHolderBalance, depositPlastic,  isMethodCallLoading, isMethodCallSuccessful} = useRecycle();
+    const {tokenHolderBalance, isMethodCallLoading, isMethodCallSuccessful} = useRecycle();
     // Component to Display for dashboard
     const [componentToDisplay, setComponentToDisplay] = useState(1);
     const [toggleBalance, setToggleBalance] = useState(false);
-    const [balance, setBalance] = useState(0)
+    const [balance, setBalance] = useState(0);
 
     // function to close nav content
     const toggleCLose = () => {
@@ -312,9 +313,6 @@ const UserDashboard = () => {
                             {
                                 componentToDisplay === 1 ? <DepositPlasticTab 
                                     toggleClose={toggleCLose}
-                                    depositPlastic = {depositPlastic}                                    
-                                    isMethodCallLoading = {isMethodCallLoading}
-                                    isMethodCallSuccessful = {isMethodCallSuccessful}
                                 /> 
                                 : componentToDisplay === 2 ? <TransactionTab toggleClose={toggleCLose}/> 
                                 : componentToDisplay === 3 ? <TransferRecyloxTab 

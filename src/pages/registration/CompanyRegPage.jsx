@@ -3,11 +3,12 @@ import Logo from '../../components/logo';
 import { useRecycle } from '../../context/recycle';
 import RegistrationHeader from '../../components/navigation/RegistrationHeader';
 import { useToken } from '../../context/recylox';
+import { ethers } from 'ethers';
 
 const CompanyRegPage = () => {
 
-  const {contract, registerCompany,
-  isMethodCallLoading, isMethodCallSuccessful }  =  useRecycle();
+  const {contract, registerCompany, isMethodCallLoading, 
+    isMethodCallSuccessful, account_category }  =  useRecycle();
   const { connectedAccount } = useToken();
 
 
@@ -22,6 +23,8 @@ const RegisterCompany = () => {
 
   if(!connectedAccount) {
     alert("Connect wallet to continue")
+  } else if (account_category !== "") {
+    alert("Address aleady registered")
   }
   else if(!companyName) {
     alert("Input company name");
@@ -39,7 +42,13 @@ const RegisterCompany = () => {
     alert("Agree to Recylox Terms")
   }
   else {
-    registerCompany(companyName, minimumWeightRequirement, maximumWeightPerKg, true);
+    const minWt = ethers.utils.parseEther(minimumWeightRequirement)
+    const maxPrice =ethers.utils.parseEther(maximumWeightPerKg)
+    console.log("register company arguments => ", minWt, maxPrice);
+    registerCompany(companyName, minWt, maxPrice, true);
+    if (isMethodCallSuccessful) {
+      window.location.href = "/company-dashboard";
+    }
 
     /* this is really important
       GetCompany();
@@ -79,7 +88,7 @@ const RegisterCompany = () => {
                     <Logo fill='#0D4D00' w='46' h='46' />
                   </div>
                   <p className='text-[1rem] md:text-[1rem] lg:text-[1.2rem] mt-2 ml-3 text-[#0D4D00]  text-center'>
-                    Reccoin
+                    Recylox
                   </p>
                 </div>
                 <div className='ml-8'>
@@ -97,7 +106,7 @@ const RegisterCompany = () => {
                     </label>
                     <input
                       type='text'
-                      className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent'
+                      className='border-b-2 w-[14rem] mx-auto focus:outline-none border-[#0D4D00] bg-transparent'
                       onChange={(nme)=> setCompanyName(nme.target.value)}
                     />
                   </div>
@@ -106,11 +115,11 @@ const RegisterCompany = () => {
                       htmlFor='Minimum-Weight-Requirement'
                       className='block mb-1 text-[1rem] md:text-[1rem] lg:text-[1.2rem] font-medium text-[#0D4D00] text-center'
                     >
-                      Minimum Weight Requirement
+                      Minimum Weight(Kg)
                     </label>
                     <input
-                      type='text'
-                      className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent ml-6'
+                      type='number'
+                      className='border-b-2 w-[14rem]  mx-auto focus:outline-none border-[#0D4D00] bg-transparent ml-6'
                       onChange={(wht)=> setMinimumWeightRequirement(wht.target.value)}
                     />
                   </div>
@@ -119,12 +128,12 @@ const RegisterCompany = () => {
                       htmlFor='Maximum-Price-Per-Kilogram'
                       className='block mb-1 text-[1rem] md:text-[1rem] lg:text-[1.2rem] font-medium text-[#0D4D00] text-center'
                     >
-                      Maximum Price Per Kilogram
+                      Maximum Price (Kg)
                     </label>
                     <input
-                      type='text'
+                      type='number'
                       onChange={(pkg)=> setMaximumWeightPerKg(pkg.target.value)}
-                      className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent ml-5'
+                      className='border-b-2 w-[14rem]  mx-auto focus:outline-none border-[#0D4D00] bg-transparent ml-5'
                     />
                   </div>
                 </div>
@@ -137,7 +146,7 @@ const RegisterCompany = () => {
                     aria-label='Checkbox for following text input'
                   />
                   <p className='text-[0.5rem] md:text-[0.7rem] lg:text-[0.7rem] mt-2 w-[14rem]  text-[#0D4D00]'>
-                    I agree to the terms of the Reccoin Subscriber Agreement and
+                    I agree to the terms of the Recylox Subscriber Agreement and
                     the Privacy Policy
                   </p>
                 </div>

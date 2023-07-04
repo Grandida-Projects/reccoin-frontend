@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Logo from "../../components/logo"
 import RegistrationHeader from "../../components/navigation/RegistrationHeader"
 import { useRecycle } from "../../context/recycle";
@@ -7,7 +7,7 @@ const UserRegPage = () => {
 
   const {
     registerPicker, connectedAccount, pickers, companies, 
-    isMethodCallLoading, isMethodCallSuccessful
+    isMethodCallLoading, isMethodCallSuccessful, account_category
   }  = useRecycle();
 
   const [userName, setUserName] = useState('');
@@ -15,16 +15,30 @@ const UserRegPage = () => {
   const [isTermsChecked, setIsTermsChecked] = useState(false)
 
 
+  useEffect(()=>{
+    console.log("companies =>", companies);
+    console.log("account category => ", account_category);
+  }, [])
+
   const RegisterPicker = () => {
 
-    console.log("companies =>", companies);
+    const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const isValidEmail = (email) => {
+      return email_regex.test(email);
+    }
+
+    const validEmail = isValidEmail(userEmail);
     if(!connectedAccount) {
       alert("Connect wallet to continue")
     }
+    else if(account_category !== "") {
+      alert("Address already registered")
+    }
     else if (!userName) {
       alert("Input user name")
-    } else if(!userEmail) {
-      alert("input user email")
+    } else if(!validEmail) {
+      alert("input valid email")
     }
     else if (!isTermsChecked) {
       alert("Agree to Recylox Terms")
@@ -35,6 +49,9 @@ const UserRegPage = () => {
           alert("User already registered, kindly login or connect with a different address");
         } else {
           registerPicker(userName, userEmail)
+          if (isMethodCallSuccessful) {
+            window.location.href = "/user-dashboard";
+          }
         }
       }
     }

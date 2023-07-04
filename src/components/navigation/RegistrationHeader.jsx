@@ -128,16 +128,16 @@ const Header = () => {
 
               {
                 account_category === "picker" ? 
-                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == '/user-dashboard' ? "border-b font-bold" : "font-normal"}`}>
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/user-dashboard" ? "border-b font-bold" : "font-normal"}`}>
                         <Link to={`/user-dashboard`}>Dashboard</Link>
                     </li>
                 : account_category === "company" ?
-                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == '/company-dashboard' ? "border-b font-bold" : "font-normal"}`}>
-                        <Link to={'/company-dashboard'}>Dashboard</Link>
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={"/company-dashboard"}>Dashboard</Link>
                     </li>
                 :  account_category === "admin" ?
-                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == '/admin-dashboard' ? "border-b font-bold" : "font-normal"}`}>
-                        <Link to={'/admin-dashboard'}>Dashboard</Link>
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/admin-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={"/admin-dashboard"}>Dashboard</Link>
                     </li>
                 : ""
 
@@ -158,13 +158,13 @@ const Header = () => {
                   <div className="inline-block">
                     <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
                       <Link 
-                        to={'/register-user'}
-                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-user" ? "border-b font-bold" : "font-normal"}`}
+                        to={"/register-user"}
+                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname === "/register-user" ? "border-b font-bold" : "font-normal"}`}
                       >User
                       </Link>
                       <Link 
-                        to={'/register-company'}
-                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-company" ? "border-b font-bold" : "font-normal"}`}
+                        to={"/register-company"}
+                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname === "/register-company" ? "border-b font-bold" : "font-normal"}`}
                         >Company
                         </Link>
                     </div>
@@ -187,17 +187,17 @@ const Header = () => {
               <div className="inline-block">
                 <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
                   <Link 
-                    to={'/user-dashboard'}
+                    to={"/user-dashboard"}
                     className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/user-dashboard" ? "border-b font-bold" : "font-normal"}`}
                   >User
                   </Link>
                   <Link 
-                    to={'/company-dashboard'}
+                    to={"/company-dashboard"}
                     className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}
                     >Company
                     </Link>
                     <Link 
-                        to={'/admin-dashboard'}
+                        to={"/admin-dashboard"}
                         className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/admin-dashboard" ? "border-b font-bold" : "font-normal"}`}
                         >Admin
                     </Link>

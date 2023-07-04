@@ -80,7 +80,7 @@ const routes = [
         white_icon: chatWhiteIcon,
         green_icon: chatGreenIcon,
         id: 'dashboard-companies',
-    }
+    }, 
     
 ];
 

@@ -1,8 +1,5 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import settingsWhiteIcon from '../../assets/settingsWhite.svg'
-import settingsGreenIcon from '../../assets/settingsGreen.svg'
 import companyWhiteIcon from '../../assets/companyWhite.svg'
 import companyGreenIcon from '../../assets/companyGreen.svg'
 import chatWhiteIcon from '../../assets/chatWhite.svg'

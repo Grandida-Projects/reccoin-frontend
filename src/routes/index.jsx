@@ -11,6 +11,7 @@ import PrivacyPolicy from '../pages/Privacy';
 import UserRegPage from '../pages/registration/UserRegPage';
 import EmailVerification from '../pages/registration/EmailVerification';
 import HowItWorks from '../pages/HowItWorks';
+import ErrorPage from '../pages/ErrorPage';
 
 const routes = [
   {
@@ -68,6 +69,11 @@ const routes = [
     path: "/how-it-works",
     component: HowItWorks,
   },
+  // {
+  //   name: "Error Page",
+  //   path: "*",
+  //   component: ErrorPage,
+  // },
 ];
 
 const renderRoutes = (routes, basePath = '') => {
