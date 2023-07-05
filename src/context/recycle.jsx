@@ -222,7 +222,8 @@ export const RecycleProvider = ({ children }) => {
   const payPicker = async (transactionId) => {
     try {
       setIsMethodCallLoading(true);
-      const transaction = await contract.connect(signer).payPicker(transactionId);
+      // const transaction = await contract.connect(signer).payPicker(transactionId);
+      const transaction = await contract.payPicker(transactionId);
       await transaction.wait();
       console.log('Picker paid successfully!');
       // Additional logic or UI updates after successful payment

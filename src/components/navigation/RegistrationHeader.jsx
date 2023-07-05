@@ -10,10 +10,12 @@ import { useRecycle } from "../../context/recycle";
 
 const Header = () => {
 
+  const adminAddress = '0x509D44Bf4E1E5E696eA288eC4fF1114f79a09AC9';
+
     // recylox context
     const {connectedAccount, initializeContract} = useContext(TokenContext)
     // recycle context
-    const {account_category, initializeRecycleContract, pickerStruct } = useRecycle()
+    const {account_category, initializeRecycleContract } = useRecycle()
 
     const {pathname} = useLocation();
 
@@ -125,24 +127,7 @@ const Header = () => {
                   <Link to={item.link}>{item.title}</Link>
                 </li>
               ))}
-
-              {
-                account_category === "picker" ? 
-                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/user-dashboard" ? "border-b font-bold" : "font-normal"}`}>
-                        <Link to={`/user-dashboard`}>Dashboard</Link>
-                    </li>
-                : account_category === "company" ?
-                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}>
-                        <Link to={"/company-dashboard"}>Dashboard</Link>
-                    </li>
-                :  account_category === "admin" ?
-                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/admin-dashboard" ? "border-b font-bold" : "font-normal"}`}>
-                        <Link to={"/admin-dashboard"}>Dashboard</Link>
-                    </li>
-                : ""
-
-              }
-
+               
               {/* register link */}
               {!connectedAccount ? 
                 <li 
@@ -174,39 +159,55 @@ const Header = () => {
                   
                 </li>
               : 
-              <li 
-                className={`relative w-fit hover:border-b font-normal
-                hover:cursor-pointer hover:border-primary40 hover:font-bold 
-                transition-all flex flex-row gap-2 my-4 border-primary40 
-                md:mr-4`}
-                onMouseEnter={dashboardDropdown}
-                onMouseLeave={dashboardDropdown}
-                >Dashboard<img src={dropdown} alt="dropdown icon" />
-            {
-              showDashboardDropDown ?
-              <div className="inline-block">
-                <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
-                  <Link 
-                    to={"/user-dashboard"}
-                    className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/user-dashboard" ? "border-b font-bold" : "font-normal"}`}
-                  >User
-                  </Link>
-                  <Link 
-                    to={"/company-dashboard"}
-                    className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}
-                    >Company
-                    </Link>
-                    <Link 
-                        to={"/admin-dashboard"}
-                        className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/admin-dashboard" ? "border-b font-bold" : "font-normal"}`}
-                        >Admin
-                    </Link>
-                </div>
-              </div>
-              : ""
-            }
+                connectedAccount && account_category === "picker" ? 
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/user-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={`/user-dashboard`}>Dashboard</Link>
+                    </li>
+                :
+                connectedAccount && account_category === "company" ?
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={"/company-dashboard"}>Dashboard</Link>
+                    </li>
+                :
+                connectedAccount &&  connectedAccount === adminAddress ?
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/admin-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={"/admin-dashboard"}>Dashboard</Link>
+                    </li>
+                  : ""
               
-            </li>
+            //   <li 
+            //     className={`relative w-fit hover:border-b font-normal
+            //     hover:cursor-pointer hover:border-primary40 hover:font-bold 
+            //     transition-all flex flex-row gap-2 my-4 border-primary40 
+            //     md:mr-4`}
+            //     onMouseEnter={dashboardDropdown}
+            //     onMouseLeave={dashboardDropdown}
+            //     >Dashboard<img src={dropdown} alt="dropdown icon" />
+            // {
+            //   showDashboardDropDown ?
+            //   <div className="inline-block">
+            //     <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
+            //       <Link 
+            //         to={"/user-dashboard"}
+            //         className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/user-dashboard" ? "border-b font-bold" : "font-normal"}`}
+            //       >User
+            //       </Link>
+            //       <Link 
+            //         to={"/company-dashboard"}
+            //         className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}
+            //         >Company
+            //         </Link>
+            //         <Link 
+            //             to={"/admin-dashboard"}
+            //             className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/admin-dashboard" ? "border-b font-bold" : "font-normal"}`}
+            //             >Admin
+            //         </Link>
+            //     </div>
+            //   </div>
+            //   : ""
+            // }
+              
+            // </li>
             }
           
             <button 

@@ -34,6 +34,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background-color: #a9ce98;
+  border-radius: 5px;
   /* #006D44; */
 }
 @layer utilities {

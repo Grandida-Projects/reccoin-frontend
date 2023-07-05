@@ -6,10 +6,12 @@ import { TokenContext } from '../../context/recylox'
 import menuIcon from '../../assets/menuGreen.svg'
 import { HeaderData } from '../../data/HeaderData'
 import { MdClose } from "react-icons/md"
+import { useRecycle } from "../../context/recycle";
 
 const Header = () => {
 
     const {connectedAccount} = useContext(TokenContext)
+    const {account_category} = useRecycle();
     const {pathname} = useLocation();
 
     // const [selectedOption, setSelectedOption] = useState('');
@@ -108,6 +110,23 @@ const Header = () => {
                 </li>
               ))}
 
+              { 
+                connectedAccount && account_category === "picker" ? 
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/user-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={`/user-dashboard`}>Dashboard</Link>
+                    </li>
+                :
+                connectedAccount && account_category === "company" ?
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={"/company-dashboard"}>Dashboard</Link>
+                    </li>
+                :
+                connectedAccount &&  connectedAccount === adminAddress ?
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/admin-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={"/admin-dashboard"}>Dashboard</Link>
+                    </li>
+                  : ""
+              }
               {/* register link */}
               {!connectedAccount ? 
                 <li 

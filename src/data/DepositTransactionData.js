@@ -21,11 +21,11 @@ export const DepositTransaction =  [
 
 export const CompanyDashboardData = [
     {
-        "title":"Deposit Reccoin",
+        "title":"Pay Picker",
         "icon": depositIcon
     },
     {
-        "title": "Transfer Reccoin",
+        "title": "Transfer Recylox",
         "icon": sendIcon
     }
 ]

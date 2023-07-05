@@ -9,26 +9,32 @@ import eyesOpenIcon from '../../assets/eyeOpenIcon.svg';
 import { useRecycle } from "../../context/recycle";
 import usersIcon from '../../assets/users.svg'
 import merchantIcon from '../../assets/merchant.svg'
+import tickIcon from '../../assets/tickIcon.svg'
+import { ethers } from "ethers";
 
 // deposit plastic content
-const DepositReccoinTab = ({ toggleClose, depositPlastic,  isMethodCallLoading, isMethodCallSuccessful }) => {
+const PayPickerTab = ({ toggleClose }) => {
 
-  const [companyName, setCompanyName] = useState('');
-  const [transferAmt, setTransferAmt] = useState(0);
+  const { account_category, isMethodCallLoading, isMethodCallSuccessful, payPicker} = useRecycle();
+  const [pickerAddress, setPickerAddress] = useState('');
+  const [payAmount, setPayAmount] = useState(0);
   const [isTermsChecked, setisTermsChecked] = useState(false)
 
-  // const DepositReccoin = () => {
-  //     if (!companyName) {
-  //         alert("Input company name");
-  //     } else if (!transferAmt){
-  //         alert("Input plastic weight")
-  //     }
-  //     else if (!isTermsChecked) {
-  //         alert("Agree to Recylox Terms")
-  //     } else {
-  //         depositPlastic(companyName, transferAmt)
-  //     }
-  // }
+  const PayPicker = () => {
+      if (account_category !== "company") {
+        alert("Address not registered as a company")
+      }
+      else if (!pickerAddress) {
+          alert("Input picker address");
+      } else if (!payAmount){
+          alert("Input plastic weight")
+      }
+      else if (!isTermsChecked) {
+          alert("Agree to Recylox Terms")
+      } else {
+          payPicker(pickerAddress, payAmount)
+      }
+  }
 
   return (
     <div className="bg-[#005232] w-full mx-auto flex flex-col justify-start text-white p-10 font-montserrat">
@@ -36,21 +42,21 @@ const DepositReccoinTab = ({ toggleClose, depositPlastic,  isMethodCallLoading, 
         <button className="flex flex-row justify-end" onClick={toggleClose}>
             <img src={closeIcon} alt="close-icon" className=" w-8 h-8" />
         </button>
-        <h1 className="font-bold text-2xl my-8">Deposit Reccoin</h1>
+        <h1 className="font-bold text-2xl my-8">Pay Picker</h1>
         {/* company name */}
-        <label htmlFor="companyName">Company Name</label>
-        <input type="text" name="companyName" id="companyName"
-                onChange={(fn) => setCompanyName(fn.target.value)}
+        <label htmlFor="pickerAddress">Picker Address</label>
+        <input type="text" name="pickerAddress" id="pickerAddress"
+                onChange={(pka) => setPickerAddress(pka.target.value)}
                 className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
         />
         {/* plastic weight */}
-        <label htmlFor="depositRecylox">Amount (RC)</label>
-        <input type="text" name="depositRecylox" id="depositRecylox"
-                onChange={(ln) => setTransferAmt(ln.target.value)}
+        <label htmlFor="recyloxAmount">Amount (RC)</label>
+        <input type="number" name="recyloxAmount" id="recyloxAmount"
+                onChange={(amt) => setPayAmount(amt.target.value)}
                 className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
         />
         <div className="flex">
-            <input type="checkbox" name="depositRecylox" id="depositRecylox"
+            <input type="checkbox" name="pay_picker_checkbox" id="pay_picker_checkbox"
                     className="h-6 w-6 mr-1"
                     onChange={() => setisTermsChecked(!isTermsChecked)}
                     value={isTermsChecked}
@@ -60,25 +66,29 @@ const DepositReccoinTab = ({ toggleClose, depositPlastic,  isMethodCallLoading, 
         {/* submit button */}
         <button 
             className="w-[60%] border-2 border-white rounded-lg p-2 bg-[#006D44] my-6"
-            onClick={() => null}
+            onClick={PayPicker}
         >
-        {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Company created successfully" 
-        : !isMethodCallSuccessful ? "Error Creating Company" : "Register"}
+        {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Payment successful!" : "Pay Picker"}
         </button>
     </div>
   );
 };
 
 // transfer reccoin tab
-const TransferRecyloxTab = ({toggleClose, isTransferSuccessful, transferLoading,  TransferToken}) => {
+const TransferRecyloxTab = ({toggleClose}) => {
 
+  const {transferTokens, isMethodCallSuccessful, isMethodCallLoading} = useToken();
+  const { account_category} = useRecycle();
   const [recipientAddress, setRecipientAddress] = useState('');
   const [transferAmount, setTransferAmount] = useState(0);
   const [isTransferChecked, setIsTransferChecked] = useState(false);
 
-  const transferToken = async () => {
+  const TransferToken = async () => {
 
-      if (!recipientAddress) {
+    if (account_category !== "company") {
+      alert("address not allowed to make transfer. Register to continue")
+    }  
+    else if (!recipientAddress) {
           alert("Input recipient address")
       }
       else if (!transferAmount) {
@@ -86,11 +96,11 @@ const TransferRecyloxTab = ({toggleClose, isTransferSuccessful, transferLoading,
           alert("Input transfer amount")
       } 
       else if(!isTransferChecked) {
-          alert("You need to agree that the details provided are correct")
+          alert("Agree to Recylox terms")
       }
       else {
           const transfer_amt = ethers.utils.parseEther(transferAmount)
-         await TransferToken(recipientAddress, transfer_amt)
+         await transferTokens(recipientAddress, transfer_amt)
       }
   }
   
@@ -122,15 +132,15 @@ return   <div className="bg-[#005232] w-full mx-auto flex flex-col justify-start
           onClick={() => setIsTransferChecked(!isTransferChecked)}
           className = {`relative h-6 w-6 p-[2px] mr-1 ${isTransferChecked ? 'bg-[#158B5E]' : ""} border-[2px] border-white transition duration-150 ease-in-out`}
       >
-          {isTransferChecked ? <img src={tickIcon} alt="tick-icon" className='absolute top-1 left-1 h-3 w-3' /> : ""}
+          {isTransferChecked ? <img src={tickIcon} alt="tick-icon" className='absolute top-1 h-3 w-3' /> : ""}
       </label>
       
       <span className="mr-1 italic font-[400] font-montserrat text-[0.8rem]">I am sure the details I provided are correct</span>
   </div>
   {/* submit button */}
   <button className="w-[60%] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6"
-  onClick={transferToken}>
-  {transferLoading ? "Loading..." : "TRANSFER"}
+  onClick={TransferToken}>
+  {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful? "Transfer successful" : "TRANSFER"}
   </button>
   </div>
 
@@ -138,8 +148,7 @@ return   <div className="bg-[#005232] w-full mx-auto flex flex-col justify-start
 
 const CompanyDashboard = () => {
 
-  const {transferTokens, isMethodCallSuccessful, isMethodCallLoading} = useToken();
-  const {contract, tokenHolderBalance, picker_count} = useRecycle()
+  const {contract, tokenHolderBalance, picker_count, payPicker, account_category} = useRecycle()
 
   const [componentToDisplay, setComponentToDisplay] = useState(0);
   const [toggleBalance, setToggleBalance] = useState(false);
@@ -178,7 +187,7 @@ const CompanyDashboard = () => {
                   <img src={toggleBalance ? eyesOpenIcon : eyesIcon} alt="eyes-icon" className='h-4 w-4 ml-4 hover:cursor-pointer' onClick={ToggleBalance} />
                 </div>
                 {/* balance */}
-                <h1 className='text-[#0D4D00] text-[1.6rem] font-[700] font-montserrat my-4'>{toggleBalance ? tokenHolderBalance.toString() : "XXXXX"}</h1>
+                <h1 className='text-[#0D4D00] text-[1.6rem] font-[700] font-montserrat my-4'>{toggleBalance ? `${ethers.utils.formatEther(tokenHolderBalance)} REC ` : "XXXXX"}</h1>
                 {/* pickers div */}
               </div>
              
@@ -209,18 +218,9 @@ const CompanyDashboard = () => {
         {/* settings display nav content */}
         <div className='w-full'>
             {
-              componentToDisplay === 1 ? <DepositReccoinTab 
-                // toggleClose={toggleCLose}
-                // depositPlastic = {depositReccoin}                                    
-                // isMethodCallLoading = {isMethodCallLoading}
-                // isMethodCallSuccessful = {isMethodCallSuccessful}
-              /> 
-              : componentToDisplay === 2 ? <TransferRecyloxTab 
-                  toggleClose={toggleCLose}
-                  TransferToken={transferTokens}
-                  transferLoading={isMethodCallLoading}
-                  isTransferSuccessful={isMethodCallSuccessful}
-              /> 
+              componentToDisplay === 1 ? <PayPickerTab 
+                toggleClose={toggleCLose}/> 
+              : componentToDisplay === 2 ? <TransferRecyloxTab /> 
               : ""
             }
 

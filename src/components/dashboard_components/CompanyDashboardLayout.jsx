@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { CompanyDashboardNavData } from "../../data/DashboardData";
 import { DashboardFooterData } from "../../data/DashboardFooterData";
 import searchIcon from "../../assets/search.svg";
-
 import { routes } from "../../routes/dashboard/company";
+import { useToken } from "../../context/recylox";
 
 const CompanyDashboardLayout = ({ dashboard_content, active_link }) => {
+
+  const {connectedAccount} = useToken()
   return (
     <div className=" relative h-[1025px] min-w-[968px] container mx-auto">
       {/* toggle menu button */}
@@ -24,7 +26,14 @@ const CompanyDashboardLayout = ({ dashboard_content, active_link }) => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
 
-          <figcaption className="mt-1 text-white">Welcome User</figcaption>
+          <figcaption className="mt-1 text-white">Welcome  <br />
+          {
+            connectedAccount ?
+            `${connectedAccount.slice(0,5)}...${connectedAccount.slice(connectedAccount.length-5, connectedAccount.length)}`
+            :
+            ""
+          }
+          </figcaption>
         </div>
 
         {/*  menu items*/}

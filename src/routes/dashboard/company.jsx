@@ -23,6 +23,8 @@ import HistoryPage from '../../pages/company_dashboard/HistoryPage';
 import OffersPage from '../../pages/company_dashboard/OffersPage';
 import ChatPage from '../../pages/company_dashboard/ChatPage';
 import CompanyTransactions from '../../pages/company_dashboard/CompanyTransactions';
+import { useRecycle } from '../../context/recycle';
+import Home from '../../pages/Home';
 
 const routes = [
     {
@@ -85,6 +87,7 @@ const routes = [
 ];
 
 const renderRoutes = (routes, basePath = '') => {
+
     return routes.map((route, index) => {
         const { group, path, component: Component } = route;
         const fullPath = group ? `${basePath}${group}${path || ''}` : `${basePath}${path || ''}`;
@@ -98,7 +101,12 @@ const renderRoutes = (routes, basePath = '') => {
 };
 
 const CompanyDashboardRoutes = () => {
-    return <Routes>{renderRoutes(routes)}</Routes>;
+
+    const {account_category} = useRecycle()
+
+    if (account_category === "company") {
+        return <Routes>{renderRoutes(routes)}</Routes>
+    }    
 };
 
 export { routes, CompanyDashboardRoutes };

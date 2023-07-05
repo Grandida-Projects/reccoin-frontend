@@ -23,6 +23,9 @@ import OffersPage from "../../pages/user_dashboard/OffersPage.jsx";
 import Notifications from '../../pages/user_dashboard/Notifications';
 import Companies from '../../pages/user_dashboard/Companies';
 import ChatPage from '../../pages/user_dashboard/ChatPage';
+import { useRecycle } from '../../context/recycle';
+import Home from '../../pages/Home';
+import Test from '../../pages/Test';
 
 const routes = [
     {
@@ -99,7 +102,13 @@ const renderRoutes = (routes, basePath = '') => {
 };
 
 const UserDashboardRoutes = () => {
-    return <Routes>{renderRoutes(routes)}</Routes>;
+
+    const {account_category} = useRecycle()
+
+    if (account_category === "picker") {
+        return <Routes>{renderRoutes(routes)}</Routes>;
+    }
+    
 };
 
 export { routes, UserDashboardRoutes };
