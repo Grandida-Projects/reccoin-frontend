@@ -3,6 +3,8 @@ import Logo from '../../components/logo';
 import companyBg from '../../assets/company-bg.svg';
 
 export const EmailVerification = () => {
+
+
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const inputRefs = useRef([]);
 
@@ -28,6 +30,39 @@ export const EmailVerification = () => {
       setCode(newCode);
     }
   };
+
+   // send verification code
+   const SendCode = (email) => {
+    const auth_code = [];
+     for (let i = 0; i < 4; i++) {
+       const random_digit = Math.floor(Math.random() * 100) + 1;
+       auth_code.push(random_digit);
+     }
+     setAuthCode(auth_code)
+      // send auth code to email
+      Email.send({
+        SecureToken : "ff381537-8817-43cc-a7b3-2da0dc4b5d0d",
+        //  process.env.Api_Key,
+        // 
+        // process.env.REACT_Api_Key,
+        To: email,
+        From: "gbstaiapp@gmail.com",
+        Subject: "Gbst Authentication Code",
+        Body: `<div>
+                  <p>GBST</p>
+                  <p>gbstaiapp@gmail.com</p>
+                  <p>${auth_code.join(' ')}</p>
+                </div>`,
+      // `${auth_code.join(' ')}`,
+      }).then(
+        message => {if (message == "OK") {
+          Alert.alert("User Authentication", "Authentication code sent to your email")
+        } else {
+          Alert.alert(message)
+        }}
+      );
+  }
+  
 
   return (
     <div className='w-[34rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'>

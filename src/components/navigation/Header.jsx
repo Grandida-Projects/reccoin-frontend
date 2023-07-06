@@ -10,7 +10,7 @@ import { useRecycle } from "../../context/recycle";
 
 const Header = () => {
 
-    const {connectedAccount} = useContext(TokenContext)
+    const {connectedAccount, adminAddress} = useContext(TokenContext)
     const {account_category} = useRecycle();
     const {pathname} = useLocation();
 
