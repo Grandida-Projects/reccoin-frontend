@@ -1,20 +1,23 @@
 import { useState, useRef } from 'react';
 import Logo from '../../components/logo';
 import companyBg from '../../assets/company-bg.svg';
+import { ElasticEmail } from './ElasticEmail';
+import { useNavigate } from 'react-router-dom';
 
 export const EmailVerification = () => {
 
+  const navigate = useNavigate();
 
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const inputRefs = useRef([]);
+  const [isLoading, setIsloading] = useState(false);
+
 
   const handleCodeChange = (index, event) => {
     const value = event.target.value;
     const newCode = [...code];
     newCode[index] = value;
-
     setCode(newCode);
-
     // Autofocus on the next input field
     if (value !== '' && index < inputRefs.current.length - 1) {
       inputRefs.current[index + 1].focus();
@@ -31,36 +34,17 @@ export const EmailVerification = () => {
     }
   };
 
-   // send verification code
-   const SendCode = (email) => {
-    const auth_code = [];
-     for (let i = 0; i < 4; i++) {
-       const random_digit = Math.floor(Math.random() * 100) + 1;
-       auth_code.push(random_digit);
-     }
-     setAuthCode(auth_code)
-      // send auth code to email
-      Email.send({
-        SecureToken : "ff381537-8817-43cc-a7b3-2da0dc4b5d0d",
-        //  process.env.Api_Key,
-        // 
-        // process.env.REACT_Api_Key,
-        To: email,
-        From: "gbstaiapp@gmail.com",
-        Subject: "Gbst Authentication Code",
-        Body: `<div>
-                  <p>GBST</p>
-                  <p>gbstaiapp@gmail.com</p>
-                  <p>${auth_code.join(' ')}</p>
-                </div>`,
-      // `${auth_code.join(' ')}`,
-      }).then(
-        message => {if (message == "OK") {
-          Alert.alert("User Authentication", "Authentication code sent to your email")
-        } else {
-          Alert.alert(message)
-        }}
-      );
+  const reload = () => {
+    navigate('/authenticate')
+  }
+
+  const VerifyEmail = async () => {
+    const email = "adewarainioluwa@gmail.com"
+    const response = fetch(`https://api.elasticemail.com/v4/verifications/${email}`);
+    const result = await response.json();
+    if (result === "OK") {
+      reload()
+    }
   }
   
 
@@ -107,6 +91,7 @@ export const EmailVerification = () => {
               <p className="items-center text-center my-16">Didn't receive the code? <a href="#">Resend the code in 0:30</a> </p>
               <div className="text-center mb-16">
                 <button className='rounded-full  bottom-6 left-36 p-2 text-[18px] md:text-[20px] lg:text-[20px] font-medium text-[#fff] bg-[#0D4D00]'
+                onClick={VerifyEmail}
                 >
                   Verify Email
                 </button>

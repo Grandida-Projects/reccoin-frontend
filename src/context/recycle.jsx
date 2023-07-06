@@ -34,6 +34,9 @@ export const RecycleProvider = ({ children }) => {
     if (recycle_status == 'true') {
       initializeRecycleContract()
     }
+    else {
+      initializeRecycleContract();
+    }
    
   },[])
 
