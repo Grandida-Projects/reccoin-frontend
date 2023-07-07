@@ -173,7 +173,7 @@ const UserRegPage = () => {
                 icon: 'success',
                 title: 'Success!',
                 text: 'Picker created successfully!',
-                preConfirm: () => navigate("/user-dashboard"),
+                preConfirm: () => {navigate("/user-dashboard")},
                 customClass: {
                     icon: "font-montserrat",
                     title: " font-montserrat text-[20px] text-[#000] font-[600]",
