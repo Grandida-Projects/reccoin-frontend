@@ -1,10 +1,12 @@
-
-import Layout from "../../components/dashboard_components/UserDashboardLayout";
-import UserDashboardLayout from "../../components/dashboard_components/UserDashboardLayout";
 import stateGreen from "../../assets/stateGreen.svg";
 import stateRed from "../../assets/stateRed.svg";
+import { TbArrowsRightLeft } from "react-icons/tb";
+import { CgSearch } from "react-icons/cg";
+import { TiArrowSortedDown } from "react-icons/ti";
+import { MdCheck, MdClose } from "react-icons/md";
+import CompanyDashboardLayout from "../../components/dashboard_components/CompanyDashboardLayout";
 
-const HistoryPage = () => {
+const CompanyTransactionHistory = () => {
   const data = [
     {
       value: 78,
@@ -104,36 +106,54 @@ const HistoryPage = () => {
   ];
 
   return (
-    <UserDashboardLayout
-      active_link={"History"}
+    <CompanyDashboardLayout active_link={"Transactions"}
       dashboard_content={
-        <div className=" bg-white h-full">
-          {/* Transactions title */}
-          <div className="font-black text-primary40 p-2">
-            <h1 className="text-4xl font-bold text-primary40">History</h1>
-            <h3 className="text-2xl font-bold text-primary40 py-2">
-              Transactions
-            </h3>
-          </div>
+        <div className="container bg-white px-8">
 
-          <div>
-            {data.map((transaction, index) => (
+          {/* Transactions title */}
+            <div className="flex items-center gap-3">
+                <TbArrowsRightLeft className="text-primary50 text-[29px]" />
+                <p className="font-montserrat text-primary50 font-bold text-[35px]">Transactions</p>
+            </div>
+            <p className="leading-[64px] font-bold italic text-primaryLight">Welcome back. You have 1 transaction to verify.</p>
+
+            <div className="flex justify-between">
+                <div className="flex items-center w-full max-w-[382px] bg-white border border-primary50 rounded-[10px] clip px-2.5">
+                <input type="text" name="search" placeholder="Search Transactions" className="h-[60px] w-full outline-none placeholder:text-primary50/30 placeholder:font-bold" />
+                <CgSearch className="text-primary50 text-[27px] cursor-pointer" />
+                </div>
+                <div className="flex justify-end items-center gap-[26px] w-full max-w-[430px]">
+                    <div className="flex items-center w-full max-w-[202px] bg-white border border-primary50 rounded-[10px] clip px-2.5">
+                        <input type="text" name="search" placeholder="Filter" className="h-[60px] w-full outline-none placeholder:text-primary50/30 placeholder:font-bold" />
+                        <TiArrowSortedDown className="text-primary50 cursor-pointer" />
+                    </div>
+                    <div className="flex items-center w-full max-w-[151px] bg-white border border-primary50 rounded-[10px] clip px-2.5">
+                        <input type="text" name="search" placeholder="Newest on top" className="h-[60px] w-full outline-none placeholder:text-primary50/30" />
+                        <TiArrowSortedDown className="text-primary50 cursor-pointer" />
+                    </div>
+                </div>
+            </div>
+
+            {data.slice(0,5).map((transaction, index) => (
               <div
                 key={index}>
-                <table className="-m-2 min-w-full table-fixed border-2 border-black bg-gradient-to-r from-green-400 via-green-200 to-white">
+                <table className="mt-8 min-w-full border border-primary40 rounded-[10px]">
                   <thead>
                     <tr className=" ">
-                      <th className="px-2 py-1">
-                        <span className="font-semibold">TOTAL VALUE</span>
-                      </th>
-                      <th className="px-2 py-1">
-                        <span className="font-semibold">TOTAL WEIGHT</span>
-                      </th>
                       <th className="px-2 py-1">
                         <span className="font-semibold">TRANSACTION ID</span>
                       </th>
                       <th className="px-2 py-1">
                         <span className="font-semibold">ADDRESS</span>
+                      </th>
+                      <th className="px-2 py-1">
+                        <span className="font-semibold">ORIGIN</span>
+                      </th>
+                      <th className="px-2 py-1">
+                        <span className="font-semibold">TOTAL WEIGHT</span>
+                      </th>
+                      <th className="px-2 py-1">
+                        <span className="font-semibold">TOTAL VALUE</span>
                       </th>
                       <th className="px-2 py-1">
                         <div className="flex justify-end">
@@ -166,16 +186,28 @@ const HistoryPage = () => {
                     </tr>
                   </tbody>
                 </table>
-
               </div>
             ))}
-            <div className="h-2 w-full"></div>
-          </div>
+            {/* <div className="h-2 w-full"></div> */}
 
+            {/* pagination */}
+            <div className="flex items-center justify-between mb-8 ">
+                <p className="font-montserrat text-black/25">2 out of 34</p>
+                <div className="flex items-center gap-4 text-primaryLight font-semibold">
+                <p className="cursor-pointer">Previous</p>
+                <div className="flex items-center gap-4">
+                    <p className="font-bold text-primary50 cursor-pointer">1</p>
+                    <p className="font-light cursor-pointer">2</p>
+                    <p className="font-light cursor-pointer">3</p>
+                    <p className="font-bold">...</p>
+                </div>
+                <p className="cursor-pointer">Next</p>
+                </div>
+            </div>
         </div>
       }
     />
 
   );
 };
-export default HistoryPage;
+export default CompanyTransactionHistory;

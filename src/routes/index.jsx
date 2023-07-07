@@ -9,7 +9,6 @@ import Test from '../pages/Test';
 import Blog from '../pages/Blog';
 import PrivacyPolicy from '../pages/Privacy';
 import UserRegPage from '../pages/registration/UserRegPage';
-import EmailVerification from '../pages/registration/EmailVerification';
 import HowItWorks from '../pages/HowItWorks';
 import ErrorPage from '../pages/ErrorPage';
 
@@ -29,11 +28,11 @@ const routes = [
     path: "/register-user",
     component: UserRegPage,
   },
-  {
-    name: "Authenticate",
-    path: "/authenticate",
-    component: EmailVerification,
-  },
+  // {
+  //   name: "Authenticate",
+  //   path: "/authenticate",
+  //   component: EmailVerification,
+  // },
   {
     name: "White Paper",
     path: "/white-paper",

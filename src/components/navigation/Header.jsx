@@ -10,8 +10,8 @@ import { useRecycle } from "../../context/recycle";
 
 const Header = () => {
 
-    const {connectedAccount, adminAddress} = useContext(TokenContext)
-    const {account_category} = useRecycle();
+    const {connectedAccount, adminAddress, account_category} = useContext(TokenContext)
+    // const {account_category} = useRecycle();
     const {pathname} = useLocation();
 
     // const [selectedOption, setSelectedOption] = useState('');
@@ -128,7 +128,7 @@ const Header = () => {
                   : ""
               }
               {/* register link */}
-              {!connectedAccount ? 
+              {!account_category ? 
                 <li 
                   className={`relative w-fit hover:border-b font-normal
                   hover:cursor-pointer hover:border-primary40 hover:font-bold 

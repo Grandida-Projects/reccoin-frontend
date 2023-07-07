@@ -2,21 +2,23 @@ import { useEffect, useState } from "react"
 import Logo from "../../components/logo"
 import RegistrationHeader from "../../components/navigation/RegistrationHeader"
 import { useRecycle } from "../../context/recycle";
-import { ElasticEmail } from "./ElasticEmail";
+import { useNavigate } from "react-router-dom";
 import { useToken } from "../../context/recylox";
+import Swal from "sweetalert2";
 
 const UserRegPage = () => {
 
+  const navigate = useNavigate()
+
   const {
     registerPicker,  pickers, companies, 
-    isMethodCallLoading, isMethodCallSuccessful, account_category
+    isMethodCallLoading, isMethodCallSuccessful
   }  = useRecycle();
-  const {connectedAccount} = useToken();
+  const {recycleContract, account_category, connectedAccount} = useToken();
 
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const [isTermsChecked, setIsTermsChecked] = useState(false);
-  const [isLoading, setLoading] = useState(false);
+  const [isTermsChecked, setIsTermsChecked] = useState(false)
 
 
   useEffect(()=>{
@@ -27,73 +29,87 @@ const UserRegPage = () => {
   const RegisterPicker = () => {
 
     const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     const isValidEmail = (email) => {
       return email_regex.test(email);
     }
 
     const validEmail = isValidEmail(userEmail);
 
-    if(!connectedAccount) {
-      alert("Connect wallet to continue")
-    }
-    else if(account_category !== "") {
-      alert("Address already registered")
+    if (account_category) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Address already registered!',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+    } 
+    else if(!connectedAccount) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Connect wallet to continue',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
     else if (!userName) {
-      alert("Input user name")
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Input user name',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } else if(!validEmail) {
-      alert("input valid email")
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Input valid email',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
     else if (!isTermsChecked) {
-      alert("Agree to Recylox Terms")
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Agree to Recylox Terms',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      });
     }
      else {
-      setLoading(true);
-      
-      const auth_code = [];
-      for (let i = 0; i < 6; i++) {
-        const random_digit = Math.floor(Math.random() * 100) + 1;
-        auth_code.push(random_digit);
+    registerPicker(userName, userEmail)
+      if (isMethodCallSuccessful) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Picker created successfully!',
+          preConfirm: () => navigate("/user-dashboard"),
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
       }
-
-      // Example POST method implementation:
-      const  postData = async(url = '', data = {}) => {
-        // Default options are marked with *
-        const response = await fetch(url, {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, *cors, same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "same-origin", // include, *same-origin, omit
-          headers: {
-            "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          redirect: "follow", // manual, *follow, error
-          referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-          body: JSON.stringify(data), // body data type must match "Content-Type" header
-        });
-        setLoading(false)
-        return response.json(); // parses JSON response into native JavaScript objects
-      }
-
-      const apiKey = '6b1be595-7035-4320-bb14-5571b1a4ba3b';
-      const apiUrl = `https://api.elasticemail.com/v4/verifications/${userEmail}`;
-
-      postData(`${apiUrl}?apiKey=${apiKey}`, { auth_code }).then((data) => {
-        console.log(data); // JSON data parsed by `data.json()` call
-        setLoading(false)
-      });
-
-      // for (let i=0; i<=pickers.length; i++) {
-      //   if  (i === connectedAccount) {
-      //     alert("User already registered, kindly login or connect with a different address");
-      //   } else {
-      //     registerPicker(userName, userEmail)
-      //     if (isMethodCallSuccessful) {
-      //       window.location.href = "/user-dashboard";
-      //     }
-      //   }
-      // }
     }
   }
 
@@ -168,8 +184,7 @@ const UserRegPage = () => {
               <button className='rounded-[6px] absolute bottom-20 left-16 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'
                 onClick={RegisterPicker}
               >
-                {/* {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Picker created" : "Register"} */}
-                {isLoading ? "Loading..."  : "Register"}
+                {isMethodCallLoading ? "Loading..." : "Register"}
               </button>
             </div>
           </div>

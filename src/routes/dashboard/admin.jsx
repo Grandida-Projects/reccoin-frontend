@@ -19,6 +19,7 @@ import OffersPage from "../../pages/admin_dashboard/OffersPage.jsx";
 import Notifications from '../../pages/admin_dashboard/Notifications';
 import Companies from '../../pages/admin_dashboard/Companies';
 import ChatPage from '../../pages/admin_dashboard/ChatPage';
+import { useToken } from '../../context/recylox';
 
 const routes = [
     {
@@ -86,7 +87,14 @@ const renderRoutes = (routes, basePath = '') => {
 };
 
 const AdminDashboardRoutes = () => {
-    return <Routes>{renderRoutes(routes)}</Routes>;
+    const {connectedAccount} = useToken();
+    const admin_address = '0x1928062edfAFbCCb7D1C788B24F6aCdE80869048';
+    const connect_acct = connectedAccount.toLowerCase();
+    const adm_address = admin_address.toLowerCase();
+
+    if (connect_acct == adm_address) {
+        return <Routes>{renderRoutes(routes)}</Routes>
+    }    
 };
 
 export { routes, AdminDashboardRoutes };

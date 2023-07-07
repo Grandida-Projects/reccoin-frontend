@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import dropdown from '../../assets/dropdown.svg'
 import Logo from '../logo'
-import { TokenContext } from '../../context/recylox'
+import { TokenContext, useToken } from '../../context/recylox'
 import menuIcon from '../../assets/menuGreen.svg'
 import { HeaderData } from '../../data/HeaderData'
 import { MdClose } from "react-icons/md"
@@ -13,9 +13,9 @@ const Header = () => {
   const adminAddress = '0x509D44Bf4E1E5E696eA288eC4fF1114f79a09AC9';
 
     // recylox context
-    const {connectedAccount, initializeContract} = useContext(TokenContext)
+    const {connectedAccount, initializeContract, account_category} = useToken();
     // recycle context
-    const {account_category, initializeRecycleContract } = useRecycle()
+    // const {account_category, initializeRecycleContract } = useRecycle();
 
     const {pathname} = useLocation();
 
@@ -48,9 +48,9 @@ const Header = () => {
       }
 
     // connect wallet
-    const ConnectWallet = () => {
+    const ConnectWallet = async () => {
         initializeContract();
-        initializeRecycleContract();
+        // initializeRecycleContract();
     }    
     useEffect(() => {
 
@@ -129,7 +129,7 @@ const Header = () => {
               ))}
                
               {/* register link */}
-              {!connectedAccount ? 
+              {!account_category ? 
                 <li 
                   className={`relative w-fit hover:border-b font-normal
                   hover:cursor-pointer hover:border-primary40 hover:font-bold 

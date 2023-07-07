@@ -22,9 +22,10 @@ import Notifications from '../../pages/company_dashboard/Notifications';
 import HistoryPage from '../../pages/company_dashboard/HistoryPage';
 import OffersPage from '../../pages/company_dashboard/OffersPage';
 import ChatPage from '../../pages/company_dashboard/ChatPage';
-import CompanyTransactions from '../../pages/company_dashboard/CompanyTransactions';
 import { useRecycle } from '../../context/recycle';
 import Home from '../../pages/Home';
+import { useToken } from '../../context/recylox';
+import CompanyTransactionHistory from '../../pages/company_dashboard/CompanyTransactionHistory';
 
 const routes = [
     {
@@ -41,7 +42,7 @@ const routes = [
         white_icon: companyWhiteIcon,
         green_icon: companyGreenIcon,
         id: 'dashboard-companies',
-        component: CompanyTransactions
+        component: CompanyTransactionHistory
     },
     {
         name: "Notifications",
@@ -102,7 +103,7 @@ const renderRoutes = (routes, basePath = '') => {
 
 const CompanyDashboardRoutes = () => {
 
-    const {account_category} = useRecycle()
+    const {account_category} = useToken()
 
     if (account_category === "company") {
         return <Routes>{renderRoutes(routes)}</Routes>
