@@ -3,7 +3,6 @@ import stateRed from "../../assets/stateRed.svg";
 import { TbArrowsRightLeft } from "react-icons/tb";
 import { CgSearch } from "react-icons/cg";
 import { TiArrowSortedDown } from "react-icons/ti";
-import { MdCheck, MdClose } from "react-icons/md";
 import CompanyDashboardLayout from "../../components/dashboard_components/CompanyDashboardLayout";
 
 const CompanyTransactionHistory = () => {
@@ -191,7 +190,7 @@ const CompanyTransactionHistory = () => {
             {/* <div className="h-2 w-full"></div> */}
 
             {/* pagination */}
-            <div className="flex items-center justify-between mb-8 ">
+            <div className="flex items-center justify-between p-4 ">
                 <p className="font-montserrat text-black/25">2 out of 34</p>
                 <div className="flex items-center gap-4 text-primaryLight font-semibold">
                 <p className="cursor-pointer">Previous</p>
