@@ -9,26 +9,65 @@ import closeIcon from "../../assets/close.svg";
 import { ethers } from 'ethers';
 import { TokenContext } from '../../context/recylox';
 import { useRecycle } from '../../context/recycle';
+import Swal from 'sweetalert2'
 
 // deposit plastic content
 const DepositPlasticTab = ({ toggleClose }) => {
 
     const {depositPlastic,  isMethodCallLoading, isMethodCallSuccessful} = useRecycle();
 
-    const [companyName, setCompanyName] = useState('');
+    const [companyAddress, setCompanyAddress] = useState('');
     const [plasticWeight, setPlasticWeight] = useState(0);
     const [isTermsChecked, setisTermsChecked] = useState(false)
 
     const DepositPlastic = () => {
-        if (!companyName) {
-            alert("Input company name");
-        } else if (!plasticWeight){
-            alert("Input plastic weight")
+
+        if (!companyAddress) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input company address!',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+              })
+        } else if (plasticWeight.length == 0){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input plastic weight',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+              })
         }
         else if (!isTermsChecked) {
-            alert("Agree to Recylox Terms")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Agree to Recylox Terms',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+              })
         } else {
-            depositPlastic(companyName, plasticWeight)
+            depositPlastic(companyAddress, plasticWeight)
+            if (isMethodCallSuccessful) {
+                ` ${Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Plastic deposited successfully!',
+                  })}`
+            }
         }
     }
 
@@ -40,15 +79,15 @@ const DepositPlasticTab = ({ toggleClose }) => {
             </button>
             <h1 className="font-bold text-2xl my-8">Deposit Plastic</h1>
             {/* company name */}
-            <label htmlFor="companyName">Company Name</label>
-            <input type="text" name="companyName" id="companyName"
-                   onChange={(fn) => setCompanyName(fn.target.value)}
+            <label htmlFor="companyAddress">Company Address</label>
+            <input type="text" name="companyAddress" id="companyAddress"
+                   onChange={(fn) => setCompanyAddress(fn.target.value)}
                    className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
             />
             {/* plastic weight */}
             <label htmlFor="depositPlastic">Plastic Weight (kg)</label>
-            <input type="text" name="depositPlastic" id="depositPlastic"
-                   onChange={(ln) => setPlasticWeight(ln.target.value)}
+            <input type="number" name="depositPlastic" id="depositPlastic"
+                   onChange={(ln) => setPlasticWeight(parseInt(ln.target.value.trim()))}
                    className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
             />
             <div className="flex">
@@ -64,8 +103,7 @@ const DepositPlasticTab = ({ toggleClose }) => {
                 className="w-[60%] border-2 border-white rounded-lg p-2 bg-[#006D44] my-6"
                 onClick={DepositPlastic}
             >
-                 {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Company created successfully" 
-                 : "Register"}
+                 {isMethodCallLoading ? "Loading..."  : "Deposit Plastic" }
             </button>
         </div>
     );
@@ -178,7 +216,7 @@ const TransactionTab = ({ toggleClose }) => {
 }
 
 // transfer reccoin tab
-const TransferRecyloxTab = ({toggleClose, isTransferSuccessful, transferLoading,  TransferToken}) => {
+const TransferRecyloxTab = ({toggleClose, isMethodCallSuccessful, transferLoading,  TransferToken}) => {
 
     const [recipientAddress, setRecipientAddress] = useState('');
     const [transferAmount, setTransferAmount] = useState(0);
@@ -187,18 +225,59 @@ const TransferRecyloxTab = ({toggleClose, isTransferSuccessful, transferLoading,
     const transferToken = async () => {
 
         if (!recipientAddress) {
-            alert("Input recipient address")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input recipient address!',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+              })
         }
         else if (!transferAmount) {
-    
-            alert("Input transfer amount")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input transfer amount',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+              })
         } 
         else if(!isTransferChecked) {
-            alert("You need to agree that the details provided are correct")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Agree to Recylox terms',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+              })
         }
         else {
             const transfer_amt = ethers.utils.parseEther(transferAmount)
            await TransferToken(recipientAddress, transfer_amt)
+           if(isMethodCallSuccessful) {
+                Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Plastic deposited successfully!',
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+              })
+           }
         }
     }
     
@@ -291,7 +370,7 @@ const UserDashboard = () => {
                                 <h2 className='text-primary40 font-montserrat font-black text-[1.6rem] ml-4'>Balance</h2>
                                 <img src={toggleBalance ? eyesOpenIcon : eyesIcon} alt="eyes-icon" className='h-4 w-4 ml-20 hover:cursor-pointer' onClick={ToggleBalance} />
                             </div>
-                            <h1 className='text-[#0D4D00] text-[1.6rem] font-[700] font-montserrat my-4'>{toggleBalance ? tokenHolderBalance.toString() : "XXXXX"}</h1>
+                            <h1 className='text-[#0D4D00] text-[1.6rem] font-[700] font-montserrat my-4'>{toggleBalance ? ethers.utils.formatEther(tokenHolderBalance) : "XXXXX"}</h1>
                             {/* settings nav items */}
                             <ul className='w-full'>
                                 {

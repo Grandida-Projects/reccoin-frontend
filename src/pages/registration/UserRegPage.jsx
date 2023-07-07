@@ -2,13 +2,19 @@ import { useEffect, useState } from "react"
 import Logo from "../../components/logo"
 import RegistrationHeader from "../../components/navigation/RegistrationHeader"
 import { useRecycle } from "../../context/recycle";
+import { useNavigate } from "react-router-dom";
+import { useToken } from "../../context/recylox";
+import Swal from "sweetalert2";
 
 const UserRegPage = () => {
 
+  const navigate = useNavigate()
+
   const {
-    registerPicker, connectedAccount, pickers, companies, 
-    isMethodCallLoading, isMethodCallSuccessful, account_category
+    registerPicker,  pickers, companies, 
+    isMethodCallLoading, isMethodCallSuccessful
   }  = useRecycle();
+  const {recycleContract, account_category, connectedAccount} = useToken();
 
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -29,30 +35,80 @@ const UserRegPage = () => {
     }
 
     const validEmail = isValidEmail(userEmail);
-    if(!connectedAccount) {
-      alert("Connect wallet to continue")
-    }
-    else if(account_category !== "") {
-      alert("Address already registered")
+
+    if (account_category) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Address already registered!',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+    } 
+    else if(!connectedAccount) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Connect wallet to continue',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
     else if (!userName) {
-      alert("Input user name")
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Input user name',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } else if(!validEmail) {
-      alert("input valid email")
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Input valid email',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
     else if (!isTermsChecked) {
-      alert("Agree to Recylox Terms")
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Agree to Recylox Terms',
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      });
     }
      else {
-      for (let i=0; i<=pickers.length; i++) {
-        if  (i === connectedAccount) {
-          alert("User already registered, kindly login or connect with a different address");
-        } else {
-          registerPicker(userName, userEmail)
-          if (isMethodCallSuccessful) {
-            window.location.href = "/user-dashboard";
+    registerPicker(userName, userEmail)
+      if (isMethodCallSuccessful) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Picker created successfully!',
+          preConfirm: () => navigate("/user-dashboard"),
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
           }
-        }
+        })
       }
     }
   }
@@ -128,7 +184,7 @@ const UserRegPage = () => {
               <button className='rounded-[6px] absolute bottom-20 left-16 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'
                 onClick={RegisterPicker}
               >
-                {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Picker created" : "Register"}
+                {isMethodCallLoading ? "Loading..." : "Register"}
               </button>
             </div>
           </div>

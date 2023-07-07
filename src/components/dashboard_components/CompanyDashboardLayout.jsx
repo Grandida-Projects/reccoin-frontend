@@ -274,7 +274,7 @@ const CompanyDashboardLayout = ({ dashboard_content, active_link }) => {
         </header>
 
         {/* dashboard content */}
-        <div className="md:container md:mx-auto">{dashboard_content}</div>
+        <div className="md:container md:mx-auto overflow-y-scroll">{dashboard_content}</div>
       </main>
 
         {/* dashboard footer */}

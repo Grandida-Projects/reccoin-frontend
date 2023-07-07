@@ -26,6 +26,7 @@ import ChatPage from '../../pages/user_dashboard/ChatPage';
 import { useRecycle } from '../../context/recycle';
 import Home from '../../pages/Home';
 import Test from '../../pages/Test';
+import { useToken } from '../../context/recylox';
 
 const routes = [
     {
@@ -103,7 +104,7 @@ const renderRoutes = (routes, basePath = '') => {
 
 const UserDashboardRoutes = () => {
 
-    const {account_category} = useRecycle()
+    const {account_category} = useToken()
 
     if (account_category === "picker") {
         return <Routes>{renderRoutes(routes)}</Routes>;

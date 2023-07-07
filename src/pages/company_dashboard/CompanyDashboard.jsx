@@ -11,28 +11,83 @@ import usersIcon from '../../assets/users.svg'
 import merchantIcon from '../../assets/merchant.svg'
 import tickIcon from '../../assets/tickIcon.svg'
 import { ethers } from "ethers";
+import Swal from "sweetalert2";
 
 // deposit plastic content
 const PayPickerTab = ({ toggleClose }) => {
 
-  const { account_category, isMethodCallLoading, isMethodCallSuccessful, payPicker} = useRecycle();
-  const [pickerAddress, setPickerAddress] = useState('');
+  const {account_category} = useToken();
+  const { isMethodCallLoading, isMethodCallSuccessful, payPicker} = useRecycle();
+
+  const [transactionID, settransactionID] = useState('');
   const [payAmount, setPayAmount] = useState(0);
   const [isTermsChecked, setisTermsChecked] = useState(false)
 
   const PayPicker = () => {
       if (account_category !== "company") {
-        alert("Address not registered as a company")
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Address not registered as a company',
+          confirmButtonColor:"#006D44",
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
       }
-      else if (!pickerAddress) {
-          alert("Input picker address");
+      else if (!transactionID) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Input transaction ID',
+          confirmButtonColor:"#006D44",
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
       } else if (!payAmount){
-          alert("Input plastic weight")
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Input recylox amount',
+          confirmButtonColor:"#006D44",
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
       }
       else if (!isTermsChecked) {
-          alert("Agree to Recylox Terms")
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Agree to Recylox Terms',
+          confirmButtonColor:"#006D44",
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
       } else {
-          payPicker(pickerAddress, payAmount)
+          payPicker(transactionID, payAmount)
+          if(isMethodCallSuccessful) {
+            Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Payment successfull!',
+            customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+            }
+          })
+       }
       }
   }
 
@@ -44,9 +99,9 @@ const PayPickerTab = ({ toggleClose }) => {
         </button>
         <h1 className="font-bold text-2xl my-8">Pay Picker</h1>
         {/* company name */}
-        <label htmlFor="pickerAddress">Picker Address</label>
-        <input type="text" name="pickerAddress" id="pickerAddress"
-                onChange={(pka) => setPickerAddress(pka.target.value)}
+        <label htmlFor="transactionID">Transaction ID</label>
+        <input type="text" name="transactionID" id="transactionID"
+                onChange={(pka) => settransactionID(pka.target.value)}
                 className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
         />
         {/* plastic weight */}
@@ -68,7 +123,7 @@ const PayPickerTab = ({ toggleClose }) => {
             className="w-[60%] border-2 border-white rounded-lg p-2 bg-[#006D44] my-6"
             onClick={PayPicker}
         >
-        {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Payment successful!" : "Pay Picker"}
+        {isMethodCallLoading ? "Loading..." : "Pay Picker"}
         </button>
     </div>
   );
@@ -77,8 +132,8 @@ const PayPickerTab = ({ toggleClose }) => {
 // transfer reccoin tab
 const TransferRecyloxTab = ({toggleClose}) => {
 
-  const {transferTokens, isMethodCallSuccessful, isMethodCallLoading} = useToken();
-  const { account_category} = useRecycle();
+  const {transferTokens, isMethodCallSuccessful, isMethodCallLoading, account_category} = useToken();
+  // const { account_category} = useRecycle();
   const [recipientAddress, setRecipientAddress] = useState('');
   const [transferAmount, setTransferAmount] = useState(0);
   const [isTransferChecked, setIsTransferChecked] = useState(false);
@@ -86,21 +141,73 @@ const TransferRecyloxTab = ({toggleClose}) => {
   const TransferToken = async () => {
 
     if (account_category !== "company") {
-      alert("address not allowed to make transfer. Register to continue")
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'address not allowed to make transfer. Register to continue',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }  
     else if (!recipientAddress) {
-          alert("Input recipient address")
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Input recipient address',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
       }
       else if (!transferAmount) {
-  
-          alert("Input transfer amount")
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Input transfer amount',
+          confirmButtonColor:"#006D44",
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
       } 
       else if(!isTransferChecked) {
-          alert("Agree to Recylox terms")
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Agree to Recylox terms',
+          confirmButtonColor:"#006D44",
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
       }
       else {
-          const transfer_amt = ethers.utils.parseEther(transferAmount)
-         await transferTokens(recipientAddress, transfer_amt)
+        const transfer_amt = ethers.utils.parseEther(transferAmount);
+        await transferTokens(recipientAddress, transfer_amt);
+        if (isMethodCallSuccessful) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Error!',
+            text: 'Transfer successful',
+            confirmButtonColor:"#006D44",
+            customClass: {
+                icon: "font-montserrat",
+                title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+            }
+          })
+        }
       }
   }
   
@@ -140,7 +247,7 @@ return   <div className="bg-[#005232] w-full mx-auto flex flex-col justify-start
   {/* submit button */}
   <button className="w-[60%] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6"
   onClick={TransferToken}>
-  {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful? "Transfer successful" : "TRANSFER"}
+  {isMethodCallLoading ? "Loading..." : "TRANSFER"}
   </button>
   </div>
 
@@ -148,7 +255,8 @@ return   <div className="bg-[#005232] w-full mx-auto flex flex-col justify-start
 
 const CompanyDashboard = () => {
 
-  const {contract, tokenHolderBalance, picker_count, payPicker, account_category} = useRecycle()
+  const { tokenHolderBalance } = useRecycle()
+  const {recycleContract, picker_count, account_category} = useToken();
 
   const [componentToDisplay, setComponentToDisplay] = useState(0);
   const [toggleBalance, setToggleBalance] = useState(false);
@@ -161,8 +269,18 @@ const CompanyDashboard = () => {
 
   // 
   const ToggleBalance = () => {
-    if (!contract) {
-        alert("contract not initialized")
+    if (!recycleContract) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'contract not initialized',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } else  {
         setToggleBalance(!toggleBalance)
     }
@@ -187,7 +305,7 @@ const CompanyDashboard = () => {
                   <img src={toggleBalance ? eyesOpenIcon : eyesIcon} alt="eyes-icon" className='h-4 w-4 ml-4 hover:cursor-pointer' onClick={ToggleBalance} />
                 </div>
                 {/* balance */}
-                <h1 className='text-[#0D4D00] text-[1.6rem] font-[700] font-montserrat my-4'>{toggleBalance ? `${ethers.utils.formatEther(tokenHolderBalance)} REC ` : "XXXXX"}</h1>
+                <h1 className='text-[#0D4D00] text-[1.6rem] font-[700] font-montserrat my-4'>{toggleBalance ? `${ethers.utils.formatEther(tokenHolderBalance)} REC` : "XXXXX"}</h1>
                 {/* pickers div */}
               </div>
              

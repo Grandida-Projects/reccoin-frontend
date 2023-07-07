@@ -3,20 +3,26 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { recycleABI } from './recycle-abi';
 import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
+import { useToken } from './recylox';
 
 export const RecycleContext = createContext();
 
 export const useRecycle = () => useContext(RecycleContext);
 
 export const RecycleProvider = ({ children }) => {
+
+  const {recycleContract, connectedAccount} = useToken();
+
   const [companies, setCompanies] = useState([]);
   const [pickers, setPickers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
-  const [connectedAccount, setConnectedAccount] = useState('');
+  // const [connectedAccount, setConnectedAccount] = useState('');
   const [isMethodCallLoading, setIsMethodCallLoading] = useState(false);
   const [isMethodCallSuccessful, setIsMethodCallSuccessful] = useState(false);
+  const [totalTransaction, setTotalTransaction] = useState(0)
   
   // added variables
   const [picker_count, set_Picker_Count] = useState(0);
@@ -31,14 +37,12 @@ export const RecycleProvider = ({ children }) => {
     const recycle_status = localStorage.getItem("connectRecycle");
     console.log(recycle_status);
 
-    if (recycle_status == 'true') {
-      initializeRecycleContract()
-    }
+    // if (recycle_status == 'true') {
+    //   initializeRecycleContract()
+    // }
    
   },[])
 
-
-  
   const initializeRecycleContract = async () => {
     try {
       setLoading(true);
@@ -76,6 +80,45 @@ export const RecycleProvider = ({ children }) => {
       console.log("token balance", balance);
       setTokenHolderBalance(balance);
 
+      // get total transaction
+      const totalTransactions = await contract.totalTransactions();
+      setTotalTransaction(totalTransactions)
+      console.log("totalTransaction => ", totalTransactions);
+
+      try {
+        const transaction = await contract.transactions(0);
+        console.log("transaction structs =>", transaction);
+        
+      } catch (error) {
+
+        console.log("transactions struct =>", error.reason);
+        
+      }
+
+      try {
+        const picker = await contract.getPicker(_connectedAccount);
+        console.log("picker array", picker);
+        console.log("picker name => ", picker[0]);
+        if (picker[0]) {
+          set_account_category("picker");
+        }
+      } catch (error) {
+        console.log("picker array => ", error);
+      } //ends getPicker
+     
+      // get company
+      try {
+        const company = await contract.getCompany(_connectedAccount);
+        console.log("company array", company);
+        if (company[0]) {
+          set_account_category("company");
+
+        } 
+      } catch (error) {
+        console.log("company array => ", error);
+      } //ends getCompany
+      
+
        // Fetch companies and pickers from the contract
        /*
        const companies = await contract.getCompanyAddresses();
@@ -92,36 +135,36 @@ export const RecycleProvider = ({ children }) => {
       direct users to their respective dashboard based on this
       */
     //  getPicker
-    //  try {
-    //     const picker = await contract.getPicker(_connectedAccount);
-    //     console.log("picker array", picker);
-    //     console.log("picker name => ", picker[0]);
-    //     if (picker[0]) {
-    //       set_account_category("picker");
-    //     }
-    //   } catch (error) {
-    //     console.log("picker array => ", error);
-    //   } //ends getPicker
-     
-      // get company
-      try {
-        const company = await contract.getCompany(_connectedAccount);
-        console.log("company array", company);
-        if (company[0]) {
-          set_account_category("company");
-        } 
-      } catch (error) {
-        console.log("company array => ", error);
-      } //ends getCompany
-      
+    
       
     } else {
       setLoading(false);
       // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
-      alert('Please install MetaMask or any other Ethereum wallet extension.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Please install MetaMask or any other Ethereum wallet extension.',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+      console.log('Please install MetaMask or any other Ethereum wallet extension.');
     }
     } catch (error) {
-      console.error('Error initializing contract:', error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Error initializing contract: ${error.message}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
       setLoading(false);
     }
 }; //ends initializeRecycleContract()
@@ -130,9 +173,9 @@ export const RecycleProvider = ({ children }) => {
   const registerPicker = async (name, email) => {
     try {
       setIsMethodCallLoading(true);
-      const tx = await contract.registerPicker(name, email);
+      const tx = await recycleContract.registerPicker(name, email);
       await tx.wait();
-      const newPicker = await contract.getPicker(connectedAccount);
+      const newPicker = await recycleContract.getPicker(connectedAccount);
       setPickers([...pickers, newPicker]);
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(true);
@@ -380,6 +423,7 @@ export const RecycleProvider = ({ children }) => {
       // const transaction = await contract.connect(signer).depositPlastic(companyAddress, weight);
       const transaction = await contract.depositPlastic(companyAddress, weight);
       await transaction.wait();
+      
       console.log('Plastic deposited successfully!');
       // Additional logic or UI updates after successful deposit
       setIsMethodCallLoading(false);
@@ -461,7 +505,8 @@ export const RecycleProvider = ({ children }) => {
       })
     }
   }
-  console.log("account_category => ", account_category);
+
+  console.log("recycle account categor =>", account_category );
   return (
     <RecycleContext.Provider
       value={{
