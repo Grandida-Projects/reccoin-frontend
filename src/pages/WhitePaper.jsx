@@ -100,7 +100,7 @@ export const WhitePaper = () => {
             </p>
 
             <button className="w-[80%] mx-auto mt-20 mb-10 bg-[#006D44] flex flex-row justify-center items-center rounded-[30px]">
-              <p className="mr-4 text-white">Download RecCoin Whitepaper</p>
+              <p className="mr-4 text-white">Download Recylox Whitepaper</p>
               <img src={downloadIcon} alt="download-iocn" />
             </button>
       </div>

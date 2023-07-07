@@ -97,19 +97,6 @@ const UserRegPage = () => {
     }
      else {
     registerPicker(userName, userEmail)
-      if (isMethodCallSuccessful) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'Picker created successfully!',
-          preConfirm: () => navigate("/user-dashboard"),
-          customClass: {
-              icon: "font-montserrat",
-              title: " font-montserrat text-[20px] text-[#000] font-[600]",
-              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
-          }
-        })
-      }
     }
   }
 
@@ -181,6 +168,20 @@ const UserRegPage = () => {
                   the Privacy Policy
                 </p>
               </div>
+              { isMethodCallSuccessful ?
+              Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Picker created successfully!',
+                preConfirm: () => navigate("/user-dashboard"),
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+              })
+              : ""
+            }
               <button className='rounded-[6px] absolute bottom-20 left-16 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'
                 onClick={RegisterPicker}
               >
