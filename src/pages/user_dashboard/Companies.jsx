@@ -2,7 +2,7 @@ import companyIcon from '../../assets/companyGreen.svg'
 import search from '../../assets/search.svg'
 import { CompanyData } from '../../data/CompanyData'
 import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import UserDashboardLayout from '../../components/dashboard_components/UserDashboardLayout'
 
 const PaginatedContent = ({currentData}) => {

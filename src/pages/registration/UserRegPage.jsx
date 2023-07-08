@@ -41,6 +41,7 @@ const UserRegPage = () => {
         icon: 'error',
         title: 'Error!',
         text: 'Address already registered!',
+        confirmButtonColor:"#006D44",
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",
@@ -53,6 +54,7 @@ const UserRegPage = () => {
         icon: 'error',
         title: 'Error!',
         text: 'Connect wallet to continue',
+        confirmButtonColor:"#006D44",
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",
@@ -65,6 +67,7 @@ const UserRegPage = () => {
         icon: 'error',
         title: 'Error!',
         text: 'Input user name',
+        confirmButtonColor:"#006D44",
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",
@@ -76,6 +79,7 @@ const UserRegPage = () => {
         icon: 'error',
         title: 'Error!',
         text: 'Input valid email',
+        confirmButtonColor:"#006D44",
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",
@@ -88,6 +92,7 @@ const UserRegPage = () => {
         icon: 'error',
         title: 'Error!',
         text: 'Agree to Recylox Terms',
+        confirmButtonColor:"#006D44",
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",
@@ -96,7 +101,26 @@ const UserRegPage = () => {
       });
     }
      else {
-    registerPicker(userName, userEmail)
+      registerPicker(userName, userEmail);
+      
+
+      // if (isMethodCallSuccessful) {
+      //   Swal.fire({
+      //     icon: 'success',
+      //     title: 'Success!',
+      //     text: 'Picker created successfully!',
+      //     confirmButtonColor:"#006D44",
+      //     customClass: {
+      //         icon: "font-montserrat",
+      //         title: " font-montserrat text-[20px] text-[#000] font-[600]",
+      //         text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      //     }
+      //   }).then((result) => {
+      //     if (result.isConfirmed) {
+      //       navigate('/user-dashboard')
+      //     }
+      //   })
+      // }
     }
   }
 
@@ -168,20 +192,7 @@ const UserRegPage = () => {
                   the Privacy Policy
                 </p>
               </div>
-              { isMethodCallSuccessful ?
-              Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: 'Picker created successfully!',
-                preConfirm: () => {navigate("/user-dashboard")},
-                customClass: {
-                    icon: "font-montserrat",
-                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
-                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
-                }
-              })
-              : ""
-            }
+           
               <button className='rounded-[6px] absolute bottom-20 left-16 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'
                 onClick={RegisterPicker}
               >

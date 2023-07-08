@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import settingsWhiteIcon from '../../assets/settingsWhite.svg'
@@ -23,10 +22,6 @@ import OffersPage from "../../pages/user_dashboard/OffersPage.jsx";
 import Notifications from '../../pages/user_dashboard/Notifications';
 import Companies from '../../pages/user_dashboard/Companies';
 import ChatPage from '../../pages/user_dashboard/ChatPage';
-import { useRecycle } from '../../context/recycle';
-import Home from '../../pages/Home';
-import Test from '../../pages/Test';
-import { useToken } from '../../context/recylox';
 
 const routes = [
     {
@@ -104,12 +99,8 @@ const renderRoutes = (routes, basePath = '') => {
 
 const UserDashboardRoutes = () => {
 
-    const {account_category} = useToken()
-
-    if (account_category === "picker") {
-        return <Routes>{renderRoutes(routes)}</Routes>;
-    }
-    
+     return <Routes>{renderRoutes(routes)}</Routes>;
+   
 };
 
 export { routes, UserDashboardRoutes };

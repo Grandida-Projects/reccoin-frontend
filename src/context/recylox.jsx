@@ -29,12 +29,15 @@ export const TokenProvider = ({ children }) => {
 
 
 /*******************************  recycle state variables   *********************************/
+    const [companyStruct, setCompanyStruct] = useState([]);
     const [recycleContract, setRecycleContract] = useState(null);    
     const [picker_count, set_Picker_Count] = useState(0);
     const [company_count, set_Company_Count] = useState(0);
     const [account_category, set_account_category] = useState('');
     const [tokenHolderBalance, setTokenHolderBalance] = useState(0);
-    const [totalTransaction, setTotalTransaction] = useState(0)
+    const [totalTransaction, setTotalTransaction] = useState(0);
+    const [companyTransactionHistory, setCompanyTransactionHistory] = useState([]);
+    const [pickerTransactionHistory, setPickerTransactionHistory] = useState([]);
   
 
   useEffect (() => {
@@ -115,20 +118,41 @@ export const TokenProvider = ({ children }) => {
       console.log("token balance", balance);
       setTokenHolderBalance(balance);
 
-      // get total transaction
-      const totalTransactions = await recycleContract.totalTransactions();
-      setTotalTransaction(totalTransactions)
-      console.log("totalTransaction => ", totalTransactions);
+      // get total transaction in recycle smart contract
+      const totalTransaction = await recycleContract.totalTransactions();
+      setTotalTransaction(totalTransaction)
+      const transactionCount = parseInt(totalTransaction.toString());
+      console.log("totalTransaction => ", totalTransaction.toString());
 
-      try {
-        const transaction = await recycleContract.transactions(0);
-        console.log("transaction structs =>", transaction);
-        
-      } catch (error) {
+      // array to store company or picker transaction history based on the connected account
+      const companyTransactionHistory = []
+      const pickerTransactionHistory = []
 
-        console.log("transactions struct =>", error.reason);
-        
-      }
+      // loop through the transactions mapping to get a particular transaction struct
+      for (let index = 0; index < transactionCount; index++) {
+        const transaction = await recycleContract.transactions(index);
+        console.log(`transaction struct ${index} => `, transaction);
+
+        const company_address = transaction[1].toLowerCase();
+        const picker_address = transaction[2].toLowerCase();
+        const connected_account = _connectedAccount.toLowerCase();
+
+        console.log("addresses to lower case => ", company_address, picker_address, connected_account);
+
+        // check if connected address matches any of the companies address
+        if (company_address === connected_account ) {
+          companyTransactionHistory.push(transaction);
+        }
+
+        // check if connected address matches any of the companies address
+        if (picker_address === connected_account) {
+          pickerTransactionHistory.push(transaction);
+        }
+      }  // ends transaction loop
+
+      // save company and picker transaction history as state variables
+      setCompanyTransactionHistory(companyTransactionHistory);
+      setPickerTransactionHistory(pickerTransactionHistory);
 
       try {
         const picker = await recycleContract.getPicker(_connectedAccount);
@@ -144,9 +168,11 @@ export const TokenProvider = ({ children }) => {
       // get company
       try {
 
-        const company = await recycleContract.getCompany(_connectedAccount);
-        console.log("company array", company);
-        if (company[0]) {
+        const companyStruct = await recycleContract.getCompany(_connectedAccount);
+        console.log("company array", companyStruct);
+        setCompanyStruct(companyStruct);
+
+        if (companyStruct[0]) {
           set_account_category("company");
 
         } 
@@ -199,6 +225,18 @@ export const TokenProvider = ({ children }) => {
         // Perform any additional actions or update state as needed
         setIsMethodCallSuccessful(true)
         setIsMethodCallLoading(false)
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: `Transfer ${ethers.utils.formatEther(amount)} REC to ${recipient} successful!`,
+          confirmButtonColor:"#006D44",
+          preConfirm: () => {window.location.reload()},
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
       } else {
         setIsMethodCallLoading(false)
         setIsMethodCallSuccessful(false)
@@ -437,10 +475,13 @@ export const TokenProvider = ({ children }) => {
         isMethodCallLoading,
 
         recycleContract,
+        companyStruct,
         picker_count,
         company_count,
         account_category,
-        tokenHolderBalance
+        tokenHolderBalance,
+        companyTransactionHistory,
+        pickerTransactionHistory
       }}
     >
       {children}

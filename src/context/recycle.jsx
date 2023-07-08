@@ -170,6 +170,7 @@ export const RecycleProvider = ({ children }) => {
 }; //ends initializeRecycleContract()
 
 
+/**********************************   pickers functionalities   ************************************ */
   const registerPicker = async (name, email) => {
     try {
       setIsMethodCallLoading(true);
@@ -178,11 +179,35 @@ export const RecycleProvider = ({ children }) => {
       const newPicker = await recycleContract.getPicker(connectedAccount);
       setPickers([...pickers, newPicker]);
       setIsMethodCallLoading(false);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Picker created successfully!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+     
       setIsMethodCallSuccessful(true);
     } catch (error) {
       console.error('Error registering user:', error);
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Error registering user: ${error.reason}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
 
@@ -266,17 +291,41 @@ export const RecycleProvider = ({ children }) => {
     try {
       setIsMethodCallLoading(true);
       // const transaction = await contract.connect(signer).payPicker(transactionId);
-      const transaction = await contract.payPicker(transactionId);
+      const transaction = await recycleContract.payPicker(transactionId);
       await transaction.wait();
       console.log('Picker paid successfully!');
       // Additional logic or UI updates after successful payment
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(true);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Payment successful!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } catch (error) {
       console.error('Failed to pay picker:', error);
       // Handle error scenario
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      const payError = error.reason.split(':');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Failed to pay picker: ${payError[2]}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
    
@@ -295,20 +344,43 @@ export const RecycleProvider = ({ children }) => {
     }
   };
 
+/**********************************    Company functionalities  ************************************ */
   const registerCompany = async (name, minWeightRequirement, maxPricePerKg, active) => {
     try {
       setIsMethodCallLoading(true);
-      console.log("contract => ", contract);
-      const tx = await contract.registerCompany(name, minWeightRequirement, maxPricePerKg, active);
+      const tx = await recycleContract.registerCompany(name, minWeightRequirement, maxPricePerKg, active);
       await tx.wait();
-      const newCompany = await contract.getCompany(connectedAccount);
+      const newCompany = await recycleContract.getCompany(connectedAccount);
       setCompanies([...companies, newCompany]);
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(true);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Company created successfully!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } catch (error) {
       console.error('Error registering company:', error);
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Error registering company: ${error.reason}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
 
@@ -421,35 +493,84 @@ export const RecycleProvider = ({ children }) => {
     try {
       setIsMethodCallLoading(true);
       // const transaction = await contract.connect(signer).depositPlastic(companyAddress, weight);
-      const transaction = await contract.depositPlastic(companyAddress, weight);
+      const transaction = await recycleContract.depositPlastic(companyAddress, weight);
       await transaction.wait();
       
       console.log('Plastic deposited successfully!');
       // Additional logic or UI updates after successful deposit
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(true);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Plastic deposited successfully!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } catch (error) {
       console.error('Failed to deposit plastic:', error);
       // Handle error scenario
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      const _error = error.reason.split(':');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Failed to validate plastic: ${_error[2]}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
   
   const validatePlastic = async (transactionId) => {
     try {
       setIsMethodCallLoading(true);
-      const transaction = await contract.connect(signer).validatePlastic(transactionId);
+      // const transaction = await contract.connect(signer).validatePlastic(transactionId);
+      const transaction = await recycleContract.validatePlastic(transactionId);
       await transaction.wait();
       console.log('Plastic validated successfully!');
       // Additional logic or UI updates after successful validation
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(true);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Picker validated successfully!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } catch (error) {
       console.error('Failed to validate plastic:', error);
       // Handle error scenario
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      const validateError = error.reason.split(':');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Failed to validate plastic: ${validateError[2]}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
   

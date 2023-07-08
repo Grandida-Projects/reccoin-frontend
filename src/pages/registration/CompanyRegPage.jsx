@@ -4,6 +4,7 @@ import { useRecycle } from '../../context/recycle';
 import RegistrationHeader from '../../components/navigation/RegistrationHeader';
 import { useToken } from '../../context/recylox';
 import { ethers } from 'ethers';
+import Swal from 'sweetalert2';
 
 const CompanyRegPage = () => {
 
@@ -22,52 +23,91 @@ const RegisterCompany = () => {
   console.log("contract reg page => ", contract);
 
   if(!connectedAccount) {
-    alert("Connect wallet to continue")
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Connect wallet to continue',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
   } else if (account_category !== "") {
-    alert("Address aleady registered")
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Address aleady registered',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
   }
   else if(!companyName) {
-    alert("Input company name");
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Input company name',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
   } 
   else if (!minimumWeightRequirement) {
-    alert("Input minimum weight requirement")
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Input minimum weight requirement',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
   }
   else if (!maximumWeightPerKg) {
-    alert("Input maximum wight per kg")
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Input maximum wight per kg',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
   }
   // else if (!isActive) {
   //   alert("Agree to Recylox Terms")
   // }
   else if (!isTermsChecked) {
-    alert("Agree to Recylox Terms")
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Agree to Recylox Terms',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
   }
   else {
     const minWt = ethers.utils.parseEther(minimumWeightRequirement)
     const maxPrice =ethers.utils.parseEther(maximumWeightPerKg)
     console.log("register company arguments => ", minWt, maxPrice);
     registerCompany(companyName, minWt, maxPrice, true);
-    if (isMethodCallSuccessful) {
-      window.location.href = "/company-dashboard";
-    }
 
-    /* this is really important
-      GetCompany();
-      console.log(companyStruct);
-
-      if(companyStruct) {
-        alert("User already registered, kindly login or connect with a different address");
-      }else {
-        registerCompany(companyName, minimumWeightRequirement, maximumWeightPerKg, isAcitve)
-      }
-    */
-
-    // for (let i=0; i<=companies.length; i++) {
-    //   if  (i === connectedAccount) {
-    //     alert("User already registered, kindly login or connect with a different address");
-    //   } else {
-    //     registerCompany(companyName, minimumWeightRequirement, maximumWeightPerKg, isAcitve)
-    //   }
-    // }
   }
 }
 

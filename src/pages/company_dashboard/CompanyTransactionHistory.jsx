@@ -4,110 +4,231 @@ import { TbArrowsRightLeft } from "react-icons/tb";
 import { CgSearch } from "react-icons/cg";
 import { TiArrowSortedDown } from "react-icons/ti";
 import CompanyDashboardLayout from "../../components/dashboard_components/CompanyDashboardLayout";
+import { useToken } from "../../context/recylox";
+import { ethers } from "ethers";
+import copyIcon from '../../assets/copyIcon.svg';
+
+import Swal from "sweetalert2";
+import { useState } from "react";
+
+const PaginatedContent = ({data}) => {
+
+    const CopyText = (text) => {
+        navigator.clipboard.writeText(text)
+        Swal.fire({
+            icon: 'success',
+            title: 'Address Copied!',
+            text: `Picker address: ${text}`,
+            confirmButtonColor:"#006D44",
+            customClass: {
+                icon: "font-montserrat",
+                title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+            },
+        })
+      }
+    
+    return   <>
+        {   
+            data.length > 5 ?
+            data.slice(0,5).map((transaction, index) => (
+                <div
+                key={index}>
+                <table className="mt-8 min-w-full border border-primary40 rounded-[10px]">
+                    <thead>
+                    <tr className=" ">
+                        <th className="px-2 py-1">
+                        <span className="font-semibold">TRANSACTION ID</span>
+                        </th>
+                        <th className="px-2 py-1">
+                        <span className="font-semibold">ADDRESS</span>
+                        </th>
+                        {/* <th className="px-2 py-1">
+                        <span className="font-semibold">ORIGIN</span>
+                        </th> */}
+                        <th className="px-2 py-1">
+                        <span className="font-semibold">TOTAL WEIGHT</span>
+                        </th>
+                        <th className="px-2 py-1">
+                        <span className="font-semibold">TOTAL VALUE</span>
+                        </th>
+                        <th className="px-2 py-1">
+                        <div className="flex justify-end">
+                            <img
+                            className={`h-7 w-7 p-2 ${transaction[5] == false ? "bg-red-700" : "bg-green-700"}`}
+                            src={transaction[5] === false ? stateRed : stateGreen}
+                            alt="State Icon Green"
+                            />
+                        </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr className="text-primary40 text-xs md:text-lg font-extrabold">
+                        <td className="px-2 py-1 text-center ">{transaction[0].toString()}</td>
+                        <td className="px-2 py-1 text-center flex flex-row justify-center">
+                        {`${transaction[2].slice(0,5)}...${transaction[2].slice(transaction[2].length-5, transaction[2].length)}`}
+                            <img src={copyIcon} alt="copy-address"  
+                                className='ml-2 cursor-pointer'
+                                onClick={() => CopyText(transaction[2])}
+                            />
+                    </td>
+                        <td className="px-2 py-1 text-center ">{transaction[3].toString()} </td>
+                        <td className="px-2 py-1 text-center ">{ethers.utils.formatEther(transaction[4].toString())}</td>
+                        <td className="px-2 py-1 items-end text-right">
+                        <ul>
+                            {/* <li className="text-xs font-bold text-gray-500">{transaction.date}</li> */}
+                            <li
+                            className={`font-extrabold ${transaction[5] === false ? "text-red-700" : "text-green-700"
+                                }`}
+                            >
+                            {transaction[5].toString()}
+                            </li>
+                        </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            ))
+            :
+            data.map((transaction, index) => (
+                <div
+                key={index}>
+                <table className="mt-8 min-w-full border border-primary40 rounded-[10px]">
+                    <thead>
+                    <tr className=" ">
+                        <th className="px-2 py-1">
+                        <span className="font-semibold">TRANSACTION ID</span>
+                        </th>
+                        <th className="px-2 py-1">
+                        <span className="font-semibold">ADDRESS</span>
+                        </th>
+                        {/* <th className="px-2 py-1">
+                        <span className="font-semibold">ORIGIN</span>
+                        </th> */}
+                        <th className="px-2 py-1">
+                        <span className="font-semibold">TOTAL WEIGHT</span>
+                        </th>
+                        <th className="px-2 py-1">
+                        <span className="font-semibold">TOTAL VALUE</span>
+                        </th>
+                        <th className="px-2 py-1">
+                        <div className="flex justify-end">
+                            <img
+                            className={`h-7 w-7 p-2 ${transaction[5] == false ? "bg-red-700" : "bg-green-700"}`}
+                            src={transaction[5] === false ? stateRed : stateGreen}
+                            alt="State Icon Green"
+                            />
+                        </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr className="text-primary40 text-xs md:text-lg font-extrabold">
+                        <td className="px-2 py-1 text-center ">{transaction[0].toString()}</td>
+                        <td className="px-2 py-1 text-center flex flex-row justify-center">
+                        {`${transaction[2].slice(0,5)}...${transaction[2].slice(transaction[2].length-5, transaction[2].length)}`}
+                            <img src={copyIcon} alt="copy-address"  
+                                className='ml-2 cursor-pointer'
+                                onClick={() => CopyText(transaction[2])}
+                            />
+                    </td>
+                        <td className="px-2 py-1 text-center ">{transaction[3].toString()} </td>
+                        <td className="px-2 py-1 text-center ">{ethers.utils.formatEther(transaction[4].toString())}</td>
+                        <td className="px-2 py-1 items-end text-right">
+                        <ul>
+                            {/* <li className="text-xs font-bold text-gray-500">{transaction.date}</li> */}
+                            <li
+                            className={`font-extrabold ${transaction[5] === false ? "text-red-700" : "text-green-700"
+                                }`}
+                            >
+                            {transaction[5].toString()}
+                            </li>
+                        </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            ))
+        }
+    </>
+}
+
+const PaginationControl = ({number_of_pages, current_page_no, set_current_page_no}) => {
+
+    const array_of_page_number = Array.from(Array(number_of_pages + 1).keys()).slice(1);
+
+    const next_page = () => {
+        if (current_page_no !== number_of_pages) {
+            set_current_page_no(current_page_no + 1)
+        }
+    }
+
+    const previous_page = () => {
+        if (current_page_no !== 1) {
+            set_current_page_no (current_page_no -1)
+        }
+    }
+
+    return <div className="flex items-center justify-between p-4 ">
+        <p className="font-montserrat text-black/25">{current_page_no} out of {number_of_pages}</p>
+        <div className="flex items-center gap-4 text-primaryLight font-semibold">
+        <p className="cursor-pointer" onClick={previous_page}>Previous</p>
+        <div className="flex items-center gap-4">
+            {
+                current_page_no == 1 ?
+                array_of_page_number.slice(0, current_page_no + 2).map((page_number, index) =>
+                    <p className="font-bold text-primary50 cursor-pointer"
+                        onClick={() => set_current_page_no(page_number)}
+                        key={index}
+                    >
+                        {page_number}
+                    </p>
+                )
+                : current_page_no >= 4 ?
+                array_of_page_number.slice(current_page_no-2, current_page_no +1).map((page_number, index) =>
+                    <p className="font-bold text-primary50 cursor-pointer"
+                        onClick={() => set_current_page_no(page_number)}
+                        key={index}
+                    >
+                        {page_number}
+                    </p>
+                )
+                : ""
+            }
+            <p className="font-bold">...</p>
+            <p className="font-light cursor-pointer"
+                    onClick={set_current_page_no(array_of_page_number[array_of_page_number.length - 1])}
+            >
+                {array_of_page_number[array_of_page_number.length - 1]}
+            </p>
+           
+            
+            
+        </div>
+        <p className="cursor-pointer" onClick={next_page}>Next</p>
+        </div>
+    </div>
+}
+
 
 const CompanyTransactionHistory = () => {
-  const data = [
-    {
-      value: 78,
-      _weight: "150 KG",
-      id: "XXXX....XXX.....",
-      _address: "001f....",
-      date: "5TH MAY 2020, 12:23",
-      status: "APPROVED",
-    },
-    {
-      value: 89,
-      _weight: "98 KG",
-      id: "XXXX....XXX.....",
-      _address: "001f....",
-      date: "5TH June 2020, 12:23",
-      status: "DECLINED",
-    },
-    {
-      value: "45",
-      _weight: "123 KG",
-      id: "XXXX....XXX.....",
-      _address: "021A....",
-      date: "5TH MAY 2020, 12:23",
-      status: "APPROVED",
-    },
-    {
-      value: "CREDIT",
-      id: "XXXX....XXX.....",
-      _address: "021f....",
-      date: "5TH MAY 2020, 12:23",
-      status: "APPROVED",
-    },
 
-    {
-      value: 97,
-      _weight: "123 KG",
-      id: "XXXX....XXX.....",
-      _address: "001f....",
-      date: "5TH MAY 2020, 12:23",
-      status: "DEPOSITED",
-    },
-    {
-      value: 55,
-      _weight: "TOTAL WEIGHT",
-      id: "XXXX....XXX.....",
-      _address: "0047....",
-      date: "5TH MAY 2020, 12:23",
-      status: "DEPOSITED",
-    },
-    {
-      value: 82,
-      _weight: "650 KG",
-      id: "XXXX....XXX.....",
-      _address: "09B6....",
-      date: "5TH MAY 2020, 12:23",
-      status: "APPROVED",
-    },
-    {
-      value: 53,
-      _weight: "100 KG",
-      id: "XXXX....XXX.....",
-      _address: "046f....",
-      date: "5TH MAY 2020, 12:23",
-      status: "DECLINED",
-    },
-    {
-      value: 32,
-      _weight: "100 KG",
-      id: "XXXX....XXX.....",
-      _address: "031f....",
-      date: "5TH MAY 2020, 12:23",
-      status: "DEPOSITED",
-    },
-    {
-      value: 75,
-      _weight: "100 KG",
-      id: "XXXX....XXX.....",
-      _address: "001h....",
-      date: "5TH MAY 2020, 12:23",
-      status: "DEPOSITED",
-    },
-    {
-      value: "CREDIT",
-      id: "XXXX....XXX.....",
-      _address: "0013f...",
-      date: "5TH MAY 2020, 12:23",
-      status: "CREDIT",
-    },
-    {
-      value: 75,
-      _weight: "100 KG",
-      id: "XXXX....XXX.....",
-      _address: "001h....",
-      date: "5TH MAY 2020, 12:23",
-      status: "DEPOSITED",
-    },
-  ];
+    const {companyTransactionHistory} = useToken();
+    const [current_page_no, set_current_page_no] = useState(1);
+    const [TRANSACTION_PER_PAGE] = useState(5);
+
+    const total_no_of_pages = Math.ceil(companyTransactionHistory.length / TRANSACTION_PER_PAGE);
+    const last_page_index = current_page_no * TRANSACTION_PER_PAGE;
+    const first_page_index = last_page_index - TRANSACTION_PER_PAGE;
+    const current_transaction = companyTransactionHistory.slice(first_page_index, last_page_index);
 
   return (
     <CompanyDashboardLayout active_link={"Transactions"}
       dashboard_content={
-        <div className="container bg-white px-8">
+        <div className=" bg-white px-8">
 
           {/* Transactions title */}
             <div className="flex items-center gap-3">
@@ -133,76 +254,15 @@ const CompanyTransactionHistory = () => {
                 </div>
             </div>
 
-            {data.slice(0,5).map((transaction, index) => (
-              <div
-                key={index}>
-                <table className="mt-8 min-w-full border border-primary40 rounded-[10px]">
-                  <thead>
-                    <tr className=" ">
-                      <th className="px-2 py-1">
-                        <span className="font-semibold">TRANSACTION ID</span>
-                      </th>
-                      <th className="px-2 py-1">
-                        <span className="font-semibold">ADDRESS</span>
-                      </th>
-                      <th className="px-2 py-1">
-                        <span className="font-semibold">ORIGIN</span>
-                      </th>
-                      <th className="px-2 py-1">
-                        <span className="font-semibold">TOTAL WEIGHT</span>
-                      </th>
-                      <th className="px-2 py-1">
-                        <span className="font-semibold">TOTAL VALUE</span>
-                      </th>
-                      <th className="px-2 py-1">
-                        <div className="flex justify-end">
-                          <img
-                            className={`h-7 w-7 p-2 ${transaction.status === "DECLINED" ? "bg-red-700" : "bg-green-700"}`}
-                            src={transaction.status === "DECLINED" ? stateRed : stateGreen}
-                            alt="State Icon Green"
-                          />
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="text-primary40 text-xs md:text-lg font-extrabold">
-                      <td className="px-2 py-1 text-center ">{transaction.value}</td>
-                      <td className="px-2 py-1 text-center ">{transaction._weight}</td>
-                      <td className="px-2 py-1 text-center ">{transaction.id}</td>
-                      <td className="px-2 py-1 text-center ">{transaction._address}</td>
-                      <td className="px-2 py-1 items-end text-right">
-                        <ul>
-                          <li className="text-xs font-bold text-gray-500">{transaction.date}</li>
-                          <li
-                            className={`font-extrabold ${transaction.status === "DECLINED" ? "text-red-700" : "text-green-700"
-                              }`}
-                          >
-                            {transaction.status}
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            ))}
+          
             {/* <div className="h-2 w-full"></div> */}
+            <PaginatedContent  data={current_transaction}/>
+            <PaginationControl
+                set_current_page_no={set_current_page_no}
+                current_page_no={current_page_no}
+                number_of_pages={total_no_of_pages}
+            />
 
-            {/* pagination */}
-            <div className="flex items-center justify-between p-4 ">
-                <p className="font-montserrat text-black/25">2 out of 34</p>
-                <div className="flex items-center gap-4 text-primaryLight font-semibold">
-                <p className="cursor-pointer">Previous</p>
-                <div className="flex items-center gap-4">
-                    <p className="font-bold text-primary50 cursor-pointer">1</p>
-                    <p className="font-light cursor-pointer">2</p>
-                    <p className="font-light cursor-pointer">3</p>
-                    <p className="font-bold">...</p>
-                </div>
-                <p className="cursor-pointer">Next</p>
-                </div>
-            </div>
         </div>
       }
     />

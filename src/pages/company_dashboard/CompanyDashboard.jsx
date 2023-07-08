@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import CompanyDashboardLayout from "../../components/dashboard_components/CompanyDashboardLayout"
 import { CompanyDashboardData } from "../../data/DepositTransactionData";
@@ -13,7 +13,92 @@ import tickIcon from '../../assets/tickIcon.svg'
 import { ethers } from "ethers";
 import Swal from "sweetalert2";
 
-// deposit plastic content
+// validate plastic content
+const ValidatePlasticTab = ({ toggleClose }) => {
+
+  const {account_category} = useToken();
+  const { isMethodCallLoading,  validatePlastic} = useRecycle();
+
+  const [transactionID, settransactionID] = useState('');
+  const [isTermsChecked, setisTermsChecked] = useState(false)
+
+  const ValidatePlastic = () => {
+      if (account_category !== "company") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Address not registered as a company',
+          confirmButtonColor:"#006D44",
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
+      }
+      else if (!transactionID) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Input transaction ID',
+          confirmButtonColor:"#006D44",
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
+      }
+      else if (!isTermsChecked) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Agree to Recylox Terms',
+          confirmButtonColor:"#006D44",
+          customClass: {
+              icon: "font-montserrat",
+              title: " font-montserrat text-[20px] text-[#000] font-[600]",
+              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+          }
+        })
+      } else {
+          validatePlastic(transactionID)
+      }
+  }
+
+  return (
+    <div className="bg-[#005232] w-full mx-auto flex flex-col justify-start text-white p-10 font-montserrat">
+        {/* close button */}
+        <button className="flex flex-row justify-end" onClick={toggleClose}>
+            <img src={closeIcon} alt="close-icon" className=" w-8 h-8" />
+        </button>
+        <h1 className="font-bold text-2xl my-8">Validate Plastic</h1>
+        {/* company name */}
+        <label htmlFor="transactionID">Transaction ID</label>
+        <input type="text" name="transactionID" id="transactionID"
+                onChange={(pka) => settransactionID(pka.target.value)}
+                className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
+        />
+        <div className="flex">
+            <input type="checkbox" name="pay_picker_checkbox" id="pay_picker_checkbox"
+                    className="h-6 w-6 mr-1"
+                    onChange={() => setisTermsChecked(!isTermsChecked)}
+                    value={isTermsChecked}
+            />
+            <span className="mr-1">I am sure the details I provided are correct</span>
+        </div>
+        {/* submit button */}
+        <button 
+            className="w-[60%] border-2 border-white rounded-lg p-2 bg-[#006D44] my-6"
+            onClick={ValidatePlastic}
+        >
+        {isMethodCallLoading ? "Loading..." : "Validate"}
+        </button>
+    </div>
+  );
+};
+
+// pay picker tab
 const PayPickerTab = ({ toggleClose }) => {
 
   const {account_category} = useToken();
@@ -49,18 +134,6 @@ const PayPickerTab = ({ toggleClose }) => {
               text: "font-montserrat, text-[16px] text-[#000] font-[600]",
           }
         })
-      } else if (!payAmount){
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: 'Input recylox amount',
-          confirmButtonColor:"#006D44",
-          customClass: {
-              icon: "font-montserrat",
-              title: " font-montserrat text-[20px] text-[#000] font-[600]",
-              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
-          }
-        })
       }
       else if (!isTermsChecked) {
         Swal.fire({
@@ -75,19 +148,7 @@ const PayPickerTab = ({ toggleClose }) => {
           }
         })
       } else {
-          payPicker(transactionID, payAmount)
-          if(isMethodCallSuccessful) {
-            Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: 'Payment successfull!',
-            customClass: {
-              icon: "font-montserrat",
-              title: " font-montserrat text-[20px] text-[#000] font-[600]",
-              text: "font-montserrat, text-[16px] text-[#000] font-[600]",
-            }
-          })
-       }
+          payPicker(transactionID)
       }
   }
 
@@ -102,12 +163,6 @@ const PayPickerTab = ({ toggleClose }) => {
         <label htmlFor="transactionID">Transaction ID</label>
         <input type="text" name="transactionID" id="transactionID"
                 onChange={(pka) => settransactionID(pka.target.value)}
-                className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
-        />
-        {/* plastic weight */}
-        <label htmlFor="recyloxAmount">Amount (RC)</label>
-        <input type="number" name="recyloxAmount" id="recyloxAmount"
-                onChange={(amt) => setPayAmount(amt.target.value)}
                 className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
         />
         <div className="flex">
@@ -195,43 +250,32 @@ const TransferRecyloxTab = ({toggleClose}) => {
       else {
         const transfer_amt = ethers.utils.parseEther(transferAmount);
         await transferTokens(recipientAddress, transfer_amt);
-        if (isMethodCallSuccessful) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Error!',
-            text: 'Transfer successful',
-            confirmButtonColor:"#006D44",
-            customClass: {
-                icon: "font-montserrat",
-                title: " font-montserrat text-[20px] text-[#000] font-[600]",
-                text: "font-montserrat, text-[16px] text-[#000] font-[600]",
-            }
-          })
-        }
       }
   }
   
 return   <div className="bg-[#005232] w-full mx-auto flex flex-col justify-start text-white p-10">
   {/* header */}
   <div className='relative'>
-      {/* title */}
-      <h1 className='font-montserrat text-[1.5rem] font-[700] text-center'>Transfer Recyclox</h1>
-      {/* close button */}
-      <button className="absolute right-0 -top-4" onClick={toggleClose}>
+    {/* close button */}
+    <button className="absolute right-0 -top-4" onClick={toggleClose}>
           <img src={closeIcon} alt="close-icon" className=" w-8 h-8" />
-      </button>
+    </button>
+    {/* title */}
+    <h1 className='font-montserrat text-[1.5rem] font-[700] text-center my-8'>Transfer Recylox</h1>
   </div>
   {/* recipient's address */}
-  <label htmlFor="recipientAddress" className='mt-[5rem] font-montserrat text-[16px] font-[600]'>Recipient's Address</label>
+  <label htmlFor="recipientAddress" className=' font-montserrat text-[16px] font-[600]'>Recipient's Address</label>
   <input type="text" name="recipientAddress" id="recipientAddress"
       onChange={(adr) => setRecipientAddress(adr.target.value)}
-      className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mt-[1rem] mb-[2.5rem]"
+      // className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mt-[1rem] mb-[2.5rem]"
+      className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
   />
   {/* amount to transfer */}
   <label htmlFor="transferAmount" className='font-montserrat text-[16px] font-[600]'>Amount</label>
   <input type="number" name="transferAmount" id="transferAmount"
       onChange={(amt) => setTransferAmount(amt.target.value)}
-      className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mt-[1rem]"
+      // className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mt-[1rem]"
+      className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
   />
   {/* checkbox */}
   <div className="flex mt-[1.4rem]">
@@ -256,11 +300,13 @@ return   <div className="bg-[#005232] w-full mx-auto flex flex-col justify-start
 const CompanyDashboard = () => {
 
   const { tokenHolderBalance } = useRecycle()
-  const {recycleContract, picker_count, account_category} = useToken();
+  const {recycleContract, picker_count, account_category, companyStruct} = useToken();
+
 
   const [componentToDisplay, setComponentToDisplay] = useState(0);
   const [toggleBalance, setToggleBalance] = useState(false);
-  const [balance, setBalance] = useState(0)
+  const [balance, setBalance] = useState(0);
+
 
   // function to close nav content
   const toggleCLose = () => {
@@ -286,8 +332,12 @@ const CompanyDashboard = () => {
     }
 }
 
+useEffect(() => {
+  console.log("company struct at dashboard => ", companyStruct);
+},[])
+
   return <CompanyDashboardLayout active_link={"Dashboard"} dashboard_content={
-    <div className=' bg-white font-montserrat border-2 border-[#ECECEC]'>
+    <div className=' bg-white font-montserrat border-2 border-[#ECECEC] '>
 
     {/* settings main content  */}
     <div className='flex flex-row w-full'>
@@ -296,9 +346,16 @@ const CompanyDashboard = () => {
         <div className='px-4 mt-10 w-full'>
             {/* content header */}
             <h2 className='text-[#71B453] italic font-montserrat font-[400] text-[1rem]'>Welcome back!</h2>
+            <div className="flex flex-row ">
+              <p>company name = {companyStruct[0]}</p>
+              <p>minimum weight requirement = {ethers.utils.formatEther(companyStruct[1].toString())} </p>
+              <p>maximum price per kg = {ethers.utils.formatEther(companyStruct[2].toString())} </p>
+              <p>company status = {companyStruct[3].toString()}</p>
+              
+            </div>
             <div className='w-full flex flex-row items-center my-6'>
               <div className="flex flex-col mr-12 ">
-                 {/* toggle button n balance */}
+                  {/* toggle button n balance */}
                 <div className="flex flex-row justify-between items-center">
                   <img src={merchantIcon} alt="merchant-icon" />
                   <h2 className='text-primary40 font-montserrat font-[500] text-[20px] ml-4'>Balance</h2>
@@ -325,7 +382,7 @@ const CompanyDashboard = () => {
                     <Link to={item.user_a_link} key={index} 
                         onClick={() => setComponentToDisplay(index+1)}
                         className=' flex flex-row bg-[rgba(0, 109, 68, 0.01)] border-2 border-[#ECECEC] p-3 mb-4 items-center rounded-lg active:bg-[rgba(0, 109, 68, 0.33)]'>
-                        <img src={item.icon} alt={`${item.title} icon`} className='mr-4'/>
+                        <img src={item.icon} alt={`${item.title} icon`} className='w-[35px] h-[35px] mr-4'/>
                         <h1>{item.title}</h1>
                     </Link>
                 )
@@ -335,10 +392,10 @@ const CompanyDashboard = () => {
 
         {/* settings display nav content */}
         <div className='w-full'>
-            {
-              componentToDisplay === 1 ? <PayPickerTab 
-                toggleClose={toggleCLose}/> 
-              : componentToDisplay === 2 ? <TransferRecyloxTab /> 
+            { 
+                componentToDisplay === 1 ? <ValidatePlasticTab toggleClose={toggleCLose} />
+              : componentToDisplay === 2 ? <PayPickerTab  toggleClose={toggleCLose}/> 
+              : componentToDisplay === 3 ? <TransferRecyloxTab  toggleClose={toggleCLose}/> 
               : ""
             }
 
