@@ -3,135 +3,211 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { recycleABI } from './recycle-abi';
 import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
+import { useToken } from './recylox';
 
 export const RecycleContext = createContext();
 
 export const useRecycle = () => useContext(RecycleContext);
 
 export const RecycleProvider = ({ children }) => {
+
+  const {recycleContract, connectedAccount} = useToken();
+
   const [companies, setCompanies] = useState([]);
   const [pickers, setPickers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
-  const [connectedAccount, setConnectedAccount] = useState('');
+  // const [connectedAccount, setConnectedAccount] = useState('');
   const [isMethodCallLoading, setIsMethodCallLoading] = useState(false);
   const [isMethodCallSuccessful, setIsMethodCallSuccessful] = useState(false);
+  const [totalTransaction, setTotalTransaction] = useState(0)
   
   // added variables
-  const [picker_count, setPicker_Count] = useState(0);
-  const [isWalletConnected, setIsWalletconnected] = useState(false);
+  const [picker_count, set_Picker_Count] = useState(0);
+  const [company_count, set_Company_Count] = useState(0);
+  const [account_category, set_account_category] = useState('');
+  const [companyAddresses, setCompanyAddresses] = useState([]);
+  const [pickerStruct, setPickerStruct] = useState({});
+  const [companyStruct, setCompanyStruct] = useState({});
+  const [tokenHolderBalance, setTokenHolderBalance] = useState(0);
 
-  // const initializeContract = async () => {
-  //   try {
-  //     setLoading(true);
-  //     if (window.ethereum) {
-       
-  //       const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-  //       // save connected wallet address
-  //       setConnectedAccount(getAccounts[0]);
-  //       setIsWalletconnected(true);
-       
-  //       const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-  //       // MetaMask requires requesting permission to connect users accounts
-  //       setProvider(ethereumProvider);
-  //       const signer = ethereumProvider.getSigner();
-  //       const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; 
-  //       // Replace with the actual contract address
-  //       const contract = new ethers.Contract(contractAddress, recycleABI, signer);
-  //       console.log('contract =>', contract);
-  //       setContract(contract);
+  useEffect(() => {
+    const recycle_status = localStorage.getItem("connectRecycle");
+    console.log(recycle_status);
 
-  //       // Fetch companies and pickers from the contract
-  //       // const companies = await contract.getCompanyAddresses();
+    // if (recycle_status == 'true') {
+    //   initializeRecycleContract()
+    // }
+   
+  },[])
 
-  //       // console.log("companies =>", companies);
-
-  //       // const pickers = await contract.getPickerAddresses();
-  //       // setCompanies(companies);
-  //       // setPickers(pickers);
-  //       // console.log(pickers);
-  //       setLoading(false);
-  //     } else {
-  //       setLoading(false);
-  //       // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
-  //       alert('Please install MetaMask or any other Ethereum wallet extension.');
-  //     }
-  //   } catch (error) {
-  //     setLoading(false);
-  //     console.error('Error initializing contract:', error);
-  //   }
-  // };
-
-const initializeRecycleContract = async () => {
-  try {
-    setLoading(true);
-    if (window.ethereum) {
-      const storedAccount = localStorage.getItem('connectedAccount');
-      const storedWalletConnected = localStorage.getItem('isWalletConnected');
-
-      console.log(storedAccount, storedWalletConnected);
-
-      if (storedAccount && storedWalletConnected) {
-        // Use the stored account and wallet connection status
-        setConnectedAccount(storedAccount);
-        const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
-        setProvider(ethereumProvider); 
-        const signer = ethereumProvider.getSigner();
-        const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
-        const contract = new ethers.Contract(contractAddress, recycleABI, signer);
-        console.log('contract =>', contract);
-        setContract(contract);
-      } else {
+  const initializeRecycleContract = async () => {
+    try {
+      setLoading(true);
+      if (window.ethereum) {
         const getAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const account = getAccounts[0];
-        setConnectedAccount(account);
-        localStorage.setItem('connectedAccount', account);
+        // save connected wallet address
+        const _connectedAccount = getAccounts[0];
+        setConnectedAccount(getAccounts[0]);
         const ethereumProvider = new ethers.providers.Web3Provider(window.ethereum);
+        // MetaMask requires requesting permission to connect users accounts
         setProvider(ethereumProvider);
         const signer = ethereumProvider.getSigner();
-        const contractAddress = '0x92eD2020A7f0d39eA7bacb4c3DF335B9Ae56659a'; // Replace with the actual contract address
+        const contractAddress = '0x96843178AEf01A428798177F45E809Dc6F7b76f2'; // Replace with the actual contract address
         const contract = new ethers.Contract(contractAddress, recycleABI, signer);
         console.log('contract =>', contract);
         setContract(contract);
-        localStorage.setItem('isWalletConnected', true);
+      console.log("recycle contract =>", contract);
+
+      localStorage.setItem("connectRecycle", true);
+
+      // get no of pickers
+      const no_of_registered_pickers = await contract.getRegisteredPickerCount();
+      console.log('Registered picker count:', no_of_registered_pickers);
+      set_Picker_Count(no_of_registered_pickers);
+      console.log("no_of_registered_pickers =>", no_of_registered_pickers);
+
+      // get no of companies
+      const no_of_registered_companies = await contract.getRegisteredCompanyCount();
+      console.log('Registered company count:', no_of_registered_companies);
+      set_Company_Count(no_of_registered_companies);
+      console.log("no_of_registered_companies =>", no_of_registered_companies); 
+
+      // get tokenholder balance
+      const balance = await contract.balanceOf();
+      console.log("token balance", balance);
+      setTokenHolderBalance(balance);
+
+      // get total transaction
+      const totalTransactions = await contract.totalTransactions();
+      setTotalTransaction(totalTransactions)
+      console.log("totalTransaction => ", totalTransactions);
+
+      try {
+        const transaction = await contract.transactions(0);
+        console.log("transaction structs =>", transaction);
+        
+      } catch (error) {
+
+        console.log("transactions struct =>", error.reason);
+        
       }
 
-      // Fetch companies and pickers from the contract
-      // const companies = await contract.getCompanyAddresses();
+      try {
+        const picker = await contract.getPicker(_connectedAccount);
+        console.log("picker array", picker);
+        console.log("picker name => ", picker[0]);
+        if (picker[0]) {
+          set_account_category("picker");
+        }
+      } catch (error) {
+        console.log("picker array => ", error);
+      } //ends getPicker
+     
+      // get company
+      try {
+        const company = await contract.getCompany(_connectedAccount);
+        console.log("company array", company);
+        if (company[0]) {
+          set_account_category("company");
 
-      // console.log("companies =>", companies);
+        } 
+      } catch (error) {
+        console.log("company array => ", error);
+      } //ends getCompany
+      
 
-      // const pickers = await contract.getPickerAddresses();
-      // setCompanies(companies);
-      // setPickers(pickers);
-      // console.log(pickers);
+       // Fetch companies and pickers from the contract
+       /*
+       const companies = await contract.getCompanyAddresses();
+       const pickers = await contract.getPickerAddresses();
+       console.log("companies =>", companies);
+       console.log("pickers =>", pickers);
+       setCompanies(companies);
+       setPickers(pickers);
 
-      setLoading(false);
+       */
+    
+      /*
+      get picker struct. Also use this to cartegorize address.
+      direct users to their respective dashboard based on this
+      */
+    //  getPicker
+    
+      
     } else {
       setLoading(false);
       // throw new Error('Please install MetaMask or any other Ethereum wallet extension.');
-      alert('Please install MetaMask or any other Ethereum wallet extension.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Please install MetaMask or any other Ethereum wallet extension.',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+      console.log('Please install MetaMask or any other Ethereum wallet extension.');
     }
-  } catch (error) {
-    setLoading(false);
-    console.error('Error initializing contract:', error);
-  }
-};
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Error initializing contract: ${error.message}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+      setLoading(false);
+    }
+}; //ends initializeRecycleContract()
 
+
+/**********************************   pickers functionalities   ************************************ */
   const registerPicker = async (name, email) => {
     try {
       setIsMethodCallLoading(true);
-      const tx = await contract.registerPicker(name, email);
+      const tx = await recycleContract.registerPicker(name, email);
       await tx.wait();
-      const newPicker = await contract.getPicker(connectedAccount);
+      const newPicker = await recycleContract.getPicker(connectedAccount);
       setPickers([...pickers, newPicker]);
       setIsMethodCallLoading(false);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Picker created successfully!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+     
       setIsMethodCallSuccessful(true);
     } catch (error) {
       console.error('Error registering user:', error);
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Error registering user: ${error.reason}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
 
@@ -189,6 +265,7 @@ const initializeRecycleContract = async () => {
   const getPicker = async (address) => {
     try {
       const picker = await contract.getPicker(address);
+     
       console.log('Picker details:', picker);
       // Additional logic or UI updates with the picker data
     } catch (error) {
@@ -201,7 +278,8 @@ const initializeRecycleContract = async () => {
     try {
       const count = await contract.getRegisteredPickerCount();
       console.log('Registered picker count:', count);
-      setPicker_Count(count);
+      set_Picker_Count(count);
+      console.log("picker count =>", count);
       // Additional logic or UI updates with the count data
     } catch (error) {
       console.error('Failed to fetch registered picker count:', error);
@@ -212,17 +290,42 @@ const initializeRecycleContract = async () => {
   const payPicker = async (transactionId) => {
     try {
       setIsMethodCallLoading(true);
-      const transaction = await contract.connect(signer).payPicker(transactionId);
+      // const transaction = await contract.connect(signer).payPicker(transactionId);
+      const transaction = await recycleContract.payPicker(transactionId);
       await transaction.wait();
       console.log('Picker paid successfully!');
       // Additional logic or UI updates after successful payment
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(true);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Payment successful!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } catch (error) {
       console.error('Failed to pay picker:', error);
       // Handle error scenario
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      const payError = error.reason.split(':');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Failed to pay picker: ${payError[2]}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
    
@@ -241,19 +344,43 @@ const initializeRecycleContract = async () => {
     }
   };
 
+/**********************************    Company functionalities  ************************************ */
   const registerCompany = async (name, minWeightRequirement, maxPricePerKg, active) => {
     try {
       setIsMethodCallLoading(true);
-      const tx = await contract.registerCompany(name, minWeightRequirement, maxPricePerKg, active);
+      const tx = await recycleContract.registerCompany(name, minWeightRequirement, maxPricePerKg, active);
       await tx.wait();
-      const newCompany = await contract.getCompany(connectedAccount);
+      const newCompany = await recycleContract.getCompany(connectedAccount);
       setCompanies([...companies, newCompany]);
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(true);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Company created successfully!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } catch (error) {
       console.error('Error registering company:', error);
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Error registering company: ${error.reason}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
 
@@ -365,34 +492,85 @@ const initializeRecycleContract = async () => {
   const depositPlastic = async (companyAddress, weight) => {
     try {
       setIsMethodCallLoading(true);
-      const transaction = await contract.connect(signer).depositPlastic(companyAddress, weight);
+      // const transaction = await contract.connect(signer).depositPlastic(companyAddress, weight);
+      const transaction = await recycleContract.depositPlastic(companyAddress, weight);
       await transaction.wait();
+      
       console.log('Plastic deposited successfully!');
       // Additional logic or UI updates after successful deposit
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(true);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Plastic deposited successfully!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } catch (error) {
       console.error('Failed to deposit plastic:', error);
       // Handle error scenario
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      const _error = error.reason.split(':');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Failed to validate plastic: ${_error[2]}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
   
   const validatePlastic = async (transactionId) => {
     try {
       setIsMethodCallLoading(true);
-      const transaction = await contract.connect(signer).validatePlastic(transactionId);
+      // const transaction = await contract.connect(signer).validatePlastic(transactionId);
+      const transaction = await recycleContract.validatePlastic(transactionId);
       await transaction.wait();
       console.log('Plastic validated successfully!');
       // Additional logic or UI updates after successful validation
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(true);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Picker validated successfully!',
+        confirmButtonColor:"#006D44",
+        preConfirm: () => {window.location.reload()},
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     } catch (error) {
       console.error('Failed to validate plastic:', error);
       // Handle error scenario
       setIsMethodCallLoading(false);
       setIsMethodCallSuccessful(false);
+      const validateError = error.reason.split(':');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: `Failed to validate plastic: ${validateError[2]}`,
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
     }
   };
   
@@ -438,12 +616,18 @@ const initializeRecycleContract = async () => {
     }
   };
 
-  
+  const GetCompany = async() => {
+    const company = await contract.getCompany(connectedAccount);
+    if (company.name) {
+      setCompanyStruct({
+        name: company.name,
+        minWeightRequirement: company.minWeightRequirement,
+        maxPricePerKg: company.maxPricePerKg
+      })
+    }
+  }
 
-  useEffect(() => {
-    // initializeRecycleContract()
-  }, []);
-
+  console.log("recycle account categor =>", account_category );
   return (
     <RecycleContext.Provider
       value={{
@@ -456,6 +640,11 @@ const initializeRecycleContract = async () => {
         isMethodCallLoading,
         isMethodCallSuccessful,
         picker_count,
+        company_count,
+        account_category,
+        pickerStruct,
+        companyStruct,
+        tokenHolderBalance,
         registerPicker,
         editPicker,
         getPicker,
@@ -476,7 +665,8 @@ const initializeRecycleContract = async () => {
         createRequest,
         approveRequest,
         rejectRequest,
-        initializeRecycleContract
+        initializeRecycleContract,
+        GetCompany
       }}
     >
       {children}

@@ -6,10 +6,12 @@ import { TokenContext } from '../../context/recylox'
 import menuIcon from '../../assets/menuGreen.svg'
 import { HeaderData } from '../../data/HeaderData'
 import { MdClose } from "react-icons/md"
+import { useRecycle } from "../../context/recycle";
 
 const Header = () => {
 
-    const {connectedAccount} = useContext(TokenContext)
+    const {connectedAccount, adminAddress, account_category} = useContext(TokenContext)
+    // const {account_category} = useRecycle();
     const {pathname} = useLocation();
 
     // const [selectedOption, setSelectedOption] = useState('');
@@ -58,10 +60,10 @@ const Header = () => {
           <div className="flex flex-row justify-between items-center w-fit">
             {/* header links */}
             <ul
-              className={`w-full absolute items-center md:static flex flex-col md:flex-row gap-2 lg:gap-[66px] px-4
-                      ${!toggle_menu ? "-left-full -top-full" : " left-0 top-0 flex-col w-[80%] bg-white p-4 mt-20 rounded-b-md "}
-                      transition-all duration-500
-                      `}
+               className={`w-full absolute items-center md:static flex flex-col md:flex-row gap-2 lg:gap-[66px] px-4
+               ${!toggle_menu ? "-left-full -top-full" : " left-0 top-0 flex-col w-[80%] bg-white p-4 mt-20 rounded-b-md "}
+               transition-all duration-500
+               `}
             >
               <li 
                 className={`w-fit hover:border-b hover:border-primary40 
@@ -77,22 +79,22 @@ const Header = () => {
                   <div className="w-[13rem] absolute bg-white shadow-light border border-[#ddd] p-4">
                     <Link 
                       to={'/about-us'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-user" ? "border-b font-bold" : "font-normal"}`}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/about-us" ? "border-b font-bold" : "font-normal"}`}
                      >About Us
                     </Link>
                     <Link 
                       to={'/blog'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-company" ? "border-b font-bold" : "font-normal"}`}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/blog" ? "border-b font-bold" : "font-normal"}`}
                       >Blog
                       </Link>
                       <Link 
                       to={'/how-it-works'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-user" ? "border-b font-bold" : "font-normal"}`}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/how-it-works" ? "border-b font-bold" : "font-normal"}`}
                      >How It Works
                     </Link>
                     <Link 
                       to={'/privacy-policy'}
-                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/register-company" ? "border-b font-bold" : "font-normal"}`}
+                      className={`w-fit hover:border-b hover:border-primary40 hover:font-bold transition-all flex flex-row gap-2 my-4 border-primary40 md:mr-4 ${pathname == "/privacy-policy" ? "border-b font-bold" : "font-normal"}`}
                       >Privacy Policy
                       </Link>
                   </div>
@@ -108,8 +110,25 @@ const Header = () => {
                 </li>
               ))}
 
+              { 
+                connectedAccount && account_category === "picker" ? 
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/user-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={`/user-dashboard`}>Dashboard</Link>
+                    </li>
+                :
+                connectedAccount && account_category === "company" ?
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/company-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={"/company-dashboard"}>Dashboard</Link>
+                    </li>
+                :
+                connectedAccount &&  connectedAccount === adminAddress ?
+                    <li className={`w-fit mr-4 hover:border-b hover:border-primary40 my-4 hover:font-bold transition-all border-primary40 ${pathname == "/admin-dashboard" ? "border-b font-bold" : "font-normal"}`}>
+                        <Link to={"/admin-dashboard"}>Dashboard</Link>
+                    </li>
+                  : ""
+              }
               {/* register link */}
-              {!connectedAccount ? 
+              {!account_category ? 
                 <li 
                   className={`relative w-fit hover:border-b font-normal
                   hover:cursor-pointer hover:border-primary40 hover:font-bold 
@@ -139,12 +158,18 @@ const Header = () => {
                   
                 </li>
               :
-                <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]">
-                    {connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length) }
+                <button className=" md:hidden rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]">
+                    {connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)}
                 </button>
               }
 
             </ul>
+            { connectedAccount ?
+                <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]">
+                  {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)}` : ""}
+                </button>
+              : ""
+            }
             
 
             {/* toggle  menu */}

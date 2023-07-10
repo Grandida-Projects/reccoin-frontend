@@ -22,6 +22,7 @@ import Notifications from '../../pages/company_dashboard/Notifications';
 import HistoryPage from '../../pages/company_dashboard/HistoryPage';
 import OffersPage from '../../pages/company_dashboard/OffersPage';
 import ChatPage from '../../pages/company_dashboard/ChatPage';
+import CompanyTransactionHistory from '../../pages/company_dashboard/CompanyTransactionHistory';
 
 const routes = [
     {
@@ -38,7 +39,7 @@ const routes = [
         white_icon: companyWhiteIcon,
         green_icon: companyGreenIcon,
         id: 'dashboard-companies',
-        component: CompanyDashboard
+        component: CompanyTransactionHistory
     },
     {
         name: "Notifications",
@@ -79,11 +80,12 @@ const routes = [
         white_icon: chatWhiteIcon,
         green_icon: chatGreenIcon,
         id: 'dashboard-companies',
-    }
+    }, 
     
 ];
 
 const renderRoutes = (routes, basePath = '') => {
+
     return routes.map((route, index) => {
         const { group, path, component: Component } = route;
         const fullPath = group ? `${basePath}${group}${path || ''}` : `${basePath}${path || ''}`;
@@ -97,7 +99,9 @@ const renderRoutes = (routes, basePath = '') => {
 };
 
 const CompanyDashboardRoutes = () => {
-    return <Routes>{renderRoutes(routes)}</Routes>;
+
+    return <Routes>{renderRoutes(routes)}</Routes>
+   
 };
 
 export { routes, CompanyDashboardRoutes };

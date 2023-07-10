@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import settingsWhiteIcon from '../../assets/settingsWhite.svg'
@@ -99,7 +98,9 @@ const renderRoutes = (routes, basePath = '') => {
 };
 
 const UserDashboardRoutes = () => {
-    return <Routes>{renderRoutes(routes)}</Routes>;
+
+     return <Routes>{renderRoutes(routes)}</Routes>;
+   
 };
 
 export { routes, UserDashboardRoutes };

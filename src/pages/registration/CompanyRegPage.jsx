@@ -1,25 +1,121 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Logo from '../../components/logo';
-import { RecycleContext } from '../../context/recycle';
+import { useRecycle } from '../../context/recycle';
 import RegistrationHeader from '../../components/navigation/RegistrationHeader';
+import { useToken } from '../../context/recylox';
+import { ethers } from 'ethers';
+import Swal from 'sweetalert2';
 
 const CompanyRegPage = () => {
 
-//  const { addCompany }  = useContext(RecycleContext);
+  const {contract, registerCompany, isMethodCallLoading, 
+    isMethodCallSuccessful, account_category }  =  useRecycle();
+  const { connectedAccount } = useToken();
+
 
 const [companyName, setCompanyName] = useState('')
 const [minimumWeightRequirement, setMinimumWeightRequirement] = useState('');
 const [maximumWeightPerKg, setMaximumWeightPerKg] = useState('');
+const [isTermsChecked, setIsTermsChecked] = useState(false)
 
 const RegisterCompany = () => {
 
+  console.log("contract reg page => ", contract);
+
+  if(!connectedAccount) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Connect wallet to continue',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
+  } else if (account_category !== "") {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Address aleady registered',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
+  }
+  else if(!companyName) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Input company name',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
+  } 
+  else if (!minimumWeightRequirement) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Input minimum weight requirement',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
+  }
+  else if (!maximumWeightPerKg) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Input maximum wight per kg',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
+  }
+  // else if (!isActive) {
+  //   alert("Agree to Recylox Terms")
+  // }
+  else if (!isTermsChecked) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: 'Agree to Recylox Terms',
+      confirmButtonColor:"#006D44",
+      customClass: {
+          icon: "font-montserrat",
+          title: " font-montserrat text-[20px] text-[#000] font-[600]",
+          text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      }
+    })
+  }
+  else {
+    const minWt = ethers.utils.parseEther(minimumWeightRequirement)
+    const maxPrice =ethers.utils.parseEther(maximumWeightPerKg)
+    console.log("register company arguments => ", minWt, maxPrice);
+    registerCompany(companyName, minWt, maxPrice, true);
+
+  }
 }
 
 
   return (
     <div className='container mx-auto'>
       <RegistrationHeader/>
-      <div className='my-20 w-[34rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'>
+      <div className='my-20 min-w-[40rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'>
         <div>
           <p className='text-[1rem] md:text-[2rem] lg:text-[3.7rem] font-bold text-center'>
             Company Registration Page
@@ -32,7 +128,7 @@ const RegisterCompany = () => {
                     <Logo fill='#0D4D00' w='46' h='46' />
                   </div>
                   <p className='text-[1rem] md:text-[1rem] lg:text-[1.2rem] mt-2 ml-3 text-[#0D4D00]  text-center'>
-                    Reccoin
+                    Recylox
                   </p>
                 </div>
                 <div className='ml-8'>
@@ -50,7 +146,8 @@ const RegisterCompany = () => {
                     </label>
                     <input
                       type='text'
-                      className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent'
+                      className='border-b-2 w-[14rem] mx-auto focus:outline-none border-[#0D4D00] bg-transparent'
+                      onChange={(nme)=> setCompanyName(nme.target.value)}
                     />
                   </div>
                   <div className='mb-6'>
@@ -58,11 +155,12 @@ const RegisterCompany = () => {
                       htmlFor='Minimum-Weight-Requirement'
                       className='block mb-1 text-[1rem] md:text-[1rem] lg:text-[1.2rem] font-medium text-[#0D4D00] text-center'
                     >
-                      Minimum Weight Requirement
+                      Minimum Weight(Kg)
                     </label>
                     <input
-                      type='text'
-                      className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent ml-6'
+                      type='number'
+                      className='border-b-2 w-[14rem]  mx-auto focus:outline-none border-[#0D4D00] bg-transparent ml-6'
+                      onChange={(wht)=> setMinimumWeightRequirement(wht.target.value)}
                     />
                   </div>
                   <div className='mb-6'>
@@ -70,11 +168,12 @@ const RegisterCompany = () => {
                       htmlFor='Maximum-Price-Per-Kilogram'
                       className='block mb-1 text-[1rem] md:text-[1rem] lg:text-[1.2rem] font-medium text-[#0D4D00] text-center'
                     >
-                      Maximum Price Per Kilogram
+                      Maximum Price (Kg)
                     </label>
                     <input
-                      type='text'
-                      className='border-b-2 w-[14rem] focus:outline-none border-[#0D4D00] bg-transparent ml-5'
+                      type='number'
+                      onChange={(pkg)=> setMaximumWeightPerKg(pkg.target.value)}
+                      className='border-b-2 w-[14rem]  mx-auto focus:outline-none border-[#0D4D00] bg-transparent ml-5'
                     />
                   </div>
                 </div>
@@ -82,16 +181,19 @@ const RegisterCompany = () => {
                   <input
                     className='h-[1.4rem] w-[4rem] border-solid border-[#0D4D00]'
                     type='checkbox'
-                    value=''
+                    value={isTermsChecked}
+                    onChange={() => setIsTermsChecked(!isTermsChecked)}
                     aria-label='Checkbox for following text input'
                   />
                   <p className='text-[0.5rem] md:text-[0.7rem] lg:text-[0.7rem] mt-2 w-[14rem]  text-[#0D4D00]'>
-                    I agree to the terms of the Reccoin Subscriber Agreement and
+                    I agree to the terms of the Recylox Subscriber Agreement and
                     the Privacy Policy
                   </p>
                 </div>
-                <button className='rounded-[6px] absolute bottom-6 left-36 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'>
-                  Register
+                <button 
+                  className='rounded-[6px] absolute bottom-6 left-36 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'
+                  onClick={RegisterCompany}>
+                    {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Company created" : "Register"}
                 </button>
               </div>
             </div>

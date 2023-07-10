@@ -15,8 +15,6 @@ import { RecycleContext } from '../../context/recycle';
 // mint token tab
 const MintTokenTab = ({toggleClose, isMintSuccessful, MintLoading, MintToken}) => {
 
- 
-
     const [recipientAddress, setRecipientAddress] = useState('');
     const [mintAmount, setmintAmount] = useState(0);
     const [isMintChecked, setisMintChecked] = useState(false)
@@ -31,7 +29,7 @@ const MintTokenTab = ({toggleClose, isMintSuccessful, MintLoading, MintToken}) =
             alert("Input transfer amount")
         } 
         else if(!isMintChecked) {
-            alert("You need to agree that the details provided are correct")
+            alert("Agree to Recylox terms")
         }
         else {
             const mint_amt = ethers.utils.parseEther(mintAmount)
@@ -113,7 +111,7 @@ const TransferTokenTab = ({toggleClose, isTransferSuccessful, transferLoading,  
             alert("Input transfer amount")
         } 
         else if(!isTransferChecked) {
-            alert("You need to agree that the details provided are correct")
+            alert("Agree to Recylox terms")
         }
         else {
             const transfer_amt = ethers.utils.parseEther(transferAmount)
@@ -199,7 +197,7 @@ const DelegateTokenTab = ({toggleClose, isApprovalSuccessful, approvalLoading, A
             alert("Input maximum amount")
         } 
         else if(!isApprovalChecked) {
-            alert("You need to agree that the details provided are correct")
+            alert("Agree to Recylox terms")
         }
         else {
             const max_amt = ethers.utils.parseEther(maxAmount)
@@ -343,13 +341,12 @@ const BurnToken = ({toggleClose, BurnToken, burnLoading, isBurnSuccessfull}) => 
     </div>
 }
 
-
 const AdminDashboard = () => {
 
     const {transferTokens, mintTokens, burnTokens, accountBalance, contract,
         transferFrom, isMethodCallSuccessful, isMethodCallLoading} = useContext(TokenContext);
 
-    const {picker_count,} = useContext(RecycleContext)
+    const {picker_count,company_count} = useContext(RecycleContext)
 
     // Component to Display for dashboard
     const [componentToDisplay, setComponentToDisplay] = useState(0);
@@ -366,8 +363,8 @@ const AdminDashboard = () => {
             alert("contract not initialized")
         } else  {
             setToggleBalance(!toggleBalance)
-            const account_balance = ethers.utils.formatEther(accountBalance.toString());
-            setBalance(account_balance);
+            const account_balance = ethers.utils.formatEther(accountBalance);
+            setBalance(parseInt(account_balance).toFixed(2));
 
         }
     }
@@ -390,16 +387,16 @@ const AdminDashboard = () => {
                             <path d="M10 0.5L0 5.5V7.5H20V5.5L10 0.5Z" fill="green"/>
                         </svg>
                         <h2 className='text-primary40  font-black text-[1.6rem] ml-4'>Balance</h2>
-                        <img src={toggleBalance ? eyesOpenIcon : eyesIcon} alt="eyes-icon" className='h-4 w-4 ml-20 hover:cursor-pointer' onClick={ToggleBalance} />
+                        <img src={toggleBalance ? eyesIcon : eyesOpenIcon} alt="eyes-icon" className='h-4 w-4 ml-20 hover:cursor-pointer' onClick={ToggleBalance} />
                     </div>
-                    <h1 className='text-[#0D4D00] text-[1.6rem] font-[700]  my-4'>{toggleBalance ? balance : "XXXXX"}</h1>
+                    <h1 className='text-[#0D4D00] text-[1.6rem] font-[700]  my-4'>{!toggleBalance ? "XXXXX"  : balance }</h1>
                     <div className='w-[22.5rem] text-black text-[1rem] flex flex-row p-2 mt-10 bg-[#d9d9d975]'>
                         <p className=' font-[500]'>Total Number of Registered Companies:</p>
-                        <p className='font-[700] ml-2'>400</p>
+                        <p className='font-[700] ml-2'>{ company_count.toString()}</p>
                     </div>
                     <div className='w-[22.5rem] text-black text-[1rem]  flex flex-row p-2 mt-4 mb-8 bg-[#d9d9d975]'>
                         <p className='font-[500]'>Total Number of Registered Pickers:</p>
-                        <p className='font-[700] ml-2'></p>
+                        <p className='font-[700] ml-2'>{picker_count.toString()}</p>
                     </div>
                     {/* settings nav items */}
                     <ul className='w-full h-full'>

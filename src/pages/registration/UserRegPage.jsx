@@ -1,57 +1,142 @@
-import { useContext, useState } from "react"
+import { useEffect, useState } from "react"
 import Logo from "../../components/logo"
 import RegistrationHeader from "../../components/navigation/RegistrationHeader"
-import { RecycleContext } from "../../context/recycle";
+import { useRecycle } from "../../context/recycle";
+import { useNavigate } from "react-router-dom";
+import { useToken } from "../../context/recylox";
+import Swal from "sweetalert2";
 
 const UserRegPage = () => {
 
+  const navigate = useNavigate()
+
   const {
-    registerPicker, connectedAccount, pickers, companies, 
+    registerPicker,  pickers, companies, 
     isMethodCallLoading, isMethodCallSuccessful
-  }  = useContext(RecycleContext);
+  }  = useRecycle();
+  const {recycleContract, account_category, connectedAccount} = useToken();
 
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [isTermsChecked, setIsTermsChecked] = useState(false)
 
 
-  // const RegisterPicker = () => {
+  useEffect(()=>{
+    console.log("companies =>", companies);
+    console.log("account category => ", account_category);
+  }, [])
 
-  //   console.log("companies =>", companies);
-  //   if(!connectedAccount) {
-  //     alert("Connect wallet to continue")
-  //   }
-  //   else if (!userName) {
-  //     alert("Input user name")
-  //   } else if(!userEmail) {
-  //     alert("input user email")
-  //   }
-  //   else if (!isTermsChecked) {
-  //     alert("Agree to Recylox Terms")
-  //   }
-  //    else {
-  //     for (let i=0; i<=pickers.length; i++) {
-  //       if  (i === connectedAccount) {
-  //         alert("User already registered, kindly login or connect with a different address");
-  //       } else {
-  //         registerPicker(userName, userEmail)
-  //       }
-  //     }
-  //   }
-    
+  const RegisterPicker = () => {
 
-  // }
+    const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const isValidEmail = (email) => {
+      return email_regex.test(email);
+    }
+
+    const validEmail = isValidEmail(userEmail);
+
+    if (account_category) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Address already registered!',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+    } 
+    else if(!connectedAccount) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Connect wallet to continue',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+    }
+    else if (!userName) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Input user name',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+    } else if(!validEmail) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Input valid email',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      })
+    }
+    else if (!isTermsChecked) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Agree to Recylox Terms',
+        confirmButtonColor:"#006D44",
+        customClass: {
+            icon: "font-montserrat",
+            title: " font-montserrat text-[20px] text-[#000] font-[600]",
+            text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+        }
+      });
+    }
+     else {
+      registerPicker(userName, userEmail);
+      
+
+      // if (isMethodCallSuccessful) {
+      //   Swal.fire({
+      //     icon: 'success',
+      //     title: 'Success!',
+      //     text: 'Picker created successfully!',
+      //     confirmButtonColor:"#006D44",
+      //     customClass: {
+      //         icon: "font-montserrat",
+      //         title: " font-montserrat text-[20px] text-[#000] font-[600]",
+      //         text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+      //     }
+      //   }).then((result) => {
+      //     if (result.isConfirmed) {
+      //       navigate('/user-dashboard')
+      //     }
+      //   })
+      // }
+    }
+  }
+
   return (
     <div className='container mx-auto'>
       <RegistrationHeader/>
-      <div className='my-20 w-[34rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'>
+      {/* <div className='my-20 w-[34rem] md:w-[62rem] lg:w-[82rem] flex flex-row justify-center'> */}
+      <div className='my-20  flex flex-row justify-center'>
       <div>
         <p className='text-[1rem] md:text-[2rem] lg:text-[3.7rem] font-bold text-center'>
           User Registration Page
         </p>
-        <div className='flex flex-row justify-center mt-4 '>
+        <div className='flex flex-row justify-center mt-4'>
           <div className='relative'>
-            <div className='w-[10rem] md:w-[22rem] lg:w-[29rem] min-h-[34rem] bg-[#F8F9FB] border border-primary40-700'>
+            {/* <div className='w-[10rem] md:w-[22rem] lg:w-[29rem] min-h-[34rem] bg-[#F8F9FB] border border-primary40-700'> */}
+            <div className='w-[10rem] md:w-[22rem] lg:min-w-[29rem] min-h-[34rem] bg-[#F8F9FB] border border-primary40-700'>
               <div className='flex flex-row mt-10 ml-10'>
                 <div className='w-46 h-46 items-center '>
                   <Logo fill='#0D4D00' w='46' h='46' />
@@ -107,10 +192,11 @@ const UserRegPage = () => {
                   the Privacy Policy
                 </p>
               </div>
+           
               <button className='rounded-[6px] absolute bottom-20 left-16 py-1 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#0D4D00]'
                 onClick={RegisterPicker}
               >
-                {isMethodCallLoading ? "Loading..." : isMethodCallSuccessful ? "Picker created" : "Register"}
+                {isMethodCallLoading ? "Loading..." : "Register"}
               </button>
             </div>
           </div>

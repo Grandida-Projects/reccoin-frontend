@@ -15,7 +15,7 @@ const faqData = [
 ]
 
 const Faq = () => {
-  return <div className='container mx-auto bg-[#F2FAF7] font-openSans'>
+  return <div className='container mx-auto bg-[#F2FAF7] font-montserrat'>
     {/* titles */}
     <h1 className='text-[40px] text-center py-2 font-[900] '>FAQ</h1>
     <h3 className='text-[16px] text-center font-[900]'>You’ve Got Questions? We’ve Got Answers</h3>

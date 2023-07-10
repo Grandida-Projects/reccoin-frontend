@@ -3,7 +3,7 @@ import { howItworks } from '../../data/howItWorksData'
 
 const HowItWorks = () => {
   return (
-    <div className='container mx-auto bg-bg-color p-8 flex flex-col justify-center items-center'>
+    <div className='container mx-auto bg-bg-color p-8 flex flex-col justify-center items-center font-montserrat'>
       {/* section title */}
       <h1 className='text-center text-[1.5rem] font-bold text-primary60 mb-20 mt-8 font-openSans '>HOW IT WORKS</h1>
       {

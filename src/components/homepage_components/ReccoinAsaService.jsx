@@ -1,8 +1,8 @@
 import React from 'react'
 
 const ReccoinAsaService = () => {
-  return <div className='container mx-auto p-8 bg-bg-color'>
-    <h1 className='text-center text-[1.4rem] text-primary40 font-black font-montserrat'>INTRODUCING RECYLOX AS A SERVICE</h1>
+  return <div className='container mx-auto p-8 bg-bg-color font-montserrat'>
+    <h1 className='text-center text-[1.4rem] text-primary40 font-black '>INTRODUCING RECYLOX AS A SERVICE</h1>
     <div className=' flex flex-col md:flex-row justify-around mt-4 mx-8 p-4 text-[1rem] font-semibold'>
       <p className='md:w-[30%] w-full mb-8 md:mb-0'>
           Welcome to Recylox, the cutting-edge waste management system 
