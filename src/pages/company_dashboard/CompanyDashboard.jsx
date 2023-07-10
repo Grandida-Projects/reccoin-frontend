@@ -346,13 +346,13 @@ useEffect(() => {
         <div className='px-4 mt-10 w-full'>
             {/* content header */}
             <h2 className='text-[#71B453] italic font-montserrat font-[400] text-[1rem]'>Welcome back!</h2>
-            <div className="flex flex-row ">
+            {/* <div className="flex flex-row ">
               <p>company name = {companyStruct[0]}</p>
               <p>minimum weight requirement = {ethers.utils.formatEther(companyStruct[1].toString())} </p>
               <p>maximum price per kg = {ethers.utils.formatEther(companyStruct[2].toString())} </p>
               <p>company status = {companyStruct[3].toString()}</p>
               
-            </div>
+            </div> */}
             <div className='w-full flex flex-row items-center my-6'>
               <div className="flex flex-col mr-12 ">
                   {/* toggle button n balance */}

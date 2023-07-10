@@ -59,7 +59,7 @@ export const EmailVerification = () => {
                   <Logo fill='#0D4D00' w='46' h='46' />
                 </div>
                 <p className='text-[1rem] md:text-[1rem] lg:text-[1.2rem] mt-2 ml-3 text-[#0D4D00]  text-center'>
-                  Reccoin
+                  Recylox
                 </p>
               </div>
               <div className="ml-8 text-center">

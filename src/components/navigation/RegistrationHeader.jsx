@@ -213,7 +213,7 @@ const Header = () => {
             <button 
                 className=" md:hidden rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]"
                 onClick={() => ConnectWallet()}>
-                {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)} `: "Connec Wallet"}
+                {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)} `: "Connect Wallet"}
             </button>
               
 
@@ -222,7 +222,7 @@ const Header = () => {
             <button 
                 className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]"
                 onClick={ConnectWallet}>
-                {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)}` : "Connec Wallet" }
+                {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)}` : "Connect Wallet" }
             </button>
                
     

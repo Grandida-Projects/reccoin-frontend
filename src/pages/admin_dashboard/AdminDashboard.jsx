@@ -8,32 +8,69 @@ import eyesOpenIcon from '../../assets/eyeOpenIcon.svg';
 import closeIcon from "../../assets/close.svg";
 import AdminDashboardLayout from '../../components/dashboard_components/AdminDashboardLayout';
 import { AdminDashboardData } from '../../data/AdminDashboardData';
-import { TokenContext } from '../../context/recylox';
+import { TokenContext, useToken } from '../../context/recylox';
 import { ethers } from 'ethers';
-import { RecycleContext } from '../../context/recycle';
+import Swal from 'sweetalert2';
 
 // mint token tab
-const MintTokenTab = ({toggleClose, isMintSuccessful, MintLoading, MintToken}) => {
+const MintTokenTab = ({toggleClose}) => {
+
+    const {mintSuccessful, mintLoading, mintTokens } = useToken();
 
     const [recipientAddress, setRecipientAddress] = useState('');
     const [mintAmount, setmintAmount] = useState(0);
     const [isMintChecked, setisMintChecked] = useState(false)
+
+    // const clearMintData = () => {
+    //     setRecipientAddress('')
+    //     setmintAmount(0)
+    //     setisMintChecked(false)
+    // }
     
     const mintToken = async () => {
         
         if (!recipientAddress) {
-            alert("Input recipient address")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input recipient address',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         }
         else if (!mintAmount) {
-    
-            alert("Input transfer amount")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input transfer amount',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         } 
         else if(!isMintChecked) {
-            alert("Agree to Recylox terms")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Agree to Recylox terms',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         }
         else {
-            const mint_amt = ethers.utils.parseEther(mintAmount)
-           MintToken(recipientAddress, mint_amt)
+        const mint_amt = ethers.utils.parseEther(mintAmount)
+           mintTokens(recipientAddress, mint_amt);
         }
 
     }
@@ -50,7 +87,7 @@ const MintTokenTab = ({toggleClose, isMintSuccessful, MintLoading, MintToken}) =
 
     {/* body */}
     { 
-        !isMintSuccessful ?
+        !mintSuccessful ?
             <div className='w-[75%] mx-auto mt-[2rem] flex flex-col'>
                 {/* recipient's address */}
                 <label htmlFor="recipientAddress" className=' mb-0  text-[16px] font-[600]'>Recipient's Address</label>
@@ -80,7 +117,7 @@ const MintTokenTab = ({toggleClose, isMintSuccessful, MintLoading, MintToken}) =
                     className="w-[5rem] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6 text-[0.7rem] font-[600]"
                     onClick={mintToken}
                 >
-                    {MintLoading ? "Loading..." : "MINT"}
+                    {mintLoading ? "Loading..." : "Mint Token"}
                 </button>
             </div>
         :
@@ -95,7 +132,9 @@ const MintTokenTab = ({toggleClose, isMintSuccessful, MintLoading, MintToken}) =
 }
 
 // transfer token tab
-const TransferTokenTab = ({toggleClose, isTransferSuccessful, transferLoading,  TransferToken}) => {
+const TransferTokenTab = ({toggleClose}) => {
+
+    const {transferTokensLoading, transferTokensSuccessful, transferTokens } = useToken();
 
     const [recipientAddress, setRecipientAddress] = useState('');
     const [transferAmount, setTransferAmount] = useState(0);
@@ -104,18 +143,47 @@ const TransferTokenTab = ({toggleClose, isTransferSuccessful, transferLoading,  
     const transferToken = async () => {
 
         if (!recipientAddress) {
-            alert("Input recipient address")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input recipient address',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         }
         else if (!transferAmount) {
-    
-            alert("Input transfer amount")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input transfer amount',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         } 
         else if(!isTransferChecked) {
-            alert("Agree to Recylox terms")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Agree to Recylox terms',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         }
         else {
             const transfer_amt = ethers.utils.parseEther(transferAmount)
-           await TransferToken(recipientAddress, transfer_amt)
+           await transferTokens(recipientAddress, transfer_amt)
         }
     }
     
@@ -132,7 +200,7 @@ const TransferTokenTab = ({toggleClose, isTransferSuccessful, transferLoading,  
 
     {/* body */}
     { 
-        !isTransferSuccessful ?
+        !transferTokensSuccessful ?
             <div className='w-[75%] mx-auto mt-[2rem] flex flex-col'>
                 {/* recipient's address */}
                 <label htmlFor="transferRecipientAddress" className=' mb-0  text-[16px] font-[600]'>Recipient's Address</label>
@@ -159,10 +227,10 @@ const TransferTokenTab = ({toggleClose, isTransferSuccessful, transferLoading,  
                 </div>
                 {/* submit button */}
                 <button 
-                    className="w-[5rem] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6 text-[0.7rem] font-[600]"
+                    className="w-[10rem] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6 text-[0.7rem] font-[600]"
                     onClick={transferToken}
                 >
-                {transferLoading ? "Loading..." : "TRANSFER"}
+                {transferTokensLoading ? "Loading..." : "Transfer Token"}
                 </button>
             </div>
         :
@@ -177,31 +245,72 @@ const TransferTokenTab = ({toggleClose, isTransferSuccessful, transferLoading,  
 }
 
 // delegate token
-const DelegateTokenTab = ({toggleClose, isApprovalSuccessful, approvalLoading, ApproveToken}) => {
+const DelegateTokenTab = ({toggleClose}) => {
 
-    const [approverAddress, setApproverAddress] = useState('');
-    const [delegateAddress, setDelegateAddress] = useState('');
+    const {transferFrom, transferFromLoading, transferFromSuccessful} = useToken()
+
+    const [senderAddress, setSenderAddress] = useState('');
+    const [recipientAddress, setRecipient] = useState('');
     const [maxAmount, setMaxAmount] = useState(0);
     const [isApprovalChecked, setisApprovalChecked] = useState(false);
 
-    const transferFrom =  () => {
+    const TransferFrom =  () => {
 
-        if (!approverAddress) {
-            alert("Input approver address")
+        if (!senderAddress) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input approver address',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         }
-        else if (!delegateAddress) {
-            alert("Input delegate address")
+        else if (!recipientAddress) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input delegate address',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         }
         else if (!maxAmount) {
-    
-            alert("Input maximum amount")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input maximum amount',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         } 
         else if(!isApprovalChecked) {
-            alert("Agree to Recylox terms")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Agree to Recylox terms',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         }
         else {
             const max_amt = ethers.utils.parseEther(maxAmount)
-            ApproveToken(delegateAddress, approverAddress, max_amt)
+            transferFrom(senderAddress, recipientAddress, max_amt)
         }
     }
 
@@ -221,18 +330,18 @@ const DelegateTokenTab = ({toggleClose, isApprovalSuccessful, approvalLoading, A
         </p>
      {/* body */}
      { 
-        !isApprovalSuccessful ?
+        !transferFromSuccessful ?
             <div className='w-[75%] mx-auto mt-[2rem] flex flex-col'>
                 {/* approver's address */}
-                <label htmlFor="approverAddress" className=' mb-0  text-[16px] font-[600]'>Approver's Address</label>
+                <label htmlFor="approverAddress" className=' mb-0  text-[16px] font-[600]'>Sender Address</label>
                 <input type="text" name="approverAddress" id="approverAddress"
-                    onChange={(apr) => setApproverAddress(apr.target.value)}
+                    onChange={(apr) => setSenderAddress(apr.target.value)}
                     className="outline-none border-b-2 border-b-white bg-[#005232] px-2 mt-0 mb-[2.5rem]"
                 /> 
                 {/* delegate's address */}
-                <label htmlFor="delegateAddress" className=' mb-0  text-[16px] font-[600]'>Delegate's Address</label>
+                <label htmlFor="delegateAddress" className=' mb-0  text-[16px] font-[600]'>Recipient Address</label>
                 <input type="text" name="delegateAddress" id="delegateAddress"
-                    onChange={(apr) => setDelegateAddress(apr.target.value)}
+                    onChange={(apr) => setRecipient(apr.target.value)}
                     className="outline-none border-b-2 border-b-white bg-[#005232] px-2 mt-0 mb-[2.5rem]"
                 /> 
                 {/* amount to transfer */}
@@ -254,10 +363,10 @@ const DelegateTokenTab = ({toggleClose, isApprovalSuccessful, approvalLoading, A
                 </div>
                 {/* submit button */}
                 <button 
-                    className="w-[5rem] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6 text-[0.7rem] font-[600]"
-                    onClick={transferFrom}
+                    className="w-[10rem] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6 text-[0.7rem] font-[600]"
+                    onClick={TransferFrom}
                 >
-                    {approvalLoading ? "Loading..." : "APPROVE"}
+                    {transferFromLoading ? "Loading..." : "Approve Token"}
                 </button>
             </div>
         :
@@ -272,21 +381,43 @@ const DelegateTokenTab = ({toggleClose, isApprovalSuccessful, approvalLoading, A
 }
 
 // burn token
-const BurnToken = ({toggleClose, BurnToken, burnLoading, isBurnSuccessfull}) => {
+const BurnToken = ({toggleClose}) => {
+
+    const {burnTokenLoading, burnTokenSuccessful, burnTokens} = useToken();
 
     const [burnAmount, setBurnAmount] = useState(0);
     const [isBurnChecked, setisBurnChecked] = useState(false);
 
     const burnToken = () => {
         if (!burnAmount) {
-            alert("Input amount to burn")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Input amount to burn',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         } 
         else if(!isBurnChecked) {
-            alert("You need to agree that the details proivided are correct")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'You need to agree that the details proivided are correct',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         }
         else {
             const burn_amt = ethers.utils.parseEther(burnAmount)
-            BurnToken(burn_amt)
+            burnTokens(burn_amt)
         }
     }
 
@@ -302,7 +433,7 @@ const BurnToken = ({toggleClose, BurnToken, burnLoading, isBurnSuccessfull}) => 
     </div>
      {/* body */}
      { 
-        !isBurnSuccessfull ?
+        !burnTokenSuccessful ?
             <div className='w-[75%] mx-auto mt-[2rem] flex flex-col'>
             
                 {/* amount to Burn */}
@@ -324,10 +455,10 @@ const BurnToken = ({toggleClose, BurnToken, burnLoading, isBurnSuccessfull}) => 
                 </div>
                 {/* submit button */}
                 <button 
-                    className="w-[5rem] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6 text-[0.7rem] font-[600]"
+                    className="w-[10rem] border-2 border-white rounded-lg p-2 bg-[#158B5E] my-6 text-[0.7rem] font-[600]"
                     onClick={burnToken}
                 >
-                    {burnLoading ? "Loading..." : "BURN"}
+                    {burnTokenLoading ? "Loading..." : "Burn Token"}
                 </button>
             </div>
         :
@@ -343,10 +474,9 @@ const BurnToken = ({toggleClose, BurnToken, burnLoading, isBurnSuccessfull}) => 
 
 const AdminDashboard = () => {
 
-    const {transferTokens, mintTokens, burnTokens, accountBalance, contract,
-        transferFrom, isMethodCallSuccessful, isMethodCallLoading} = useContext(TokenContext);
+    const { accountBalance, contract} = useContext(TokenContext);
 
-    const {picker_count,company_count} = useContext(RecycleContext)
+    const {picker_count,company_count} = useToken()
 
     // Component to Display for dashboard
     const [componentToDisplay, setComponentToDisplay] = useState(0);
@@ -356,11 +486,22 @@ const AdminDashboard = () => {
     // function to close nav content
     const toggleCLose = () => {
         setComponentToDisplay(0);
+        window.location.reload();
     };
 
     const ToggleBalance = () => {
         if (!contract) {
-            alert("contract not initialized")
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'contract not initialized',
+                confirmButtonColor:"#006D44",
+                customClass: {
+                    icon: "font-montserrat",
+                    title: " font-montserrat text-[20px] text-[#000] font-[600]",
+                    text: "font-montserrat, text-[16px] text-[#000] font-[600]",
+                }
+            })
         } else  {
             setToggleBalance(!toggleBalance)
             const account_balance = ethers.utils.formatEther(accountBalance);
@@ -418,28 +559,15 @@ const AdminDashboard = () => {
 
                     {
                         componentToDisplay === 1 ? <MintTokenTab 
-                            MintToken={mintTokens}
-                            MintLoading={isMethodCallLoading}
                             toggleClose={toggleCLose} 
-                            isMintSuccessful={isMethodCallSuccessful}
                         /> 
                         : componentToDisplay === 2 ? <TransferTokenTab 
                             toggleClose={toggleCLose}
-                            TransferToken={transferTokens}
-                            transferLoading={isMethodCallLoading}
-                            isTransferSuccessful={isMethodCallSuccessful}
                         /> 
                         : componentToDisplay === 3 ? <DelegateTokenTab 
                             toggleClose={toggleCLose}
-                            ApproveToken={transferFrom}
-                            approvalLoading={isMethodCallLoading}
-                            isApprovalSuccessful={isMethodCallSuccessful}
                         /> 
                         : componentToDisplay === 4 ? <BurnToken 
-                            toggleClose={toggleCLose}
-                            BurnToken={burnTokens}
-                            burnLoading={isMethodCallLoading}
-                            isBurnSuccessfull={isMethodCallSuccessful}
                         /> 
                         : ""
                     }

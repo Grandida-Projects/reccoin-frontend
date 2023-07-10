@@ -14,7 +14,7 @@ export const AdminDashboardData =  [
         "icon": sendIcon
     },
     {
-        "title": "Delegate",
+        "title": "Transfer From",
         "icon": addUserIcon
     },
     {

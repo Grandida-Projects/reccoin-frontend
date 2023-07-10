@@ -118,7 +118,7 @@ const UserDashboardLayout = ({dashboard_content, active_link}) => {
             <div className='flex flex-col'>
               {/* enter to earn a reccoin */}
               <p className='text-[0.8rem] md:text-[1rem] lg:text-[1.2rem] mt-1 w-[24rem] text-[#000000] mb-2'>
-                Enter to Earn a Reccoin
+                Enter to Earn a Recylox
               </p>
             {/* learn more button*/}
               <Link className='rounded-[26px] w-40 py-2 px-6 text-[0.6rem] md:text-[0.8rem] lg:text-[1rem] font-medium text-[#fff] bg-[#71B453]'>

@@ -184,7 +184,7 @@ export const RecycleProvider = ({ children }) => {
         title: 'Success!',
         text: 'Picker created successfully!',
         confirmButtonColor:"#006D44",
-        preConfirm: () => {window.location.reload()},
+        // preConfirm: () => {window.location.reload()},
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",
@@ -302,7 +302,7 @@ export const RecycleProvider = ({ children }) => {
         title: 'Success!',
         text: 'Payment successful!',
         confirmButtonColor:"#006D44",
-        preConfirm: () => {window.location.reload()},
+        // preConfirm: () => {window.location.reload()},
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",
@@ -359,7 +359,7 @@ export const RecycleProvider = ({ children }) => {
         title: 'Success!',
         text: 'Company created successfully!',
         confirmButtonColor:"#006D44",
-        preConfirm: () => {window.location.reload()},
+        // preConfirm: () => {window.location.reload()},
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",
@@ -505,7 +505,7 @@ export const RecycleProvider = ({ children }) => {
         title: 'Success!',
         text: 'Plastic deposited successfully!',
         confirmButtonColor:"#006D44",
-        preConfirm: () => {window.location.reload()},
+        // preConfirm: () => {window.location.reload()},
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",
@@ -547,7 +547,7 @@ export const RecycleProvider = ({ children }) => {
         title: 'Success!',
         text: 'Picker validated successfully!',
         confirmButtonColor:"#006D44",
-        preConfirm: () => {window.location.reload()},
+        // preConfirm: () => {window.location.reload()},
         customClass: {
             icon: "font-montserrat",
             title: " font-montserrat text-[20px] text-[#000] font-[600]",

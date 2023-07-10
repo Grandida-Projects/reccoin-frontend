@@ -6,11 +6,10 @@ import { TokenContext } from '../../context/recylox'
 import menuIcon from '../../assets/menuGreen.svg'
 import { HeaderData } from '../../data/HeaderData'
 import { MdClose } from "react-icons/md"
-import { useRecycle } from "../../context/recycle";
 
 const Header = () => {
 
-    const {connectedAccount, adminAddress, account_category} = useContext(TokenContext)
+    const {connectedAccount, adminAddress, initializeContract, account_category} = useContext(TokenContext)
     // const {account_category} = useRecycle();
     const {pathname} = useLocation();
 
@@ -158,19 +157,19 @@ const Header = () => {
                   
                 </li>
               :
-                <button className=" md:hidden rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]">
-                    {connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)}
+                <button className=" md:hidden rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]"
+                  onClick={initializeContract}>
+                    {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)}` : "Connect wallet"}
                 </button>
               }
 
             </ul>
-            { connectedAccount ?
-                <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]">
-                  {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)}` : ""}
+           
+                <button className="hidden md:block rounded-full cursor-pointer font-montserrat text-white bg-primary40 py-2 px-4 text-sm md:text-base lg:ml-[66px] w-[260px]"
+                  onClick={initializeContract}
+                >
+                  {connectedAccount ? `${connectedAccount.slice(0, 5) + "..." + connectedAccount.slice(connectedAccount.length - 5, connectedAccount.length)}` : "Connect wallet"}
                 </button>
-              : ""
-            }
-            
 
             {/* toggle  menu */}
             <button className="md:hidden md:ml-5" onClick={toggleMenu}>

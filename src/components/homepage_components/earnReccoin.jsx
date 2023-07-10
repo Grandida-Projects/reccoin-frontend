@@ -22,7 +22,7 @@ export function EarnReccoinReward() {
                 our waste management system. From plastic bottles to <br />
                 paper and rubber, each contribution counts towards <br />
                 building a more sustainable future. <br /> 
-                The more you recycle, the more Reccoin you earn!
+                The more you recycle, the more Recylox you earn!
                </p>
 
                 <Link to={'/user-dashboard'} 
