@@ -15,9 +15,9 @@ const OffersPage = () => {
                   OFFER
                 </h2>
                 <p className="text-sm text-white font-montserrat pt-2 pb-10">
-                  Bring 5kg of plastic and get 10 Reccoin. This offer last for 7
+                  Bring 5kg of plastic and get 10 Recylox. This offer last for 7
                   days and when you refer someone that does the same you get 2
-                  extra Reccoin.
+                  extra Recylox.
                 </p>
               </div>
               <div className=" bg-[#006D44C2] px-6 py-3 rounded-xl relative">

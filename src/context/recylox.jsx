@@ -22,9 +22,24 @@ export const TokenProvider = ({ children }) => {
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
   const [connectedAccount, setConnectedAccount] = useState('')
-  const [isMethodCallLoading, setIsMethodCallLoading] = useState(false);
-  const [isMethodCallSuccessful, setIsMethodCallSuccessful] = useState(false);
   const [adminAddress, setAdminAddress] = useState('');
+
+  
+/*******************************  recylox method call loading and success states  *********************************/
+
+/**loading**/
+const [mintLoading, setMintLoading] = useState(false);
+const [transferTokensLoading, setTransferTokensLoading] = useState(false);
+const [transferFromLoading, setTransferFromLoading] = useState(false);
+const [burnLoading, setBurnLoading] = useState(false);
+const [approveLoading, setApproveLoading] = useState(false);
+
+/**success*/
+const [mintSuccessful, setMintSuccessful] = useState(false);
+const [transferTokensSuccessful, setTransferTokensSuccessful] = useState(false);
+const [transferFromSuccessful, setTransferFromSuccessful] = useState(false);
+const [burnSuccessful, setBurnSuccessful] = useState(false);
+const [approveSuccessful, setApproveSuccessful] = useState(false);
 
 
 
@@ -216,15 +231,15 @@ export const TokenProvider = ({ children }) => {
   }; // ends initializeContract
 
   const transferTokens = async (recipient, amount) => {
-    setIsMethodCallLoading(true)
-    setIsMethodCallSuccessful(false)
+    setTransferTokensLoading(true)
+    setTransferTokensSuccessful(false)
     try {
       if (contract) {
         const transaction = await contract.transfer(recipient, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
-        setIsMethodCallSuccessful(true)
-        setIsMethodCallLoading(false)
+        setTransferTokensSuccessful(true)
+        setTransferTokensLoading(false)
         Swal.fire({
           icon: 'success',
           title: 'Success!',
@@ -238,8 +253,8 @@ export const TokenProvider = ({ children }) => {
           }
         })
       } else {
-        setIsMethodCallLoading(false)
-        setIsMethodCallSuccessful(false)
+        setTransferTokensLoading(false)
+        setTransferTokensSuccessful(false)
         Swal.fire({
           icon: 'error',
           title: 'Error!',
@@ -254,8 +269,8 @@ export const TokenProvider = ({ children }) => {
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
-      setIsMethodCallLoading(false)
-      setIsMethodCallSuccessful(false)
+      setTransferTokensLoading(false)
+      setTransferTokensSuccessful(false)
       Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -271,20 +286,19 @@ export const TokenProvider = ({ children }) => {
     }
   };
 
-    // Add the mintTokens and burnTokens functions
+    // Add the mintTokens function
   const mintTokens = async (account, amount) => {
     try {
-      setIsMethodCallLoading(true)
-      setIsMethodCallSuccessful(false)
+      setMintLoading(true)
       if (contract) {
         const transaction = await contract.mint(account, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
-        setIsMethodCallLoading(false)
-        setIsMethodCallSuccessful(true)
+        setMintLoading(false)
+        setMintSuccessful(true)
       } else {
-        setIsMethodCallLoading(false)
-        setIsMethodCallSuccessful(false)
+        setMintLoading(false)
+        setMintSuccessful(false)
         Swal.fire({
           icon: 'error',
           title: 'Error!',
@@ -300,8 +314,8 @@ export const TokenProvider = ({ children }) => {
         
       }
     } catch (error) {
-      setIsMethodCallLoading(false)
-      setIsMethodCallSuccessful(false)
+      setMintLoading(false)
+      setMintSuccessful(false)
       Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -317,19 +331,20 @@ export const TokenProvider = ({ children }) => {
     }
   };
 
+  // add burnTokens function
   const burnTokens = async (amount) => {
-    setIsMethodCallLoading(true)
-    setIsMethodCallSuccessful(false)
+    setBurnLoading(true)
+    setBurnSuccessful(false)
     try {
       if (contract) {
         const transaction = await contract.burn(amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
-        setIsMethodCallSuccessful(true);
-        setIsMethodCallLoading(false);
+        setBurnSuccessful(true);
+        setBurnLoading(false);
       } else {
-        setIsMethodCallLoading(false);
-        setIsMethodCallSuccessful(false);
+        setBurnLoading(false);
+        setBurnSuccessful(false);
         Swal.fire({
           icon: 'error',
           title: 'Error!',
@@ -344,12 +359,12 @@ export const TokenProvider = ({ children }) => {
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
-      setIsMethodCallLoading(false)
-      setIsMethodCallSuccessful(false)
+      setBurnLoading(false)
+      setBurnSuccessful(false)
       Swal.fire({
         icon: 'error',
         title: 'Error!',
-        text: `Error transferring tokens: ${error.reason}`,
+        text: `Error burning tokens: ${error.reason}`,
         confirmButtonColor:"#006D44",
         customClass: {
             icon: "font-montserrat",
@@ -362,18 +377,18 @@ export const TokenProvider = ({ children }) => {
   };
 
   const approveTokens = async (spender, amount) => {
-    setIsMethodCallLoading(true)
-    setIsMethodCallSuccessful(false)
+    setApproveLoading(true)
+    setApproveSuccessful(false)
     try {
       if (contract) {
         const transaction = await contract.approve(spender, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
-        setIsMethodCallSuccessful(true)
-        setIsMethodCallLoading(false)
+        setApproveSuccessful(true)
+        setApproveLoading(false)
       } else {
-        setIsMethodCallLoading(false)
-        setIsMethodCallSuccessful(false)
+        setApproveLoading(false)
+        setApproveSuccessful(false)
         Swal.fire({
           icon: 'error',
           title: 'Error!',
@@ -388,8 +403,8 @@ export const TokenProvider = ({ children }) => {
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
-      setIsMethodCallLoading(false)
-      setIsMethodCallSuccessful(false);
+      setApproveLoading(false)
+      setApproveSuccessful(false);
       Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -407,18 +422,18 @@ export const TokenProvider = ({ children }) => {
 
   const transferFrom = async (sender, recipient, amount) => {
     try {
-      setIsMethodCallLoading(true)
-      setIsMethodCallSuccessful(false)
+      setTransferFromLoading(true)
+      setTransferFromSuccessful(false)
       if (contract) {
         const transaction = await contract.transferFrom(sender, recipient, amount);
         await transaction.wait();
         // Perform any additional actions or update state as needed
          // Perform any additional actions or update state as needed
-         setIsMethodCallSuccessful(true)
-         setIsMethodCallLoading(false)
+         setTransferFromSuccessful(true)
+         setTransferFromLoading(false)
       } else {
-        setIsMethodCallLoading(false)
-        setIsMethodCallSuccessful(false)
+        setTransferFromLoading(false)
+        setTransferFromSuccessful(false)
         Swal.fire({
           icon: 'error',
           title: 'Error!',
@@ -433,8 +448,8 @@ export const TokenProvider = ({ children }) => {
         throw new Error('Contract is not initialized.');
       }
     } catch (error) {
-      setIsMethodCallLoading(false)
-      setIsMethodCallSuccessful(false);
+      setTransferFromLoading(false)
+      setTransferFromSuccessful(false);
       
       Swal.fire({
         icon: 'error',
@@ -466,13 +481,14 @@ export const TokenProvider = ({ children }) => {
         provider, // Include the provider in the context value
         connectedAccount,
         initializeContract,
+        transferTokensLoading, approveLoading, burnLoading, mintLoading, transferFromLoading,
+        transferTokensSuccessful, approveSuccessful, burnSuccessful, mintSuccessful, transferFromSuccessful,
         transferTokens,
         mintTokens,
         burnTokens,
         approveTokens,
         transferFrom,
-        isMethodCallSuccessful,
-        isMethodCallLoading,
+       
 
         recycleContract,
         companyStruct,

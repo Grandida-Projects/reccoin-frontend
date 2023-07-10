@@ -17,7 +17,7 @@ const DepositPlasticTab = ({ toggleClose }) => {
     const {depositPlastic,  isMethodCallLoading, isMethodCallSuccessful} = useRecycle();
 
     const [companyAddress, setCompanyAddress] = useState('');
-    const [plasticWeight, setPlasticWeight] = useState(0);
+    const [plasticWeight, setPlasticWeight] = useState('');
     const [isTermsChecked, setisTermsChecked] = useState(false)
 
     const DepositPlastic = () => {
@@ -60,7 +60,8 @@ const DepositPlasticTab = ({ toggleClose }) => {
                 }
               })
         } else {
-            depositPlastic(companyAddress, plasticWeight)
+            const plastic_weight = ethers.utils.parseEther(plasticWeight)
+            depositPlastic(companyAddress, plastic_weight)
             if (isMethodCallSuccessful) {
                 ` ${Swal.fire({
                     icon: 'success',
@@ -87,7 +88,7 @@ const DepositPlasticTab = ({ toggleClose }) => {
             {/* plastic weight */}
             <label htmlFor="depositPlastic">Plastic Weight (kg)</label>
             <input type="number" name="depositPlastic" id="depositPlastic"
-                   onChange={(ln) => setPlasticWeight(parseInt(ln.target.value.trim()))}
+                   onChange={(ln) => setPlasticWeight(ln.target.value.trim())}
                    className="outline-none border-2 border-x-0 border-t-0 bg-[#005232] p-2 mb-4"
             />
             <div className="flex">
