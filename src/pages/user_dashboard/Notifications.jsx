@@ -75,7 +75,7 @@ const Notifications = () => {
             <div className="flex flex-col">
               <h3 className="text-lg font-roboto font-bold">Contest</h3>
               <p className="text-sm">
-                Win 1000 Recoin. XtraGreen just started a contest for all
+                Win 1000 Recylox. XtraGreen just started a contest for all
                 interested pickers.
               </p>
             </div>

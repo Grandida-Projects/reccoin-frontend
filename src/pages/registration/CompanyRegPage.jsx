@@ -136,7 +136,7 @@ const RegisterCompany = () => {
                     Registration Form
                   </h2>
                 </div>
-                <div className='flex flex-col items-center  absolute left-16 top-40'>
+                <div className='flex flex-col items-center justify-center  absolute left-16 top-40'>
                   <div className='mb-6'>
                     <label
                       htmlFor='company-name'
@@ -155,11 +155,11 @@ const RegisterCompany = () => {
                       htmlFor='Minimum-Weight-Requirement'
                       className='block mb-1 text-[1rem] md:text-[1rem] lg:text-[1.2rem] font-medium text-[#0D4D00] text-center'
                     >
-                      Minimum Weight(Kg)
+                      Minimum Weight Requirement (Kg)
                     </label>
                     <input
                       type='number'
-                      className='border-b-2 w-[14rem]  mx-auto focus:outline-none border-[#0D4D00] bg-transparent ml-6'
+                      className='border-b-2 w-[14rem] flex  mx-auto  focus:outline-none border-[#0D4D00] bg-transparent'
                       onChange={(wht)=> setMinimumWeightRequirement(wht.target.value)}
                     />
                   </div>
@@ -168,12 +168,12 @@ const RegisterCompany = () => {
                       htmlFor='Maximum-Price-Per-Kilogram'
                       className='block mb-1 text-[1rem] md:text-[1rem] lg:text-[1.2rem] font-medium text-[#0D4D00] text-center'
                     >
-                      Maximum Price (Kg)
+                      Maximum Price (in Ether) per Kg
                     </label>
                     <input
                       type='number'
                       onChange={(pkg)=> setMaximumWeightPerKg(pkg.target.value)}
-                      className='border-b-2 w-[14rem]  mx-auto focus:outline-none border-[#0D4D00] bg-transparent ml-5'
+                      className='border-b-2 w-[14rem] flex mx-auto focus:outline-none border-[#0D4D00] bg-transparent'
                     />
                   </div>
                 </div>
